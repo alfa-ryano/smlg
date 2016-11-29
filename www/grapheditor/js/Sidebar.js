@@ -879,7 +879,7 @@ Sidebar.prototype.addSearchPalette = function(expand)
  */
 Sidebar.prototype.addGeneralPalette = function(expand)
 {
-	var fns = [
+	var fns = [						/// style, width, height, value, title, showLabel, showTitle, tags
 	 	this.createVertexTemplateEntry('whiteSpace=wrap;html=1;', 120, 60, '', 'Rectangle', null, null, 'rect rectangle box'),
 	 	this.createVertexTemplateEntry('rounded=1;whiteSpace=wrap;html=1;', 120, 60, '', 'Rounded Rectangle', null, null, 'rounded rect rectangle box'),
  		this.createVertexTemplateEntry('ellipse;whiteSpace=wrap;html=1;', 120, 80, '', 'Ellipse', null, null, 'circle oval ellipse state'),
@@ -1835,6 +1835,7 @@ Sidebar.prototype.createItem = function(cells, title, showLabel, showTitle, widt
 	this.createThumb(cells, this.thumbWidth, this.thumbHeight, elt, title, showLabel, showTitle, width, height);
 	var bounds = new mxRectangle(0, 0, width, height);
 	
+	// this is for vertex when clicked on the sidebar to create item on canvas
 	if (cells.length > 1 || cells[0].vertex)
 	{
 		var ds = this.createDragSource(elt, this.createDropHandler(cells, true, allowCellsInserted,
@@ -1847,6 +1848,7 @@ Sidebar.prototype.createItem = function(cells, title, showLabel, showTitle, widt
 			return this.editorUi.editor.graph.graphHandler.guidesEnabled;
 		});
 	}
+	// this is for edge when clicked on the sidebar to create item on canvas
 	else if (cells[0] != null && cells[0].edge)
 	{
 		var ds = this.createDragSource(elt, this.createDropHandler(cells, false, allowCellsInserted,
@@ -1979,6 +1981,7 @@ Sidebar.prototype.createDropHandler = function(cells, allowSplit, allowCellsInse
 						// Splits the target edge or inserts into target group
 						if (allowSplit && graph.isSplitTarget(target, cells, evt))
 						{
+							//cell dropped is cloned to create new cell
 							var clones = graph.cloneCells(cells);
 							graph.splitEdge(target, clones, null,
 								x - bounds.width / 2, y - bounds.height / 2);
@@ -3099,7 +3102,8 @@ Sidebar.prototype.createVertexTemplateEntry = function(style, width, height, val
 	
 	return this.addEntry(tags, mxUtils.bind(this, function()
  	{
- 		return this.createVertexTemplate(style, width, height, value, title, showLabel, showTitle);
+		return this.createVertexTemplate(style, width, height, value, title, showLabel, showTitle);
+ 		//return this.createVertexTemplate(style, width, height, value, title, showLabel, showTitle, false);
  	}));
 }
 
