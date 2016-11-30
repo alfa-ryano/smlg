@@ -55,6 +55,8 @@
 <script type="text/javascript" src="js/Toolbar.js"></script>
 <script type="text/javascript" src="js/Dialogs.js"></script>
 <script type="text/javascript" src="../smlg/filesystem.js"></script>
+<script type="text/javascript" src="../smlg/tree.js"></script>
+<script type="text/javascript" src="../smlg/flowchart.js"></script>
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
@@ -98,7 +100,9 @@
 				var editorUI = new EditorUi(new Editor(urlParams['chrome'] == '0', themes));
 				
 				//Execute SMLG custom code
-				SMLGInit(editorUI);
+				FilesystemInit(editorUI);
+				TreeInit(editorUI);
+				FlowchartInit(editorUI);
 				
 			}, function() {
 				document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';

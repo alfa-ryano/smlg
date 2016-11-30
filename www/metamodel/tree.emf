@@ -1,0 +1,13 @@
+@namespace(uri="tree", prefix="tree")
+
+package tree;
+
+@gmf.diagram
+class Tree {
+   
+   @gmf.compartment
+   val Tree[*]#parent children;
+ 
+   ref Tree#children parent;
+   attr String label;
+}

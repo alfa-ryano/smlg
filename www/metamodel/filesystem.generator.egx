@@ -1,6 +1,6 @@
 rule MetamodelToJavascript
 transform metamodel : metamodel!EPackage {
   guard : true 
-  template : "template.egl"
+  template : "generic.template.egl"
   target : "../smlg/filesystem.js"
 }
