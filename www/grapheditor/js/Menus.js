@@ -1033,6 +1033,13 @@ Menus.prototype.createPopupMenu = function(menu, cell, evt)
 					this.addMenuItem(menu, 'image', null, evt).firstChild.nextSibling.innerHTML = mxResources.get('editImage') + '...';
 				}
 			}
+			
+			//SMLG added by me
+			if (graph.getSelectionCount() == 1)
+			{
+				menu.addSeparator();
+				this.addMenuItems(menu, ['-', 'displayProperties'], null, evt);
+			}
 		}
 	}
 	else

@@ -93,7 +93,7 @@ Sidebar.prototype.init = function() {
 	var dir = STENCIL_PATH;
 
 	this.addSearchPalette(true);
-/*	this.addGeneralPalette(false);
+	this.addGeneralPalette(false);
 
 this.addMiscPalette(false);
 this.addAdvancedPalette(false);
@@ -113,7 +113,7 @@ this.addImagePalette('clipart', mxResources.get('clipart'), dir + '/clipart/', '
 	 'Worker1', 'Soldier1', 'Doctor1', 'Tech1', 'Security1', 'Telesales1'], null,
 	 {'Wireless_Router_N': 'wireless router switch wap wifi access point wlan',
 	  'Router_Icon': 'router switch'});
-*/
+
 };
 
 /**
@@ -1761,7 +1761,7 @@ Sidebar.prototype.updateShapes = function(source, targets) {
  */
 Sidebar.prototype.createDropHandler = function(cells, allowSplit, allowCellsInserted, bounds) {
 	allowCellsInserted = (allowCellsInserted != null) ? allowCellsInserted : true;
-
+	
 	return mxUtils.bind(this, function(graph, evt, target, x, y) {
 		if (graph.isEnabled()) {
 			cells = graph.getImportableCells(cells);
@@ -2723,6 +2723,8 @@ Sidebar.prototype.createVertexTemplateEntry = function(style, width, height, val
 Sidebar.prototype.createVertexTemplate = function(style, width, height, value, title, showLabel, showTitle, allowCellsInserted) {
 	var cells = [ new mxCell((value != null) ? value : '', new mxGeometry(0, 0, width, height), style) ];
 	cells[0].vertex = true;
+	
+	
 
 	return this.createVertexTemplateFromCells(cells, width, height, title, showLabel, showTitle, allowCellsInserted);
 };
@@ -2731,8 +2733,10 @@ Sidebar.prototype.createVertexTemplate = function(style, width, height, value, t
  * Creates a drop handler for inserting the given cells.
  */
 Sidebar.prototype.createVertexTemplateFromCells = function(cells, width, height, title, showLabel, showTitle, allowCellsInserted) {
+	
 	return this.createItem(cells, title, showLabel, showTitle, width, height, allowCellsInserted);
 };
+
 
 /**
  * 

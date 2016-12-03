@@ -2019,6 +2019,26 @@ ExportDialog.getExportParameter = function(ui, format)
 	return null;
 };
 
+
+/**
+ * SMLG - Constructs a new properties dialog.
+ */
+var PropertiesDialog = function(ui, cell)
+{
+	
+	var div = document.createElement('div');
+	var graph = ui.editor.graph;
+
+	div.style.height = '310px';
+	div.style.overflow = 'auto';
+  
+	var cancelBtn = mxUtils.button(mxResources.get('cancel'), function()
+			{
+				ui.hideDialog.apply(ui, arguments);
+			});
+			cancelBtn.className = 'geBtn';
+}
+
 /**
  * Constructs a new metadata dialog.
  */
@@ -2231,6 +2251,7 @@ var EditDataDialog = function(ui, cell)
 			}
 			
 			// Updates the value of the cell (undoable)
+			var data = value.getAttribute("a");
 			graph.getModel().setValue(cell, value);
 		}
 		catch (e)

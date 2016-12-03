@@ -243,6 +243,22 @@ Actions.prototype.init = function()
 			dlg.init();
 		}
 	}, null, null, 'Ctrl+M');
+	
+	//SMLG I added this
+	this.addAction('displayProperties...', function()
+			{
+				var cell = graph.getSelectionCell() || graph.getModel().getRoot();
+				
+				if (cell != null)
+				{
+					//editor.showProperties(cell);
+					var dlg = new PropertiesDialog(ui, cell);
+					ui.showDialog(dlg.container, 320, 320, true, false);
+					dlg.init();
+				}
+			}, null, null, 'Ctrl+9');
+	
+	
 	this.addAction('editTooltip...', function()
 	{
 		var graph = ui.editor.graph;
