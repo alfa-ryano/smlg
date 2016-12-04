@@ -430,9 +430,10 @@ Format.prototype.refresh = function()
 		label.style.backgroundColor = '#d7d7d7';
 		label.style.borderLeftWidth = '1px';
 		label.style.width = (containsLabel) ? '50%' : '33.3%';
+		label.style.width = (containsLabel) ? '50%' : '33.3%';
 		var label2 = label.cloneNode(false);
 		var label3 = label2.cloneNode(false);
-		
+
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = '#d7d7d7';
 		label3.style.backgroundColor = '#d7d7d7';
@@ -476,27 +477,6 @@ Format.prototype.refresh = function()
 		
 		addClickHandler(label2, textPanel, idx++);
 		addClickHandler(label3, arrangePanel, idx++);
-		
-		// Properties
-		// SMLGlabel
-		var SMLGlabel = label3.cloneNode(false);
-		SMLGlabel.style.backgroundColor = '#d7d7d7';
-		
-		label.style.width = '20.5%';
-		label2.style.width = '20.5%';
-		label3.style.width = '26%';
-		SMLGlabel.style.width = '33%';
-		
-		mxUtils.write(SMLGlabel, "Properties");
-		div.appendChild(SMLGlabel);
-		
-		var propertiesPanel = div.cloneNode(false);
-		propertiesPanel.style.display = 'none';
-		this.panels.push(new PropertiesPanel(this, ui, propertiesPanel));
-		this.container.appendChild(propertiesPanel);
-		addClickHandler(SMLGlabel, propertiesPanel, idx++);
-		
-		//End SMLG
 	}
 };
 
@@ -3305,26 +3285,6 @@ StyleFormatPanel.prototype.init = function()
 	}
 	
 	this.container.appendChild(this.addStyleOps(opsPanel));
-	
-//	//SMLG
-//	this.container.appendChild(this.addLayerOps(this.createPanel()));
-//	// Special case that adds two panels
-//	this.addGeometry(this.container);
-//	this.addEdgeGeometry(this.container);
-//	this.container.appendChild(this.addAngle(this.createPanel()));
-//
-//	if (!ss.containsLabel)
-//	{
-//		this.container.appendChild(this.addFlip(this.createPanel()));
-//	}
-//
-//	if (ss.vertices.length > 1)
-//	{
-//		this.container.appendChild(this.addAlign(this.createPanel()));
-//		this.container.appendChild(this.addDistribute(this.createPanel()));
-//	}
-//	
-//	this.container.appendChild(this.addGroupOps(this.createPanel()));
 };
 
 /**
@@ -4915,77 +4875,4 @@ DiagramFormatPanel.prototype.destroy = function()
 		this.editorUi.removeListener(this.gridEnabledListener);
 		this.gridEnabledListener = null;
 	}
-};
-
-
-//SMLG
-/**
- * Adds the label menu items to the given menu and parent.
- */
-PropertiesPanel = function(format, editorUi, container)
-{
-	BaseFormatPanel.call(this, format, editorUi, container);
-	this.init();
-};
-
-mxUtils.extend(PropertiesPanel, BaseFormatPanel);
-
-/**
- * Adds the label menu items to the given menu and parent.
- */
-PropertiesPanel.prototype.init = function()
-{
-	this.container.style.borderBottom = 'none';
-	this.addProperties(this.container);
-};
-
-PropertiesPanel.prototype.addProperties = function(container)
-{
-	var ui = this.editorUi;
-	var editor = ui.editor;
-	var graph = editor.graph;
-	var ss = this.format.getSelectionState();
-	
-	var title = this.createTitle("Properties");
-	title.style.paddingLeft = '18px';
-	title.style.paddingTop = '10px';
-	title.style.paddingBottom = '6px';
-	container.appendChild(title);
-	
-	var stylePanel = this.createPanel();
-	stylePanel.style.paddingTop = '4px';
-	stylePanel.style.paddingBottom = '4px';
-	stylePanel.style.marginLeft = '1px';
-	stylePanel.style.borderWidth = '0px';
-	stylePanel.style.position = 'relative';
-	stylePanel.className = 'geToolbarContainer';
-	
-	if (mxClient.IS_QUIRKS)
-	{
-		stylePanel.style.display = 'block';
-	}
-	
-	var times = 11;
-	for(var i=1; i < times; i++){
-	
-		// Writing Property 01
-		var stylePropertyLabel01 = stylePanel.cloneNode(false);
-		
-		var number = ("" + i).length < 2? "0" + i : i;
-		mxUtils.write(stylePropertyLabel01, "Property " + number);
-		
-		var propertyInput01 = document.createElement('input');
-		propertyInput01.setAttribute("id", "property" + number);
-		propertyInput01.style.position = 'absolute';
-		propertyInput01.style.right = '20px';
-		propertyInput01.style.width = '100px';
-		propertyInput01.style.marginTop = '-3px';
-		
-		stylePropertyLabel01.appendChild(propertyInput01);
-		
-		container.appendChild(stylePropertyLabel01);
-	
-	}
-	
-	return container;
 };
