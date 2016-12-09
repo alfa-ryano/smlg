@@ -14,7 +14,7 @@ abstract class Node {
    ref Transition[*]#target incoming;
 }
 
-@gmf.link(label="name", source="source", target="target", target.decoration="arrow")
+@gmf.link(value1="30", label="name", source="source", target="target", target.decoration="arrow")
 class Transition {
    attr String name;
    ref Node#outgoing source;

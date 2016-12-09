@@ -9,5 +9,5 @@ class Tree {
    val Tree[*]#parent children;
  
    ref Tree#children parent;
-   attr String label;
+   attr String label = "1234";
 }

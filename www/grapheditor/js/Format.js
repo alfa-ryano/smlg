@@ -4944,8 +4944,9 @@ PropertiesPanel.prototype.addProperties = function(container)
 	var ui = this.editorUi;
 	var editor = ui.editor;
 	var graph = editor.graph;
-	var ss = this.format.getSelectionState();
+	var ss = this.format.getSelectionState(); //iterate through the ss.vertices to get all selected vertices and their attributes
 	
+
 	var title = this.createTitle("Properties");
 	title.style.paddingLeft = '18px';
 	title.style.paddingTop = '10px';
@@ -4964,18 +4965,20 @@ PropertiesPanel.prototype.addProperties = function(container)
 	{
 		stylePanel.style.display = 'block';
 	}
+		
+	var jsonStringProperties = ss.vertices[0].value.getAttribute("properties");
+	var properties = JSON.parse(jsonStringProperties);
 	
-	var times = 11;
-	for(var i=1; i < times; i++){
-	
+	for(var i=0; i < properties.length; i++){
+		var property = properties[i];
 		// Writing Property 01
 		var stylePropertyLabel01 = stylePanel.cloneNode(false);
-		
-		var number = ("" + i).length < 2? "0" + i : i;
-		mxUtils.write(stylePropertyLabel01, "Property " + number);
+			
+		mxUtils.write(stylePropertyLabel01, property["name"].charAt(0).toUpperCase() + property["name"].slice(1));
 		
 		var propertyInput01 = document.createElement('input');
-		propertyInput01.setAttribute("id", "property" + number);
+		propertyInput01.setAttribute("id", property["name"]);
+		propertyInput01.value = property["value"];
 		propertyInput01.style.position = 'absolute';
 		propertyInput01.style.right = '20px';
 		propertyInput01.style.width = '100px';
