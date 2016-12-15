@@ -1,120 +1,152 @@
 [%
     var name = "SMLGAdd" + metamodel.name.firstToUpperCase() + "Palette"; 
 %]
-function [%=metamodel.name.firstToUpperCase()%]Init(editorUI) {
     /**
      * Adds the [%=metamodel.name%] to the sidebar.
      */
-    editorUI.sidebar.[%=name%] = function(expand) {
+    SMLG.editorUI.sidebar.[%=name%] = function(expand) {
         var fns = [
-		[% for (eClassifier in metamodel.eClassifiers){
+	[% for (eClassifier in metamodel.eClassifiers){
 		 
-		      if (eClassifier.abstract = true){
-		          continue;
-		      }
-		 
-		      var name := eClassifier.name;
-		      var structuralFeatureName;
-		      var superType;
-		      var annotations := Collection{};
-		      var classifierAnnotation;
-		      var structuralAnnotation;
-		      var eAnnotation;
-		     
-		      var style;
-              var width;
-              var targetDecoration;  
-		     
-		      //Parent structural annotation
-		      if (not eClassifier.eSuperTypes.isEmpty()){
-		          superType = eClassifier.eSuperTypes.first();
-		          if (superType.abstract = false){
-			          var structuralFeature = superType.eStructuralFeatures.select( s | 
-			              not s.eAnnotations.select(a |
-			                  a.source="gmf.compartment" or
-			                  a.source="gmf.link" or
-			                  a.source="gmf.node" 
-			                  ).isEmpty() 
-			              ).first();
-			            
-			            if (structuralFeature.isDefined()){
-			              structuralFeatureName = structuralFeature.name;
-			              structuralAnnotation = structuralFeature.
-			                  eAnnotations.first().source;
-			                  annotations.add(structuralAnnotation);
-			                  eAnnotation = structuralFeature.
-	                            eAnnotations.first();
-			            }
-			      }   
-		      }
-		      
-		      
-		      //Parent classifier annotation
-              if (not eClassifier.eSuperTypes.isEmpty()){
-                  superType = eClassifier.eSuperTypes.first();
-                  if (superType.abstract = false){
-	                  var annotation = superType.eAnnotations.select( a |
-		                      a.source="gmf.compartment" or
-		                      a.source="gmf.link" or
-		                      a.source="gmf.node" 
-		                  ).first();
-		                
-		                if (annotation.isDefined()){
-		                  classifierAnnotation = annotation.source;
-		                  annotations.add(classifierAnnotation);
-		                  eAnnotation = annotation;
-		                }  
-		          } 
-              }
-		      
-		      //Structural annotation
-		      var structuralFeature = eClassifier.eStructuralFeatures.select( s | 
-	              not s.eAnnotations.select(a |
-	                  a.source="gmf.compartment" or
-	                  a.source="gmf.link" or
-	                  a.source="gmf.node" 
-	                  ).isEmpty() 
-	              ).first();
-	            
-	            if (structuralFeature.isDefined()){
-	              structuralFeatureName = structuralFeature.name;
-	              structuralAnnotation = structuralFeature.
-	                  eAnnotations.first().source;
-	                  annotations.add(structuralAnnotation);
-	                  eAnnotation = structuralFeature.
-                        eAnnotations.first();
-	            }   
-		      
-		      //Classifier annotation
-              var annotation = eClassifier.eAnnotations.select( a |
-                      a.source="gmf.compartment" or
-                      a.source="gmf.link" or
-                      a.source="gmf.node" 
-                  ).first();
-                
-                if (annotation.isDefined()){
-                  classifierAnnotation = annotation.source;
-                  annotations.add(classifierAnnotation);
-                  eAnnotation = annotation;
+	      if (eClassifier.abstract = true){
+	          continue;
+	      }
+	 
+	      var name := eClassifier.name;
+	      var structuralFeatureName;
+	      var superType;
+	      var annotations := Collection{};
+	      var classifierAnnotation;
+	      var structuralAnnotation;
+	      var eAnnotation;
+	     
+	      var style;
+          var width;
+          var targetDecoration;  
+          
+          var json;
+          var attName;
+          var attType;
+          var attTalue;
+          var attEditable;
+	     
+	      //Parent structural annotation
+	      if (not eClassifier.eSuperTypes.isEmpty()){
+	          superType = eClassifier.eSuperTypes.first();
+	          if (superType.abstract = false){
+		          var structuralFeature = superType.eStructuralFeatures.select( s | 
+		              not s.eAnnotations.select(a |
+		                  a.source="gmf.compartment" or
+		                  a.source="gmf.link" or
+		                  a.source="gmf.node" 
+		                  ).isEmpty() 
+		              ).first();
+		            
+		            if (structuralFeature.isDefined()){
+		              structuralFeatureName = structuralFeature.name;
+		              structuralAnnotation = structuralFeature.
+		                  eAnnotations.first().source;
+		                  annotations.add(structuralAnnotation);
+		                  eAnnotation = structuralFeature.
+                            eAnnotations.first();
+		            }
+		      }   
+	      }
+	      
+	      
+	      //Parent classifier annotation
+          if (not eClassifier.eSuperTypes.isEmpty()){
+              superType = eClassifier.eSuperTypes.first();
+              if (superType.abstract = false){
+                  var annotation = superType.eAnnotations.select( a |
+	                      a.source="gmf.compartment" or
+	                      a.source="gmf.link" or
+	                      a.source="gmf.node" 
+	                  ).first();
+	                
+	                if (annotation.isDefined()){
+	                  classifierAnnotation = annotation.source;
+	                  annotations.add(classifierAnnotation);
+	                  eAnnotation = annotation;
+	                }  
+	          } 
+          }
+	      
+	      //Structural annotation
+	      var structuralFeature = eClassifier.eStructuralFeatures.select( s | 
+              not s.eAnnotations.select(a |
+                  a.source="gmf.compartment" or
+                  a.source="gmf.link" or
+                  a.source="gmf.node" 
+                  ).isEmpty() 
+              ).first();
+            
+            if (structuralFeature.isDefined()){
+              structuralFeatureName = structuralFeature.name;
+              structuralAnnotation = structuralFeature.
+                  eAnnotations.first().source;
+                  annotations.add(structuralAnnotation);
+                  eAnnotation = structuralFeature.
+                    eAnnotations.first();
+            }   
+	      
+	      //Classifier annotation
+          var annotation = eClassifier.eAnnotations.select( a |
+                  a.source="gmf.compartment" or
+                  a.source="gmf.link" or
+                  a.source="gmf.node" 
+              ).first();
+            
+            if (annotation.isDefined()){
+              classifierAnnotation = annotation.source;
+              annotations.add(classifierAnnotation);
+              eAnnotation = annotation;
+            }
+	     		     
+	     if (eAnnotation.isDefined()){
+              for (detail in eAnnotation.details) { 
+                if (detail.key = "style"){
+                    style := detail.value;  
+                } else if (detail.key = "width"){
+                    width := detail.value;
+                } else if (detail.key = "target.decoration"){
+                    targetDecoration := detail.value;
                 }
-		     		     
-		     if (eAnnotation.isDefined()){
-	              for (detail in eAnnotation.details) { 
-	                if (detail.key = "style"){
-	                    style := detail.value;  
-	                } else if (detail.key = "width"){
-	                    width := detail.value;
-	                } else if (detail.key = "target.decoration"){
-	                    targetDecoration := detail.value;
-	                }
-	              } 
-	         }		      
-		     "eClassifier = ".print(); eClassifier.name.println();
-		     "structuralFeatureName = ".print(); structuralFeatureName.println();
-		     "StructuralAnnotation = ".print(); structuralAnnotation.println();
-		     "ClassifierAnnotation = ".print(); classifierAnnotation.println();
-		     "Annotations = ".print(); annotations.println();
-		     "".println();
+              } 
+         }	
+	         
+	     
+	     //structural feature to construct attributes' json     
+	     json = "JSON.stringify([";
+	     
+	     for (feature in eClassifier.eStructuralFeatures){
+	       "Feature: ".print();feature.println();
+	       "Type: ".print();feature.type.println(); 
+	       "EType: ".print();feature.eType.println(); 
+	       if (feature.type.name == "EAttribute"){
+	           json += "{";
+               json += "'name' : ' " + feature.name + "',";               
+	           if (feature.eType.name == "EString"){
+	               json += "'type' : 'String',";
+	           } else {
+	               json += "'type' : 'String',";
+	           }
+	           
+	           json += "'value' : '" + feature.defaultValueLiteral + "',";
+               json += "'editable' : 'true'";
+               json += "},";               
+           }
+	     }
+	 
+	     json += "])";    
+	     //json.println();    	      
+	     
+	     //"eClassifier = ".print(); eClassifier.name.println();
+	     //"structuralFeatureName = ".print(); structuralFeatureName.println();
+	     //"StructuralAnnotation = ".print(); structuralAnnotation.println();
+	     //"ClassifierAnnotation = ".print(); classifierAnnotation.println();
+	     //"Annotations = ".print(); annotations.println();
+	     "".println();
 		 
 		 if (annotations.exists( a | a = "gmf.compartment") and annotations.exists(a | a = "gmf.node")){
 		      var gmfNode = annotations.select(a | a = "gmf.node").first();
@@ -123,11 +155,11 @@ function [%=metamodel.name.firstToUpperCase()%]Init(editorUI) {
 		
 		 for (annotation in annotations){ 
 		      if (annotation = "gmf.compartment") { %]
-		         this.createVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
-                 '[%=name%]', '[%=name.firstToUpperCase()%]', null, null, 'container swimlane lane pool'),
+		         this.SMLGCreateVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
+                 '[%=name%]', '[%=name.firstToUpperCase()%]', null, null, 'container swimlane lane pool', [%=json%]),
         [%    } else if (annotation = "gmf.node") { %]  
-		         this.createVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 '[%=name%]', '[%=name.firstToUpperCase()%]', null, null, null),
+		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
+                 '[%=name%]', '[%=name.firstToUpperCase()%]', null, null, null, [%=json%]),
 		[%    } else if (annotation = "gmf.link") {
 		        var styleString;  
 		          if (style = "dash"){
@@ -147,15 +179,15 @@ function [%=metamodel.name.firstToUpperCase()%]Init(editorUI) {
                   if (not structuralFeatureName.isDefined()) {
                     structuralFeatureName = name;
                   } %]
-                 this.createEdgeTemplateEntry('[%=styleString%]', 50, 50, 
-                 '', '[%=structuralFeatureName.firstToUpperCase()%]'),                                       
+                 this.SMLGCreateEdgeTemplateEntry('[%=styleString%]', 50, 50, 
+                 '', '[%=structuralFeatureName.firstToUpperCase()%]', [%=json%]),                                       
 		    [% }
 		  } 
 	    } %]
     ]
         this.addPaletteFunctions('[%=metamodel.name%]', '[%=metamodel.name.firstToUpperCase()%]', (expand != null) ? expand : true, fns);
     }
-    editorUI.sidebar.[%=name%](true);
+    SMLG.editorUI.sidebar.[%=name%](true);
     console.log("End of [%=metamodel.name%].js");
-}
+
 [% "Finish!".println(); %]

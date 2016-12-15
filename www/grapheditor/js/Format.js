@@ -382,6 +382,8 @@ Format.prototype.refresh = function()
 		{
 			var clickHandler = mxUtils.bind(this, function(evt)
 			{
+				//console.log(currentLabel.prototype);
+				
 				if (currentLabel != elt)
 				{
 					if (containsLabel)
@@ -477,26 +479,26 @@ Format.prototype.refresh = function()
 		addClickHandler(label2, textPanel, idx++);
 		addClickHandler(label3, arrangePanel, idx++);
 		
-		// Properties
-		// SMLGlabel
-		var SMLGlabel = label3.cloneNode(false);
-		SMLGlabel.style.backgroundColor = '#d7d7d7';
-		
-		label.style.width = '20.5%';
-		label2.style.width = '20.5%';
-		label3.style.width = '26%';
-		SMLGlabel.style.width = '33%';
-		
-		mxUtils.write(SMLGlabel, "Properties");
-		div.appendChild(SMLGlabel);
-		
-		var propertiesPanel = div.cloneNode(false);
-		propertiesPanel.style.display = 'none';
-		this.panels.push(new PropertiesPanel(this, ui, propertiesPanel));
-		this.container.appendChild(propertiesPanel);
-		addClickHandler(SMLGlabel, propertiesPanel, idx++);
-		
-		//End SMLG
+//		// Properties
+//		// SMLGlabel
+//		var SMLGlabel = label3.cloneNode(false);
+//		SMLGlabel.style.backgroundColor = '#d7d7d7';
+//		
+//		label.style.width = '20.5%';
+//		label2.style.width = '20.5%';
+//		label3.style.width = '26%';
+//		SMLGlabel.style.width = '33%';
+//		
+//		mxUtils.write(SMLGlabel, "Properties");
+//		div.appendChild(SMLGlabel);
+//		
+//		var propertiesPanel = div.cloneNode(false);
+//		propertiesPanel.style.display = 'none';
+//		this.panels.push(new PropertiesPanel(this, ui, propertiesPanel));
+//		this.container.appendChild(propertiesPanel);
+//		addClickHandler(SMLGlabel, propertiesPanel, idx++);
+//		
+//		//End SMLG
 	}
 };
 
@@ -4915,80 +4917,4 @@ DiagramFormatPanel.prototype.destroy = function()
 		this.editorUi.removeListener(this.gridEnabledListener);
 		this.gridEnabledListener = null;
 	}
-};
-
-
-//SMLG
-/**
- * Adds the label menu items to the given menu and parent.
- */
-PropertiesPanel = function(format, editorUi, container)
-{
-	BaseFormatPanel.call(this, format, editorUi, container);
-	this.init();
-};
-
-mxUtils.extend(PropertiesPanel, BaseFormatPanel);
-
-/**
- * Adds the label menu items to the given menu and parent.
- */
-PropertiesPanel.prototype.init = function()
-{
-	this.container.style.borderBottom = 'none';
-	this.addProperties(this.container);
-};
-
-PropertiesPanel.prototype.addProperties = function(container)
-{
-	var ui = this.editorUi;
-	var editor = ui.editor;
-	var graph = editor.graph;
-	var ss = this.format.getSelectionState(); //iterate through the ss.vertices to get all selected vertices and their attributes
-	
-
-	var title = this.createTitle("Properties");
-	title.style.paddingLeft = '18px';
-	title.style.paddingTop = '10px';
-	title.style.paddingBottom = '6px';
-	container.appendChild(title);
-	
-	var stylePanel = this.createPanel();
-	stylePanel.style.paddingTop = '4px';
-	stylePanel.style.paddingBottom = '4px';
-	stylePanel.style.marginLeft = '1px';
-	stylePanel.style.borderWidth = '0px';
-	stylePanel.style.position = 'relative';
-	stylePanel.className = 'geToolbarContainer';
-	
-	if (mxClient.IS_QUIRKS)
-	{
-		stylePanel.style.display = 'block';
-	}
-		
-	var jsonStringProperties = ss.vertices[0].value.getAttribute("properties");
-	var properties = JSON.parse(jsonStringProperties);
-	
-	for(var i=0; i < properties.length; i++){
-		var property = properties[i];
-		// Writing Property 01
-		var stylePropertyLabel01 = stylePanel.cloneNode(false);
-			
-		mxUtils.write(stylePropertyLabel01, property["name"].charAt(0).toUpperCase() + property["name"].slice(1));
-		
-		var propertyInput01 = document.createElement('input');
-		propertyInput01.setAttribute("id", property["name"]);
-		propertyInput01.value = property["value"];
-		propertyInput01.style.position = 'absolute';
-		propertyInput01.style.right = '20px';
-		propertyInput01.style.width = '100px';
-		propertyInput01.style.marginTop = '-3px';
-		
-		stylePropertyLabel01.appendChild(propertyInput01);
-		
-		container.appendChild(stylePropertyLabel01);
-	
-	}
-	
-	return container;
 };

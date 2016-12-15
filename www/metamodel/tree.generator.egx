@@ -2,5 +2,5 @@ rule MetamodelToJavascript
 transform metamodel : metamodel!EPackage {
   guard : true 
   template : "generic.template.egl"
-  target : "../smlg/tree.js"
+  target : "../smlg/diagram/tree.js"
 }

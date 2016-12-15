@@ -31,5 +31,5 @@ class Sync {
 
 @gmf.node(label = "name")
 class File {
-    attr String name;
+    attr String name = "foo";
 }
