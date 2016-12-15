@@ -306,6 +306,32 @@ SMLG.SMLGLoadModellingLangauges = function() {
 SMLG.prototype.SMLGLoadModellingLangauges = SMLG.SMLGLoadModellingLangauges;
 
 
+SMLG.SMLGPostModel = function(method, address, data, responseFunction) {
+	var xmlhttp;
+	if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera,
+		// Safari
+		xmlhttp = new XMLHttpRequest();
+	} else { // code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.open(method, address, true);
+	xmlhttp.send(data);
+
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			try {
+				if (responseFunction != null) {
+					jsonString = xmlhttp.responseText;
+					responseFunction(jsonString);
+				}
+			} catch (err) {
+				alert(err.message);
+			}
+		}
+	}
+};
+SMLG.prototype.SMLGPostModel = SMLG.PostModel;
 
 
 //SMLG
@@ -340,16 +366,26 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 
 		var id = input.id;
 		var jsonStringProperties = selectedCell.value.getAttribute("properties");
-		console.log("");
-		console.log("before: " + jsonStringProperties);
+//		console.log("");
+//		console.log("before: " + jsonStringProperties);
 		var properties = JSON.parse(jsonStringProperties);
 		for (var i = 0; i < properties.length; i++) {
 			var property = properties[i];
 			if (property["name"] == id) {
 				property["value"] = input.value;
 				jsonStringProperties = JSON.stringify(properties);
-				console.log("after: " + jsonStringProperties);
+//				console.log("after: " + jsonStringProperties);
 				selectedCell.value.setAttribute("properties", jsonStringProperties);
+
+				var encoder = new mxCodec();
+				var model = graph.getModel();
+				var encodedModel = encoder.encode(model);
+				var xml = mxUtils.getXml(encodedModel);
+//				console.log("-----------------------------------------");
+//				console.log(xml);
+				SMLG.SMLGPostModel("POST", "../ModelPost", xml, function(response) {
+					console.log("Response: " + response);
+				});
 				break;
 			}
 		}
