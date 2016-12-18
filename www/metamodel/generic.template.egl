@@ -118,6 +118,8 @@
 	     
 	     //structural feature to construct attributes' json     
 	     json = "JSON.stringify([";
+	     json += "{ name: 'class', type: 'String', value: '" + eClassifier.name + "', editable: 'false' }, ";
+	     /*json += "{ name: 'label', type: 'String', value: '" + eClassifier.name + "', editable: 'false' }, ";*/ 
 	     
 	     for (feature in eClassifier.eStructuralFeatures){
 	       "Feature: ".print();feature.println();
@@ -180,7 +182,7 @@
                     structuralFeatureName = name;
                   } %]
                  this.SMLGCreateEdgeTemplateEntry('[%=styleString%]', 50, 50, 
-                 '', '[%=structuralFeatureName.firstToUpperCase()%]', [%=json%]),                                       
+                 '', '[%=structuralFeatureName.firstToUpperCase()%]', null, null, null, [%=json%]),                                       
 		    [% }
 		  } 
 	    } %]

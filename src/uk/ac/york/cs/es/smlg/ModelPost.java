@@ -41,6 +41,8 @@ public class ModelPost extends HttpServlet {
 		String xml = stringBuilder.toString();
 		System.out.println(xml);
 		response.getWriter().append("1");
+		
+		
 	}
 
 	/**

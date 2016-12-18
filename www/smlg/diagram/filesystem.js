@@ -4,19 +4,19 @@
     SMLG.editorUI.sidebar.SMLGAddFilesystemPalette = function(expand) {
         var fns = [
 		         this.SMLGCreateVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
-                 'Drive', 'Drive', null, null, 'container swimlane lane pool', JSON.stringify([])),
+                 'Drive', 'Drive', null, null, 'container swimlane lane pool', JSON.stringify([{ name: 'class', type: 'String', value: 'Drive', editable: 'false' }, ])),
 		         this.SMLGCreateVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
-                 'Folder', 'Folder', null, null, 'container swimlane lane pool', JSON.stringify([])),
+                 'Folder', 'Folder', null, null, 'container swimlane lane pool', JSON.stringify([{ name: 'class', type: 'String', value: 'Folder', editable: 'false' }, ])),
   
 		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'Shortcut', 'Shortcut', null, null, null, JSON.stringify([])),
+                 'Shortcut', 'Shortcut', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Shortcut', editable: 'false' }, ])),
                  this.SMLGCreateEdgeTemplateEntry('dashed=1;endArrow=classic;', 50, 50, 
-                 '', 'Target', JSON.stringify([])),                                       
+                 '', 'Target', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Shortcut', editable: 'false' }, ])),                                       
                  this.SMLGCreateEdgeTemplateEntry('dashed=1;dashPattern=1 4;strokeWidth=2;endArrow=none;', 50, 50, 
-                 '', 'Sync', JSON.stringify([])),                                       
+                 '', 'Sync', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Sync', editable: 'false' }, ])),                                       
   
 		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'File', 'File', null, null, null, JSON.stringify([{'name' : ' name','type' : 'String','value' : 'foo','editable' : 'true'},])),
+                 'File', 'File', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'File', editable: 'false' }, {'name' : ' name','type' : 'String','value' : 'foo','editable' : 'true'},])),
     ]
         this.addPaletteFunctions('filesystem', 'Filesystem', (expand != null) ? expand : true, fns);
     }

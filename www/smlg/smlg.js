@@ -56,7 +56,7 @@ var SMLG = function(editorUI) {
 		cells[0].vertex = true;
 
 		if (properties != null) {
-			var node = mxUtils.createXmlDocument().createElement("SMLG");
+			var node = mxUtils.createXmlDocument().createElement("SMLGCell");
 			cells[0].value = node;
 			cells[0].value.setAttribute("label", (value != null) ? value : '');
 			cells[0].value.setAttribute("properties", properties);
@@ -87,10 +87,10 @@ var SMLG = function(editorUI) {
 		cell.edge = true;
 
 		if (properties != null) {
-			var node = mxUtils.createXmlDocument().createElement("SMLG");
-			cells[0].value = node;
-			cells[0].value.setAttribute("label", (value != null) ? value : '');
-			cells[0].value.setAttribute("properties", properties);
+			var node = mxUtils.createXmlDocument().createElement("SMLGCell");
+			cell.value = node;
+			cell.value.setAttribute("label", (value != null) ? value : '');
+			cell.value.setAttribute("properties", properties);
 		}
 
 		return this.createEdgeTemplateFromCells([ cell ], width, height, title, showLabel, allowCellsInserted);
@@ -394,7 +394,7 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 	}
 	;
 
-	mxEvent.addListener(input, 'blur', update);
+	//mxEvent.addListener(input, 'blur', update);
 	mxEvent.addListener(input, 'change', update);
 }
 
@@ -431,7 +431,9 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 	stylePanel.style.position = 'relative';
 	stylePanel.className = 'geToolbarContainer';
 
-	var jsonStringProperties = ss.vertices[0].value.getAttribute("properties");
+	
+	var selectedCell = graph.getSelectionCell();
+	var jsonStringProperties = selectedCell.value.getAttribute("properties");
 	var properties = JSON.parse(jsonStringProperties);
 
 	for (var i = 0; i < properties.length; i++) {
@@ -439,7 +441,7 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 		// Writing Property 01
 		var stylePropertyLabel = stylePanel.cloneNode(false);
 
-		mxUtils.write(stylePropertyLabel, property["name"].charAt(0).toUpperCase() + property["name"].slice(1));
+		mxUtils.write(stylePropertyLabel, property["name"].trim().charAt(0).toUpperCase() + property["name"].trim().slice(1));
 
 		var propertyInput = document.createElement('input');
 		propertyInput.setAttribute("id", property["name"]);
@@ -448,6 +450,10 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 		propertyInput.style.right = '20px';
 		propertyInput.style.width = '100px';
 		propertyInput.style.marginTop = '-3px';
+		
+		if (property["editable"].trim() == "false"){
+			propertyInput.readOnly = true;
+		}
 
 		this.addKeyHandler(propertyInput);
 		this.UpdatePropertyHandler(propertyInput);
