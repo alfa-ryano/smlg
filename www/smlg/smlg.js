@@ -7,11 +7,11 @@ var SMLG_DIAGRAM_TYPES = [
 	},
 	{
 		filename : "flowchart.js",
-		enabled : true
+		enabled : false
 	},
 	{
 		filename : "tree.js",
-		enabled : true
+		enabled : false
 	}
 ];
 
@@ -60,6 +60,19 @@ var SMLG = function(editorUI) {
 			cells[0].value = node;
 			cells[0].value.setAttribute("label", (value != null) ? value : '');
 			cells[0].value.setAttribute("properties", properties);
+
+			var properties = JSON.parse(properties);
+
+			for (var i = 0; i < properties.length; i++) {
+				var property = properties[i];
+				if (property.containment != null && property.containment == true) {
+					var innerCell = new mxCell(property.name, new mxGeometry(0, 0, height / 2, width),
+						'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
+					innerCell.vertex = true;
+					cells[0].insert(innerCell);
+				}
+			}
+
 		}
 
 		return this.createVertexTemplateFromCells(cells, width, height, title, showLabel, showTitle, allowCellsInserted);
@@ -366,23 +379,23 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 
 		var id = input.id;
 		var jsonStringProperties = selectedCell.value.getAttribute("properties");
-//		console.log("");
-//		console.log("before: " + jsonStringProperties);
+		//		console.log("");
+		//		console.log("before: " + jsonStringProperties);
 		var properties = JSON.parse(jsonStringProperties);
 		for (var i = 0; i < properties.length; i++) {
 			var property = properties[i];
 			if (property["name"] == id) {
 				property["value"] = input.value;
 				jsonStringProperties = JSON.stringify(properties);
-//				console.log("after: " + jsonStringProperties);
+				//				console.log("after: " + jsonStringProperties);
 				selectedCell.value.setAttribute("properties", jsonStringProperties);
 
 				var encoder = new mxCodec();
 				var model = graph.getModel();
 				var encodedModel = encoder.encode(model);
 				var xml = mxUtils.getXml(encodedModel);
-//				console.log("-----------------------------------------");
-//				console.log(xml);
+				//				console.log("-----------------------------------------");
+				//				console.log(xml);
 				SMLG.SMLGPostModel("POST", "../ModelPost", xml, function(response) {
 					console.log("Response: " + response);
 				});
@@ -431,34 +444,38 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 	stylePanel.style.position = 'relative';
 	stylePanel.className = 'geToolbarContainer';
 
-	
+
 	var selectedCell = graph.getSelectionCell();
-	var jsonStringProperties = selectedCell.value.getAttribute("properties");
-	var properties = JSON.parse(jsonStringProperties);
 
-	for (var i = 0; i < properties.length; i++) {
-		var property = properties[i];
-		// Writing Property 01
-		var stylePropertyLabel = stylePanel.cloneNode(false);
+	if (mxUtils.isNode(selectedCell.value)) {
+		var jsonStringProperties = selectedCell.value.getAttribute("properties");
+		var properties = JSON.parse(jsonStringProperties);
 
-		mxUtils.write(stylePropertyLabel, property["name"].trim().charAt(0).toUpperCase() + property["name"].trim().slice(1));
+		for (var i = 0; i < properties.length; i++) {
+			var property = properties[i];
+			// Writing Property 01
+			var stylePropertyLabel = stylePanel.cloneNode(false);
 
-		var propertyInput = document.createElement('input');
-		propertyInput.setAttribute("id", property["name"]);
-		propertyInput.value = property["value"];
-		propertyInput.style.position = 'absolute';
-		propertyInput.style.right = '20px';
-		propertyInput.style.width = '100px';
-		propertyInput.style.marginTop = '-3px';
-		
-		if (property["editable"].trim() == "false"){
-			propertyInput.readOnly = true;
+			mxUtils.write(stylePropertyLabel, property["name"].trim().charAt(0).toUpperCase() + property["name"].trim().slice(1));
+
+			var propertyInput = document.createElement('input');
+			propertyInput.setAttribute("id", property["name"]);
+			propertyInput.value = property["value"];
+			propertyInput.style.position = 'absolute';
+			propertyInput.style.right = '20px';
+			propertyInput.style.width = '100px';
+			propertyInput.style.marginTop = '-3px';
+
+			if (property["editable"] == false) {
+				propertyInput.style.backgroundColor = '#d7d7d7';
+				propertyInput.readOnly = true;
+			}
+
+			this.addKeyHandler(propertyInput);
+			this.UpdatePropertyHandler(propertyInput);
+			stylePropertyLabel.appendChild(propertyInput);
+			container.appendChild(stylePropertyLabel);
 		}
-
-		this.addKeyHandler(propertyInput);
-		this.UpdatePropertyHandler(propertyInput);
-		stylePropertyLabel.appendChild(propertyInput);
-		container.appendChild(stylePropertyLabel);
 	}
 
 	return container;

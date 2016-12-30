@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<myPrefix:Filesystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:myPrefix="myUri">
+    <drives name="Drive C">
+        <contents xsi:type="myPrefix:Shortcut" name="MyShortcut" target="//@drives.0/@contents.1/@contents.0"/>
+        <contents xsi:type="myPrefix:Folder" name="MyFolder">
+            <contents name="MyFile"/>
+        </contents>
+    </drives>
+    <drives name="Drive D">
+        <contents xsi:type="myPrefix:Folder" name="MyBackup"/>
+    </drives>
+    <syncs source="//@drives.0/@contents.1" target="//@drives.1/@contents.0"/>
+</myPrefix:Filesystem>

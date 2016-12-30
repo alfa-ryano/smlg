@@ -1,25 +1,24 @@
     /**
-     * Adds the filesystem to the sidebar.
+     * Adds the myPackage to the sidebar.
      */
-    SMLG.editorUI.sidebar.SMLGAddFilesystemPalette = function(expand) {
+    SMLG.editorUI.sidebar.SMLGAddMyPackagePalette = function(expand) {
         var fns = [
-		         this.SMLGCreateVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
-                 'Drive', 'Drive', null, null, 'container swimlane lane pool', JSON.stringify([{ name: 'class', type: 'String', value: 'Drive', editable: 'false' }, ])),
-		         this.SMLGCreateVertexTemplateEntry('swimlane;whiteSpace=wrap;html=1;', 200, 200, 
-                 'Folder', 'Folder', null, null, 'container swimlane lane pool', JSON.stringify([{ name: 'class', type: 'String', value: 'Folder', editable: 'false' }, ])),
-  
-		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'Shortcut', 'Shortcut', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Shortcut', editable: 'false' }, ])),
-                 this.SMLGCreateEdgeTemplateEntry('dashed=1;endArrow=classic;', 50, 50, 
-                 '', 'Target', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Shortcut', editable: 'false' }, ])),                                       
-                 this.SMLGCreateEdgeTemplateEntry('dashed=1;dashPattern=1 4;strokeWidth=2;endArrow=none;', 50, 50, 
-                 '', 'Sync', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'Sync', editable: 'false' }, ])),                                       
-  
-		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'File', 'File', null, null, null, JSON.stringify([{ name: 'class', type: 'String', value: 'File', editable: 'false' }, {'name' : ' name','type' : 'String','value' : 'foo','editable' : 'true'},])),
+            this.SMLGCreateVertexTemplateEntry('swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;', 200, 200,  
+                 'Drive', 'Drive', null, null, 'Drive', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'Drive', editable: false, containment: false }, { name: 'name', type: 'EString', value: 'foo', editable: true, containment: false }, { name: 'contents', type: 'File', value: '', editable: true, containment: true }, ])),
+            this.SMLGCreateVertexTemplateEntry('swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;', 200, 200,  
+                 'Folder', 'Folder', null, null, 'Folder', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'Folder', editable: false, containment: false }, { name: 'name', type: 'EString', value: 'foo', editable: true, containment: false }, { name: 'contents', type: 'File', value: '', editable: true, containment: true }, ])),
+                this.SMLGCreateEdgeTemplateEntry('dashed=1;endArrow=classic;', 50, 50, 
+                 'Target', 'Target', null, null, 'Shortcut', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'Shortcut', editable: false, containment: false }, { name: 'name', type: 'EString', value: 'foo', editable: true, containment: false }, { name: 'target', type: 'File', value: '', editable: true, containment: false },])),
+            this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 200, 200,  
+                 'Shortcut', 'Shortcut', null, null, 'Shortcut', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'Shortcut', editable: false, containment: false }, { name: 'name', type: 'EString', value: 'foo', editable: true, containment: false }, { name: 'target', type: 'File', value: '', editable: true, containment: false }, ])),
+            this.SMLGCreateEdgeTemplateEntry('dashed=1;dashPattern=1 4;strokeWidth=2;endArrow=none;', 50, 50, 
+                 'Sync', 'Sync', null, null, 'Sync', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'Sync', editable: false, containment: false }, { name: 'source', type: 'File', value: '', editable: true, containment: false }, { name: 'target', type: 'File', value: '', editable: true, containment: false }, ])),
+            this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 200, 200,  
+                 'File', 'File', null, null, 'File', JSON.stringify([{ name: 'diagram', type: 'String', value: 'Filesystem', editable: false, containment: false }, { name: 'uri', type: 'String', value: 'myUri', editable: false, containment: false }, { name: 'prefix', type: 'String', value: 'myPrefix', editable: false, containment: false }, { name: 'package', type: 'String', value: 'myPackage', editable: false, containment: false }, { name: 'class', type: 'String', value: 'File', editable: false, containment: false }, { name: 'name', type: 'EString', value: 'foo', editable: true, containment: false }, ])),
     ]
-        this.addPaletteFunctions('filesystem', 'Filesystem', (expand != null) ? expand : true, fns);
+        this.addPaletteFunctions('myPackage', 'MyPackage', (expand != null) ? expand : true, fns);
     }
-    SMLG.editorUI.sidebar.SMLGAddFilesystemPalette(true);
-    console.log("End of filesystem.js");
+    SMLG.editorUI.sidebar.SMLGAddMyPackagePalette(true);
+    console.log("End of myPackage.js");
+
 

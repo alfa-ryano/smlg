@@ -6,13 +6,23 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
+ JavaSE-1.8,
+ JavaSE-1.7
 Export-Package: filesystem,
  filesystem.impl,
  filesystem.util,
  tree,
  tree.impl,
- tree.util
+ tree.util,
+ myPackage,
+ myPackage.impl,
+ myPackage.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.junit
 Bundle-ActivationPolicy: lazy
+Import-Package: com.google.gson;version="2.2.4",
+ javax.servlet;version="3.1.0",
+ javax.servlet.annotation;version="3.1.0",
+ javax.servlet.http

@@ -7,17 +7,17 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated filesystem -->
-      <package
-            uri="filesystem"
-            class="filesystem.FilesystemPackage"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated tree -->
       <package
             uri="tree"
             class="tree.TreePackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated filesystem -->
+      <package
+            uri="myUri"
+            class="myPackage.MyPackagePackage"/>
    </extension>
 
 </plugin>

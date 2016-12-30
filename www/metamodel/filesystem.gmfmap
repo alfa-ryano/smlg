@@ -166,7 +166,7 @@
   </links>
   <diagram>
     <diagramCanvas
-        href="filesystem.gmfgraph#filesystem"/>
+        href="filesystem.gmfgraph#myPackage"/>
     <domainModel
         href="filesystem.ecore#/"/>
     <domainMetaElement

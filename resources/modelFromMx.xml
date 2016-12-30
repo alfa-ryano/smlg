@@ -1,0 +1,77 @@
+<mxGraphModel>
+	<root>
+		<mxCell id="0" />
+		<mxCell id="1" parent="0" />
+		<SMLGCell label="Drive A"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Drive&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="3">
+			<mxCell style="swimlane;whiteSpace=wrap;html=1;" vertex="1"
+				parent="1">
+				<mxGeometry x="10" y="10" width="200" height="200" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label="Folder A"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Folder&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="5">
+			<mxCell style="swimlane;whiteSpace=wrap;html=1;" vertex="1"
+				parent="3">
+				<mxGeometry x="10" y="30" width="100" height="140" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label="My File"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;File&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot; name&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;fooas&quot;,&quot;editable&quot;:&quot;true&quot;}]"
+			id="2">
+			<mxCell style="whiteSpace=wrap;html=1;" vertex="1" parent="5">
+				<mxGeometry x="20" y="40" width="60" height="60" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell
+			label="&lt;div&gt;&lt;span&gt;My&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;Shortcut&lt;/span&gt;&lt;br&gt;&lt;/div&gt;"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Shortcut&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="6">
+			<mxCell style="whiteSpace=wrap;html=1;" vertex="1" parent="3">
+				<mxGeometry x="130" y="120" width="60" height="60" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label=""
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Shortcut&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="9">
+			<mxCell
+				style="dashed=1;endArrow=classic;html=1;entryX=0.5;entryY=1;exitX=0;exitY=0.75;"
+				edge="1" parent="3" source="6" target="2">
+				<mxGeometry width="50" height="50" relative="1" as="geometry">
+					<mxPoint y="50" as="sourcePoint" />
+					<mxPoint x="50" as="targetPoint" />
+				</mxGeometry>
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label="Drive B"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Drive&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="4">
+			<mxCell style="swimlane;whiteSpace=wrap;html=1;" vertex="1"
+				parent="1">
+				<mxGeometry x="413" y="10" width="227" height="240" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label="Folder B"
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Folder&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="7">
+			<mxCell style="swimlane;whiteSpace=wrap;html=1;" vertex="1"
+				parent="4">
+				<mxGeometry x="27" y="40" width="143" height="140" as="geometry" />
+			</mxCell>
+		</SMLGCell>
+		<SMLGCell label=""
+			properties="[{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Filesystem&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;uri&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myUri&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPrefix&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;package&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;diagram&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;myPackage&quot;,&quot;editable&quot;:&quot;false&quot;},{&quot;name&quot;:&quot;class&quot;,&quot;type&quot;:&quot;String&quot;,&quot;value&quot;:&quot;Sync&quot;,&quot;editable&quot;:&quot;false&quot;}]"
+			id="10">
+			<mxCell
+				style="dashed=1;dashPattern=1 4;strokeWidth=2;endArrow=none;html=1;entryX=0;entryY=0.5;exitX=1;exitY=0.25;"
+				edge="1" parent="1" source="5" target="7">
+				<mxGeometry width="50" height="50" relative="1" as="geometry">
+					<mxPoint x="280" y="160" as="sourcePoint" />
+					<mxPoint x="330" y="110" as="targetPoint" />
+				</mxGeometry>
+			</mxCell>
+		</SMLGCell>
+	</root>
+</mxGraphModel>
