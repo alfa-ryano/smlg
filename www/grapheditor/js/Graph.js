@@ -5705,6 +5705,7 @@ if (typeof mxVertexHandler != 'undefined')
 		 */
 		mxVertexHandler.prototype.isRecursiveResize = function(state, me)
 		{
+			////console.log("isRecursiveResize");
 			return !this.graph.isSwimlane(state.cell) && this.graph.model.getChildCount(state.cell) > 0 &&
 				!mxEvent.isControlDown(me.getEvent()) && !this.graph.isCellCollapsed(state.cell) &&
 				mxUtils.getValue(state.style, 'recursiveResize', '1') == '1' &&
@@ -5716,6 +5717,7 @@ if (typeof mxVertexHandler != 'undefined')
 		 */
 		mxVertexHandler.prototype.isCenteredEvent = function(state, me)
 		{
+			////console.log("isCenteredEvent");
 			return (!(!this.graph.isSwimlane(state.cell) && this.graph.model.getChildCount(state.cell) > 0 &&
 					!this.graph.isCellCollapsed(state.cell) &&
 					mxUtils.getValue(state.style, 'recursiveResize', '1') == '1' &&
@@ -5727,6 +5729,7 @@ if (typeof mxVertexHandler != 'undefined')
 		var vertexHandlerGetHandlePadding = mxVertexHandler.prototype.getHandlePadding;
 		mxVertexHandler.prototype.getHandlePadding = function()
 		{
+			////console.log("getHandlePadding");
 			var result = new mxPoint(0, 0);
 			var tol = this.tolerance;
 			
@@ -6260,6 +6263,7 @@ if (typeof mxVertexHandler != 'undefined')
 		var vertexHandlerCreateSizerShape = mxVertexHandler.prototype.createSizerShape;
 		mxVertexHandler.prototype.createSizerShape = function(bounds, index, fillColor)
 		{
+			//console.log("createSizerShape");
 			this.handleImage = (index == mxEvent.ROTATION_HANDLE) ? rotationHandle : (index == mxEvent.LABEL_HANDLE) ? this.secondaryHandleImage : this.handleImage;
 			
 			return vertexHandlerCreateSizerShape.apply(this, arguments);
@@ -6293,6 +6297,7 @@ if (typeof mxVertexHandler != 'undefined')
 		var mxVertexHandlerGetSelectionBounds = mxVertexHandler.prototype.getSelectionBounds;
 		mxVertexHandler.prototype.getSelectionBounds = function(state)
 		{
+			//console.log("getSelectionBounds");
 			var model = this.graph.getModel();
 			var parent = model.getParent(state.cell);
 			var geo = this.graph.getCellGeometry(state.cell);
@@ -6331,6 +6336,7 @@ if (typeof mxVertexHandler != 'undefined')
 		// Shows rotation handle for edge labels.
 		mxVertexHandler.prototype.isRotationHandleVisible = function()
 		{
+			//console.log("isRotationHandleVisible");
 			return this.graph.isEnabled() && this.rotationEnabled && this.graph.isCellRotatable(this.state.cell) &&
 				(mxGraphHandler.prototype.maxCells <= 0 || this.graph.getSelectionCount() < mxGraphHandler.prototype.maxCells);
 		};
@@ -6570,6 +6576,7 @@ if (typeof mxVertexHandler != 'undefined')
 		var vertexHandlerRedrawHandles = mxVertexHandler.prototype.redrawHandles;
 		mxVertexHandler.prototype.redrawHandles = function()
 		{
+			//console.log("redrawHandles");
 			vertexHandlerRedrawHandles.apply(this);
 
 			if (this.state != null && this.linkHint != null)
@@ -6594,6 +6601,7 @@ if (typeof mxVertexHandler != 'undefined')
 		var vertexHandlerReset = mxVertexHandler.prototype.reset;
 		mxVertexHandler.prototype.reset = function()
 		{
+			//console.log("vertexHandlerReset");
 			vertexHandlerReset.apply(this, arguments);
 			
 			// Shows rotation handle only if one vertex is selected

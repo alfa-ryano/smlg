@@ -18,22 +18,68 @@ var SMLG_DIAGRAM_TYPES = [
 var SMLG = function(editorUI) {
 
 	SMLG.editorUI = editorUI;
+	var graph = SMLG.editorUI.editor.graph;
 
-	mxGraph.convertValueToString = function(cell) {
+
+	var convertValueToString = graph.convertValueToString;
+	graph.convertValueToString = function(cell) {
 		if (mxUtils.isNode(cell.value)) {
-			return cell.getAttribute('label', '')
+			var currentValue = convertValueToString.apply(this, arguments);
+			var node = cell.value;
+			var keyForLabelName = "";
+			var jsonStringProperties = node.getAttribute("properties");
+			console.debug(jsonStringProperties);
+			var properties = JSON.parse(jsonStringProperties);
+
+			for (var i = 0; i < properties.length; i++) {
+				var property = properties[i];
+
+				if (property["name"] == "label" ) {
+					keyForLabelName = property["value"].trim();
+					break;
+				}
+			}
+			
+			for (var i = 0; i < properties.length; i++) {
+				var property = properties[i];
+
+				if (property["name"] == keyForLabelName) {
+					currentValue = property["value"].trim();
+					break;
+				}
+			}
+			return currentValue;
 		}
 	};
 
-	var cellLabelChanged = mxGraph.cellLabelChanged;
-	mxGraph.cellLabelChanged = function(cell, newValue, autoSize) {
+	var cellLabelChanged = graph.cellLabelChanged;
+	graph.cellLabelChanged = function(cell, newValue, autoSize) {
 		if (mxUtils.isNode(cell.value)) {
-			// Clones the value for correct undo/redo
-			var elt = cell.value.cloneNode(true);
-			elt.setAttribute('label', newValue);
-			newValue = elt;
-		}
 
+			var node = cell.value.cloneNode(true);
+			var keyForLabelName = "";			
+			var jsonStringProperties = node.getAttribute("properties");
+			var properties = JSON.parse(jsonStringProperties);
+			
+			for (var i = 0; i < properties.length; i++) {
+				var property = properties[i];
+
+				if (property["name"].equals("label")) {
+					keyForLabelName = property["value"].trim();
+					break;
+				}
+			}
+
+			for (var i = 0; i < properties.length; i++) {
+				var property = properties[i];
+				if (property["name"] == keyForLabelName) {
+					property["value"] = newValue;
+					break;
+				}
+			}
+			jsonStringProperties = JSON.stringfy(properties);
+			node.setAttribute("properties", jsonStringProperties);
+		}
 		cellLabelChanged.apply(this, arguments);
 	};
 
@@ -60,19 +106,40 @@ var SMLG = function(editorUI) {
 			cells[0].value = node;
 			cells[0].value.setAttribute("label", (value != null) ? value : '');
 			cells[0].value.setAttribute("properties", properties);
+			console.debug(properties);
+			var jsonProperties = JSON.parse(properties);
+			var keyForLabelName = "";
+			
+			for (var i = 0; i < jsonProperties.length; i++) {
+				var property = jsonProperties[i];
+				if (property["name"] == "label" ) {
+					keyForLabelName = property["value"].trim();
+					break;
+				}
+			}
+			for (var i = 0; i < jsonProperties.length; i++) {
+				var property = jsonProperties[i];
 
-			var properties = JSON.parse(properties);
-
-			for (var i = 0; i < properties.length; i++) {
-				var property = properties[i];
+				if (property["name"] == keyForLabelName) {
+					cells[0].value.setAttribute("label", property["value"].trim()); 
+					break;
+				}
+			}
+			
+			for (var i = 0; i < jsonProperties.length; i++) {
+				var property = jsonProperties[i];
+					
 				if (property.containment != null && property.containment == true) {
+
 					var innerCell = new mxCell(property.name, new mxGeometry(0, 0, height / 2, width),
 						'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
 					innerCell.vertex = true;
+					innerCell.value = mxUtils.createXmlDocument().createElement("SMLGCell");
+					innerCell.value.setAttribute("label", (property.name != null) ? property.name : '');
+					innerCell.value.setAttribute("properties", "[]");
 					cells[0].insert(innerCell);
 				}
 			}
-
 		}
 
 		return this.createVertexTemplateFromCells(cells, width, height, title, showLabel, showTitle, allowCellsInserted);
@@ -453,7 +520,11 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 
 		for (var i = 0; i < properties.length; i++) {
 			var property = properties[i];
-			// Writing Property 01
+
+			if (property["visible"] == false) {
+				continue;
+			}
+
 			var stylePropertyLabel = stylePanel.cloneNode(false);
 
 			mxUtils.write(stylePropertyLabel, property["name"].trim().charAt(0).toUpperCase() + property["name"].trim().slice(1));

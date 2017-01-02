@@ -16,10 +16,11 @@
 	   	var attributes := Collection{};
 	   	var eAnnotationSources:= Collection{};
 	   	var styles = Collection{};
+	   	var labels = Collection{};
 	   	var details := Map{};
 	   	var json := "";
 	   	 
-        attributes = metamodel.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles);         
+        attributes = metamodel.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);         
 	   	 
         
         var source = eAnnotationSources.select( source |
@@ -34,23 +35,15 @@
                diagramName = eClassifier.name;
               }
         }
-        
-        
-        "eClassifier = ".print(); eClassifier.name.println();
-        "eAnnotationSource = ".print(); eAnnotationSources.println();
-        "attributes = ".print(); attributes.println();
-        "details = ".print(); details.println();
-        "styles = ".print(); styles.println();
-        "".println();
-        
+       
         json = "JSON.stringify([";
         if (diagramName <> ""){
-           json += "{ name: 'diagram', type: 'String', value: '" + diagramName + "', editable: false, containment: false }, ";
-        }
-        json += "{ name: 'uri', type: 'String', value: '" + metamodel.nsURI + "', editable: false, containment: false }, ";
-        json += "{ name: 'prefix', type: 'String', value: '" + metamodel.nsPrefix + "', editable: false, containment: false }, ";
-        json += "{ name: 'package', type: 'String', value: '" + metamodel.name + "', editable: false, containment: false }, ";
-        json += "{ name: 'class', type: 'String', value: '" + eClassifier.name + "', editable: false, containment: false }, ";
+           json += "{ name: 'diagram', type: 'EString', value: '" + diagramName + "', editable: false, visible: true, containment: false }, ";
+        }        
+        json += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, containment: false }, ";
+        json += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, containment: false }, ";
+        json += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, containment: false }, ";
+        json += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, containment: false }, ";
         
         for (attribute in attributes){
             var name := attribute.get("name");
@@ -58,19 +51,45 @@
             var value := attribute.get("defaultValue");
             var containment := attribute.get("containment");
             var link := attribute.get("link"); 
-            json += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: true, containment: " + containment + " }, ";
+            var editable := "true";
+            
+            if (eAnnotationSources.first() = "gmf.link"){
+	            for (detail in details){	                
+	                if (detail.get("source") = name or detail.get("target") = name){
+	                   editable := "false";
+	                }
+	            }
+            }
+            
+            json += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + editable + ", visible: true, containment: " + containment + " }, ";
             
             if(link = true){
                 var style := attribute.get("style");
-                var linkJson := json.substring(0, json.length - 1); 
+                
+                var linkJson = "JSON.stringify([";
+                linkJson += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, containment: false }, ";
+                linkJson += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, containment: false }, ";
+                linkJson += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, containment: false }, ";
+                linkJson += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "." + name + "', editable: false, visible: true, containment: false }, ";
                 linkJson += "])";
                 %]
                 this.SMLGCreateEdgeTemplateEntry('[%=style%]', 50, 50, 
                  '[%=name.firstToUpperCase()%]', '[%=name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=linkJson%]),
             [%}
         }
-        
+        if (labels.first().isDefined() and labels.first() <> ""){
+            json += "{ name: 'label', type: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, containment: false }, ";
+        }
         json += "])";
+        
+        "eClassifier = ".print(); eClassifier.name.println();
+        "eAnnotationSource = ".print(); eAnnotationSources.println();
+        "attributes = ".print(); attributes.println();
+        "details = ".print(); details.println();
+        "styles = ".print(); styles.println();
+        "labels = ".print(); labels.println();
+        "json = ".print(); json.println();
+        "".println();
         
         if (eAnnotationSources.first() = "gmf.node") { %]
             this.SMLGCreateVertexTemplateEntry('[%=styles.first()%]', 200, 200,  
@@ -100,14 +119,14 @@ operation Integer counting(a : Integer){
     }
 }
 
-operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attributes: Collection, details: Map, eAnnotationSources: Collection, styles: Collection): Collection {
+operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attributes: Collection, details: Map, eAnnotationSources: Collection, styles: Collection, labels: Collection): Collection {
 
     if (not eClassifier.eSuperTypes.isEmpty()){
         for (superType in eClassifier.eSuperTypes){
             if (superType.abstract = false){
                 for (eClassifier in metamodel.eClassifiers){
                     if (eClassifier == superType){
-                        attributes = self.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles);
+                        attributes = self.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);
                     }
                }
             }                
@@ -158,6 +177,11 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
                 styles.clear();
                 styles.add(detail.value);
             }
+            if (detail.key = "label"){
+                labels.clear();
+                labels.add(detail.value);
+            }
+            
         }         
         if (eAnnotation.source.isDefined() and eAnnotationSources.size() = 0){
             eAnnotationSources.add(eAnnotation.source); 

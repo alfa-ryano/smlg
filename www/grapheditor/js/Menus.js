@@ -1034,12 +1034,12 @@ Menus.prototype.createPopupMenu = function(menu, cell, evt)
 				}
 			}
 			
-			//SMLG added by me
-			if (graph.getSelectionCount() == 1)
-			{
-				menu.addSeparator();
-				this.addMenuItems(menu, ['-', 'displayProperties'], null, evt);
-			}
+//			//SMLG added by me
+//			if (graph.getSelectionCount() == 1)
+//			{
+//				menu.addSeparator();
+//				this.addMenuItems(menu, ['-', 'displayProperties'], null, evt);
+//			}
 		}
 	}
 	else
