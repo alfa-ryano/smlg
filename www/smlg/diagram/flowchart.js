@@ -2,18 +2,21 @@
      * Adds the flowchart to the sidebar.
      */
     SMLG.editorUI.sidebar.SMLGAddFlowchartPalette = function(expand) {
+ 
         var fns = [
-                 this.SMLGCreateEdgeTemplateEntry('endArrow=classic;', 50, 50, 
-                 '', 'Transition', null, null, null, JSON.stringify([{ name: 'diagram', type: 'String', value: 'Flowchart', editable: 'false' }, { name: 'uri', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'prefix', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'package', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'diagram', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'class', type: 'String', value: 'Transition', editable: 'false' }, {'name' : ' name','type' : 'String','value' : '','editable' : 'true'},])),                                       
-  
-		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'Action', 'Action', null, null, null, JSON.stringify([{ name: 'diagram', type: 'String', value: 'Flowchart', editable: 'false' }, { name: 'uri', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'prefix', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'package', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'diagram', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'class', type: 'String', value: 'Action', editable: 'false' }, ])),
-  
-		         this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 60, 60, 
-                 'Decision', 'Decision', null, null, null, JSON.stringify([{ name: 'diagram', type: 'String', value: 'Flowchart', editable: 'false' }, { name: 'uri', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'prefix', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'package', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'diagram', type: 'String', value: 'flowchart', editable: 'false' }, { name: 'class', type: 'String', value: 'Decision', editable: 'false' }, ])),
-    ]
+            this.SMLGCreateEdgeTemplateEntry('', 50, 50, 
+                 'Transition', 'Transition', null, null, 'Transition', JSON.stringify([{ name: 'class', type: 'EString', value: 'Transition', editable: false, visible: true, compartment: false }, { name: 'name', type: 'EString', value: '', editable: true, visible: true, compartment: false }, { name: 'source', type: 'Node', value: '', editable: false, visible: true, compartment: false }, { name: 'target', type: 'Node', value: '', editable: false, visible: true, compartment: false }, { name: 'label', type: 'EString', value: 'name', editable: false, visible: true, compartment: false }, ])),
+            this.SMLGCreateVertexTemplateEntry('', 200, 200,  
+                 'Subflow', 'Subflow', null, null, 'Subflow', JSON.stringify([{ name: 'class', type: 'EString', value: 'Subflow', editable: false, visible: true, compartment: false }, { name: 'nodes', type: 'Node', value: '', editable: true, visible: true, compartment: false }, { name: 'transitions', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'name', type: 'EString', value: '', editable: true, visible: true, compartment: false }, { name: 'outgoing', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'incoming', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'label', type: 'EString', value: 'name', editable: false, visible: true, compartment: false }, ])),
+            this.SMLGCreateVertexTemplateEntry('', 200, 200,  
+                 'Action', 'Action', null, null, 'Action', JSON.stringify([{ name: 'class', type: 'EString', value: 'Action', editable: false, visible: true, compartment: false }, { name: 'name', type: 'EString', value: '', editable: true, visible: true, compartment: false }, { name: 'outgoing', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'incoming', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'label', type: 'EString', value: 'name', editable: false, visible: true, compartment: false }, ])),
+            this.SMLGCreateVertexTemplateEntry('', 200, 200,  
+                 'Decision', 'Decision', null, null, 'Decision', JSON.stringify([{ name: 'class', type: 'EString', value: 'Decision', editable: false, visible: true, compartment: false }, { name: 'name', type: 'EString', value: '', editable: true, visible: true, compartment: false }, { name: 'outgoing', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'incoming', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, { name: 'label', type: 'EString', value: 'name', editable: false, visible: true, compartment: false }, ])),
+        ]
+        this.SMLGSetDiagramContext(JSON.stringify([{ name: 'uri', type: 'EString', value: 'flowchart', editable: false, visible: true, compartment: false }, { name: 'prefix', type: 'EString', value: 'flowchart', editable: false, visible: true, compartment: false }, { name: 'package', type: 'EString', value: 'flowchart', editable: false, visible: true, compartment: false }, { name: 'diagram', type: 'EString', value: 'Flowchart', editable: false, visible: true, compartment: false }, { name: 'class', type: 'EString', value: 'Flowchart', editable: false, visible: true, compartment: false }, { name: 'nodes', type: 'Node', value: '', editable: true, visible: true, compartment: false }, { name: 'transitions', type: 'Transition', value: '', editable: true, visible: true, compartment: false }, ]));
         this.addPaletteFunctions('flowchart', 'Flowchart', (expand != null) ? expand : true, fns);
     }
     SMLG.editorUI.sidebar.SMLGAddFlowchartPalette(true);
     console.log("End of flowchart.js");
+
 

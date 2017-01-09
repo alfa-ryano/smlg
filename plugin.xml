@@ -20,4 +20,11 @@
             class="myPackage.MyPackagePackage"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated flowchart -->
+      <package
+            uri="flowchart"
+            class="flowchart.FlowchartPackage"/>
+   </extension>
+
 </plugin>

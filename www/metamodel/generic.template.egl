@@ -1,15 +1,12 @@
 [%
     var name = "SMLGAdd" + metamodel.name.firstToUpperCase() + "Palette"; 
-    var diagramName = "";
-    
-    
-    
-    
+    var contextString = "";      
 %]
     /**
      * Adds the [%=metamodel.name%] to the sidebar.
      */
     SMLG.editorUI.sidebar.[%=name%] = function(expand) {
+ 
         var fns = [
 	[% for (eClassifier in metamodel.eClassifiers){
 	   	 
@@ -32,24 +29,27 @@
            
         if (source.isDefined()){
               if (source == "gmf.diagram"){
-               diagramName = eClassifier.name;
+                contextString = "JSON.stringify([";
+                contextString += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false }, ";
+	            contextString += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false }, ";
+	            contextString += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false }, ";
+	            contextString += "{ name: 'diagram', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false }, ";
+	            contextString += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false }, ";
+
               }
         }
        
         json = "JSON.stringify([";
-        if (diagramName <> ""){
-           json += "{ name: 'diagram', type: 'EString', value: '" + diagramName + "', editable: false, visible: true, containment: false }, ";
-        }        
-        json += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, containment: false }, ";
-        json += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, containment: false }, ";
-        json += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, containment: false }, ";
-        json += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, containment: false }, ";
-        
+        json += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false }, ";
+                       
         for (attribute in attributes){
             var name := attribute.get("name");
             var eType := attribute.get("eType");
             var value := attribute.get("defaultValue");
-            var containment := attribute.get("containment");
+            var compartment := attribute.get("compartment");
+            if (compartment.isUndefined()){
+                compartment := false;
+            }
             var link := attribute.get("link"); 
             var editable := "true";
             
@@ -61,16 +61,20 @@
 	            }
             }
             
-            json += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + editable + ", visible: true, containment: " + containment + " }, ";
+            json += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + editable + ", visible: true, compartment: " + compartment + " }, ";
+            
+            if (source == "gmf.diagram"){
+                contextString += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + editable + ", visible: true, compartment: " + compartment + " }, ";
+            } 
             
             if(link = true){
                 var style := attribute.get("style");
                 
                 var linkJson = "JSON.stringify([";
-                linkJson += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, containment: false }, ";
-                linkJson += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, containment: false }, ";
-                linkJson += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, containment: false }, ";
-                linkJson += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "." + name + "', editable: false, visible: true, containment: false }, ";
+                linkJson += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false }, ";
+                linkJson += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false }, ";
+                linkJson += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false }, ";
+                linkJson += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "." + name + "', editable: false, visible: true, compartment: false }, ";
                 linkJson += "])";
                 %]
                 this.SMLGCreateEdgeTemplateEntry('[%=style%]', 50, 50, 
@@ -78,10 +82,14 @@
             [%}
         }
         if (labels.first().isDefined() and labels.first() <> ""){
-            json += "{ name: 'label', type: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, containment: false }, ";
+            json += "{ name: 'label', type: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false }, ";
         }
         json += "])";
         
+        if (source == "gmf.diagram"){
+            contextString += "])";
+        }
+                        
         "eClassifier = ".print(); eClassifier.name.println();
         "eAnnotationSource = ".print(); eAnnotationSources.println();
         "attributes = ".print(); attributes.println();
@@ -91,17 +99,19 @@
         "json = ".print(); json.println();
         "".println();
         
-        if (eAnnotationSources.first() = "gmf.node") { %]
+        if (eAnnotationSources.first() = "gmf.node" and eClassifier.abstract <> true) { %]
             this.SMLGCreateVertexTemplateEntry('[%=styles.first()%]', 200, 200,  
                  '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
-        [%} else if (eAnnotationSources.first() = "gmf.link") { %]
+        [%} else if (eAnnotationSources.first() = "gmf.link" and eClassifier.abstract <> true) { %]
             this.SMLGCreateEdgeTemplateEntry('[%=styles.first()%]', 50, 50, 
                  '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
         [% }
         
         
 	} %]
-    ]
+        ]
+        [% contextString.println(); %]
+        this.SMLGSetDiagramContext([%=contextString%]);
         this.addPaletteFunctions('[%=metamodel.name%]', '[%=metamodel.name.firstToUpperCase()%]', (expand != null) ? expand : true, fns);
     }
     SMLG.editorUI.sidebar.[%=name%](true);
@@ -123,13 +133,11 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
 
     if (not eClassifier.eSuperTypes.isEmpty()){
         for (superType in eClassifier.eSuperTypes){
-            if (superType.abstract = false){
-                for (eClassifier in metamodel.eClassifiers){
-                    if (eClassifier == superType){
-                        attributes = self.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);
-                    }
-               }
-            }                
+            for (eClassifier in metamodel.eClassifiers){
+                if (eClassifier == superType){
+                    attributes = self.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);
+                }
+            }
         }
     }
     
@@ -142,22 +150,27 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
         if (eStructuralFeature.defaultValueLiteral.isDefined()){
            map.put("defaultValue", eStructuralFeature.defaultValueLiteral);
         }
-        map.put("containment", eStructuralFeature.containment);
-        
         
         var structuralAnnotation = eStructuralFeature.eAnnotations.select(a |
             a.source="gmf.link" or
             a.source="gmf.compartment" 
             ).first();
             
-	    if (structuralAnnotation.isDefined() and structuralAnnotation.source = "gmf.link"){
-            map.put("link", true);
-	        for (detail in structuralAnnotation.details) { 
-	            details.put(detail.key, detail.value);
-                if (detail.key = "style"){
-	               map.put("style", detail.value);
-	            }
-	        }  
+	    if (structuralAnnotation.isDefined()){
+	       if(structuralAnnotation.source = "gmf.link"){
+	            map.put("link", true);
+		        for (detail in structuralAnnotation.details) { 
+		            details.put(detail.key, detail.value);
+	                if (detail.key = "style"){
+		               map.put("style", detail.value);
+		            }
+		        }  
+	       } 
+	       if (structuralAnnotation.source = "gmf.compartment"){
+	           map.put("compartment", true);
+	       }else{
+	           map.put("compartment", false);
+	       }
 	    }
 	    
 	    attributes.add(map); 
@@ -183,7 +196,8 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
             }
             
         }         
-        if (eAnnotation.source.isDefined() and eAnnotationSources.size() = 0){
+        if (eAnnotation.source.isDefined()){
+            eAnnotationSources.clear();
             eAnnotationSources.add(eAnnotation.source); 
         }    
     }

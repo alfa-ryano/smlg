@@ -35,13 +35,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Subflow" eSuperTypes="#//Flowchart #//Node"/>
   <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//Node">
-    <eAnnotations source="gmf.node">
-      <details key="figure" value="org.eclipse.epsilon.eugenia.examples.flowchart.diagram.figures.SquareFigure"/>
-    </eAnnotations>
+    <eAnnotations source="gmf.node"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Decision" eSuperTypes="#//Node">
-    <eAnnotations source="gmf.node">
-      <details key="figure" value="org.eclipse.epsilon.eugenia.examples.flowchart.diagram.figures.DiamondFigure"/>
-    </eAnnotations>
+    <eAnnotations source="gmf.node"/>
   </eClassifiers>
 </ecore:EPackage>

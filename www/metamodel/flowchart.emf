@@ -25,14 +25,12 @@ class Subflow extends Flowchart, Node{
    
 }
 
-@gmf.node(figure=
-  "org.eclipse.epsilon.eugenia.examples.flowchart.diagram.figures.SquareFigure")
+@gmf.node()
 class Action extends Node {
    
 }
 
-@gmf.node(figure=
-  "org.eclipse.epsilon.eugenia.examples.flowchart.diagram.figures.DiamondFigure")
+@gmf.node()
 class Decision extends Node {
    
 }

@@ -6,8 +6,13 @@ package tree;
 class Tree {
    
    @gmf.compartment
-   val Tree[*]#parent children;
+   val Node[*]#parent children;
  
-   ref Tree#children parent;
+   ref Node#children parent;
    attr String label = "1234";
+}
+
+@gmf.node(label="label", style="swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;")
+class Node extends Tree{
+	
 }

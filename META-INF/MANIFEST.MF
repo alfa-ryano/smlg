@@ -9,15 +9,9 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  JavaSE-1.8,
  JavaSE-1.7
-Export-Package: filesystem,
- filesystem.impl,
- filesystem.util,
- tree,
- tree.impl,
- tree.util,
- myPackage,
- myPackage.impl,
- myPackage.util
+Export-Package: flowchart,
+ flowchart.impl,
+ flowchart.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.junit

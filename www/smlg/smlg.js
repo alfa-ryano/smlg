@@ -7,11 +7,11 @@ var SMLG_DIAGRAM_TYPES = [
 	},
 	{
 		filename : "flowchart.js",
-		enabled : false
+		enabled : true
 	},
 	{
 		filename : "tree.js",
-		enabled : false
+		enabled : true
 	}
 ];
 
@@ -28,23 +28,23 @@ var SMLG = function(editorUI) {
 			var node = cell.value;
 			var keyForLabelName = "";
 			var jsonStringProperties = node.getAttribute("properties");
-			console.debug(jsonStringProperties);
 			var properties = JSON.parse(jsonStringProperties);
 
 			for (var i = 0; i < properties.length; i++) {
 				var property = properties[i];
 
-				if (property["name"] == "label" ) {
+				if (property["name"] == "label") {
 					keyForLabelName = property["value"].trim();
 					break;
 				}
 			}
-			
+
 			for (var i = 0; i < properties.length; i++) {
 				var property = properties[i];
 
 				if (property["name"] == keyForLabelName) {
 					currentValue = property["value"].trim();
+					node.setAttribute("label", (currentValue != null) ? currentValue : '');
 					break;
 				}
 			}
@@ -57,14 +57,14 @@ var SMLG = function(editorUI) {
 		if (mxUtils.isNode(cell.value)) {
 
 			var node = cell.value.cloneNode(true);
-			var keyForLabelName = "";			
+			var keyForLabelName = "";
 			var jsonStringProperties = node.getAttribute("properties");
 			var properties = JSON.parse(jsonStringProperties);
-			
+
 			for (var i = 0; i < properties.length; i++) {
 				var property = properties[i];
 
-				if (property["name"].equals("label")) {
+				if (property["name"] == "label") {
 					keyForLabelName = property["value"].trim();
 					break;
 				}
@@ -74,14 +74,27 @@ var SMLG = function(editorUI) {
 				var property = properties[i];
 				if (property["name"] == keyForLabelName) {
 					property["value"] = newValue;
+					node.setAttribute("label", (newValue != null) ? newValue : '');
 					break;
 				}
 			}
-			jsonStringProperties = JSON.stringfy(properties);
+			jsonStringProperties = JSON.stringify(properties);
 			node.setAttribute("properties", jsonStringProperties);
+			cell.value = node;
+			//graph.convertValueToString(cell);
+			//SMLG.editorUI.format.refresh();
 		}
 		cellLabelChanged.apply(this, arguments);
 	};
+
+	editorUI.sidebar.SMLGSetDiagramContext = function(properties) {
+		var graph = this.editorUi.editor.graph;
+		var cell = graph.getModel().getCell("1");
+
+		var node = mxUtils.createXmlDocument().createElement("SMLGCell");
+		cell.value = node;
+		cell.value.setAttribute("properties", properties);
+	}
 
 	/**
 	 * Creates a drop handler for inserting the given cells.
@@ -106,13 +119,12 @@ var SMLG = function(editorUI) {
 			cells[0].value = node;
 			cells[0].value.setAttribute("label", (value != null) ? value : '');
 			cells[0].value.setAttribute("properties", properties);
-			console.debug(properties);
 			var jsonProperties = JSON.parse(properties);
 			var keyForLabelName = "";
-			
+
 			for (var i = 0; i < jsonProperties.length; i++) {
 				var property = jsonProperties[i];
-				if (property["name"] == "label" ) {
+				if (property["name"] == "label") {
 					keyForLabelName = property["value"].trim();
 					break;
 				}
@@ -121,15 +133,15 @@ var SMLG = function(editorUI) {
 				var property = jsonProperties[i];
 
 				if (property["name"] == keyForLabelName) {
-					cells[0].value.setAttribute("label", property["value"].trim()); 
+					cells[0].value.setAttribute("label", property["value"].trim());
 					break;
 				}
 			}
-			
+
 			for (var i = 0; i < jsonProperties.length; i++) {
 				var property = jsonProperties[i];
-					
-				if (property.containment != null && property.containment == true) {
+
+				if (property.compartment != null && property.compartment == true) {
 
 					var innerCell = new mxCell(property.name, new mxGeometry(0, 0, height / 2, width),
 						'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
@@ -355,10 +367,48 @@ var SMLG = function(editorUI) {
 		}
 	};
 
+	//clear sidebar
+	SMLG.ClearSidebar();
 
 	//Load modelling language
 	SMLG.SMLGLoadModellingLangauges();
 }
+
+SMLG.prototype.ClearSidebar = function() {
+	var editorUI = SMLG.editorUI;
+	var sidebar = editorUI.sidebar;
+	var container = sidebar.container;
+	var children = container.children;
+
+	//reset/remote all default item categories on palette
+	for (var i = children.length - 1; i >= 0; i--) {
+		var child = children[i];
+
+		if (child == sidebar.palettes['search'][0] || child == sidebar.palettes['search'][1]) {
+			continue;
+		} else {
+			container.removeChild(child);
+		}
+	}
+
+	//reset/remote all default items on palette
+	var palettes = sidebar.palettes;
+	for (element in palettes) {
+		if (palettes.hasOwnProperty(element)) {
+			if (element != "search") {
+				delete palettes[element];
+			}
+		}
+	}
+
+	//reset/remove all items on search taglist 
+	for (element in sidebar.taglist) {
+		if (sidebar.taglist.hasOwnProperty(element)) {
+			delete sidebar.taglist[element]
+		}
+	}
+}
+SMLG.ClearSidebar = SMLG.prototype.ClearSidebar;
 
 SMLG.SMLGLoadJavascript = function(filename) {
 	// DOM: Create the script element
@@ -446,15 +496,16 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 
 		var id = input.id;
 		var jsonStringProperties = selectedCell.value.getAttribute("properties");
-		//		console.log("");
-		//		console.log("before: " + jsonStringProperties);
 		var properties = JSON.parse(jsonStringProperties);
+		var keyForLabelName = "";
+
 		for (var i = 0; i < properties.length; i++) {
 			var property = properties[i];
+
 			if (property["name"] == id) {
 				property["value"] = input.value;
+
 				jsonStringProperties = JSON.stringify(properties);
-				//				console.log("after: " + jsonStringProperties);
 				selectedCell.value.setAttribute("properties", jsonStringProperties);
 
 				var encoder = new mxCodec();
@@ -466,10 +517,29 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 				SMLG.SMLGPostModel("POST", "../ModelPost", xml, function(response) {
 					console.log("Response: " + response);
 				});
+
 				break;
 			}
 		}
 
+		for (var i = 0; i < properties.length; i++) {
+			var property = properties[i];
+
+			if (property["name"] == "label") {
+				keyForLabelName = property["value"].trim();
+				break;
+			}
+		}
+		
+		for (var i = 0; i < properties.length; i++) {
+			var property = properties[i];
+
+			if (property["name"] == keyForLabelName) {
+				var newValue = property["value"].trim();
+				graph.cellLabelChanged(selectedCell, newValue, false);
+				return;
+			}
+		}
 		mxEvent.consume(evt);
 	}
 	;
