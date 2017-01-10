@@ -7,17 +7,17 @@
     <containsShortcutsTo>flowchart</containsShortcutsTo>
     <shortcutsProvidedFor>flowchart</shortcutsProvidedFor>
     <domainDiagramElement href="flowchart.genmodel#//flowchart/Flowchart"/>
-    <topLevelNodes visualID="2001" editPartClassName="SubflowEditPart" itemSemanticEditPolicyClassName="SubflowItemSemanticEditPolicy" canonicalEditPolicyClassName="SubflowCanonicalEditPolicy" graphicalNodeEditPolicyClassName="SubflowGraphicalNodeEditPolicy" createCommandClassName="SubflowCreateCommand">
+    <topLevelNodes visualID="2007" editPartClassName="SubflowEditPart" itemSemanticEditPolicyClassName="SubflowItemSemanticEditPolicy" canonicalEditPolicyClassName="SubflowCanonicalEditPolicy" graphicalNodeEditPolicyClassName="SubflowGraphicalNodeEditPolicy" createCommandClassName="SubflowCreateCommand">
       <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="SubflowEditHelper"/>
       <viewmap xsi:type="gmfgen:InnerClassViewmap" className="SubflowFigure" classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class SubflowFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureSubflowLabelFigure; &#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public SubflowFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8)&#xA;, getMapMode().DPtoLP(8)&#xA;));&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureSubflowLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureSubflowLabelFigure.setText(&quot;Subflow&quot;);&#xA;&#xA;this.add(fFigureSubflowLabelFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureSubflowLabelFigure() {&#xA;&#x9;&#x9;return fFigureSubflowLabelFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <behaviour xsi:type="gmfgen:OpenDiagramBehaviour"/>
       <modelFacet>
         <metaClass href="flowchart.genmodel#//flowchart/Subflow"/>
-        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
-        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
+        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
+        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
       </modelFacet>
-      <labels visualID="5001" editPartClassName="SubflowNameEditPart" itemSemanticEditPolicyClassName="SubflowNameItemSemanticEditPolicy">
+      <labels visualID="5007" editPartClassName="SubflowNameEditPart" itemSemanticEditPolicyClassName="SubflowNameItemSemanticEditPolicy">
         <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getFigureSubflowLabelFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" parser="//@labelParsers/@implementations.0">
@@ -25,16 +25,16 @@
         </modelFacet>
       </labels>
     </topLevelNodes>
-    <topLevelNodes visualID="2002" editPartClassName="ActionEditPart" itemSemanticEditPolicyClassName="ActionItemSemanticEditPolicy" canonicalEditPolicyClassName="ActionCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ActionGraphicalNodeEditPolicy" createCommandClassName="ActionCreateCommand">
+    <topLevelNodes visualID="2008" editPartClassName="ActionEditPart" itemSemanticEditPolicyClassName="ActionItemSemanticEditPolicy" canonicalEditPolicyClassName="ActionCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ActionGraphicalNodeEditPolicy" createCommandClassName="ActionCreateCommand">
       <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="ActionEditHelper"/>
       <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ActionFigure" classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ActionFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureActionLabelFigure; &#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ActionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8)&#xA;, getMapMode().DPtoLP(8)&#xA;));&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureActionLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureActionLabelFigure.setText(&quot;Action&quot;);&#xA;&#xA;this.add(fFigureActionLabelFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureActionLabelFigure() {&#xA;&#x9;&#x9;return fFigureActionLabelFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet>
         <metaClass href="flowchart.genmodel#//flowchart/Action"/>
-        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
-        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
+        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
+        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
       </modelFacet>
-      <labels visualID="5002" editPartClassName="ActionNameEditPart" itemSemanticEditPolicyClassName="ActionNameItemSemanticEditPolicy">
+      <labels visualID="5008" editPartClassName="ActionNameEditPart" itemSemanticEditPolicyClassName="ActionNameItemSemanticEditPolicy">
         <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getFigureActionLabelFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" parser="//@labelParsers/@implementations.0">
@@ -42,16 +42,16 @@
         </modelFacet>
       </labels>
     </topLevelNodes>
-    <topLevelNodes visualID="2003" editPartClassName="DecisionEditPart" itemSemanticEditPolicyClassName="DecisionItemSemanticEditPolicy" canonicalEditPolicyClassName="DecisionCanonicalEditPolicy" graphicalNodeEditPolicyClassName="DecisionGraphicalNodeEditPolicy" createCommandClassName="DecisionCreateCommand">
+    <topLevelNodes visualID="2009" editPartClassName="DecisionEditPart" itemSemanticEditPolicyClassName="DecisionItemSemanticEditPolicy" canonicalEditPolicyClassName="DecisionCanonicalEditPolicy" graphicalNodeEditPolicyClassName="DecisionGraphicalNodeEditPolicy" createCommandClassName="DecisionCreateCommand">
       <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="DecisionEditHelper"/>
       <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DecisionFigure" classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DecisionFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDecisionLabelFigure; &#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DecisionFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8)&#xA;, getMapMode().DPtoLP(8)&#xA;));&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(5)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureDecisionLabelFigure = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureDecisionLabelFigure.setText(&quot;Decision&quot;);&#xA;&#xA;this.add(fFigureDecisionLabelFigure);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDecisionLabelFigure() {&#xA;&#x9;&#x9;return fFigureDecisionLabelFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet>
         <metaClass href="flowchart.genmodel#//flowchart/Decision"/>
-        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
-        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes"/>
+        <containmentMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
+        <childMetaFeature href="flowchart.genmodel#//flowchart/Flowchart/nodes2"/>
       </modelFacet>
-      <labels visualID="5003" editPartClassName="DecisionNameEditPart" itemSemanticEditPolicyClassName="DecisionNameItemSemanticEditPolicy">
+      <labels visualID="5009" editPartClassName="DecisionNameEditPart" itemSemanticEditPolicyClassName="DecisionNameItemSemanticEditPolicy">
         <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:ParentAssignedViewmap" getterName="getFigureDecisionLabelFigure" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" parser="//@labelParsers/@implementations.0">

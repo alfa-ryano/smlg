@@ -53,8 +53,11 @@ public class UtilTest {
 		
 		String path = System.getProperty("user.dir") + "\\resources\\modelFromMx.xml";
 		System.out.println(path);
-		
-		SMLGUtil.loadXML(path);
+		try{
+			SMLGUtil.loadXML(path);
+		}catch(Exception exe){
+			exe.printStackTrace();
+		}
 		File file = new File(path);
 		boolean isFileExist = false;
 		if(file.exists() && !file.isDirectory()) { 

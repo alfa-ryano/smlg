@@ -7,11 +7,11 @@ var SMLG_DIAGRAM_TYPES = [
 	},
 	{
 		filename : "flowchart.js",
-		enabled : true
+		enabled : false
 	},
 	{
 		filename : "tree.js",
-		enabled : true
+		enabled : false
 	}
 ];
 
@@ -44,7 +44,6 @@ var SMLG = function(editorUI) {
 
 				if (property["name"] == keyForLabelName) {
 					currentValue = property["value"].trim();
-					node.setAttribute("label", (currentValue != null) ? currentValue : '');
 					break;
 				}
 			}

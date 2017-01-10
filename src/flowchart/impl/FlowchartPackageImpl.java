@@ -142,7 +142,16 @@ public class FlowchartPackageImpl extends EPackageImpl implements FlowchartPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFlowchart_Nodes() {
+	public EReference getFlowchart_Nodes1() {
+		return (EReference)flowchartEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFlowchart_Nodes2() {
 		return (EReference)flowchartEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -283,8 +292,9 @@ public class FlowchartPackageImpl extends EPackageImpl implements FlowchartPacka
 
 		// Create classes and their features
 		flowchartEClass = createEClass(FLOWCHART);
-		createEReference(flowchartEClass, FLOWCHART__NODES);
+		createEReference(flowchartEClass, FLOWCHART__NODES2);
 		createEReference(flowchartEClass, FLOWCHART__TRANSITIONS);
+		createEReference(flowchartEClass, FLOWCHART__NODES1);
 
 		nodeEClass = createEClass(NODE);
 		createEAttribute(nodeEClass, NODE__NAME);
@@ -338,8 +348,9 @@ public class FlowchartPackageImpl extends EPackageImpl implements FlowchartPacka
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(flowchartEClass, Flowchart.class, "Flowchart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFlowchart_Nodes(), this.getNode(), null, "nodes", null, 0, -1, Flowchart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFlowchart_Nodes2(), this.getNode(), null, "nodes2", null, 0, -1, Flowchart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFlowchart_Transitions(), this.getTransition(), null, "transitions", null, 0, -1, Flowchart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFlowchart_Nodes1(), this.getNode(), null, "nodes1", null, 0, -1, Flowchart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNode_Name(), ecorePackage.getEString(), "name", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

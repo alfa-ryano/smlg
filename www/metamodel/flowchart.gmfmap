@@ -8,7 +8,7 @@
     xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
   <nodes>
     <containmentFeature
-        href="flowchart.ecore#//Flowchart/nodes"/>
+        href="flowchart.ecore#//Flowchart/nodes2"/>
     <ownedChild>
       <domainMetaElement
           href="flowchart.ecore#//Subflow"/>
@@ -28,7 +28,7 @@
   </nodes>
   <nodes>
     <containmentFeature
-        href="flowchart.ecore#//Flowchart/nodes"/>
+        href="flowchart.ecore#//Flowchart/nodes2"/>
     <ownedChild>
       <domainMetaElement
           href="flowchart.ecore#//Action"/>
@@ -48,7 +48,7 @@
   </nodes>
   <nodes>
     <containmentFeature
-        href="flowchart.ecore#//Flowchart/nodes"/>
+        href="flowchart.ecore#//Flowchart/nodes2"/>
     <ownedChild>
       <domainMetaElement
           href="flowchart.ecore#//Decision"/>

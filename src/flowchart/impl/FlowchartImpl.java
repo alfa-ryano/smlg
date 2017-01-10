@@ -29,22 +29,23 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link flowchart.impl.FlowchartImpl#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link flowchart.impl.FlowchartImpl#getNodes2 <em>Nodes2</em>}</li>
  *   <li>{@link flowchart.impl.FlowchartImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link flowchart.impl.FlowchartImpl#getNodes1 <em>Nodes1</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	/**
-	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+	 * The cached value of the '{@link #getNodes2() <em>Nodes2</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNodes()
+	 * @see #getNodes2()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Node> nodes;
+	protected EList<Node> nodes2;
 
 	/**
 	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
@@ -55,6 +56,16 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	 * @ordered
 	 */
 	protected EList<Transition> transitions;
+
+	/**
+	 * The cached value of the '{@link #getNodes1() <em>Nodes1</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNodes1()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Node> nodes1;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -80,11 +91,23 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Node> getNodes() {
-		if (nodes == null) {
-			nodes = new EObjectContainmentEList<Node>(Node.class, this, FlowchartPackage.FLOWCHART__NODES);
+	public EList<Node> getNodes1() {
+		if (nodes1 == null) {
+			nodes1 = new EObjectContainmentEList<Node>(Node.class, this, FlowchartPackage.FLOWCHART__NODES1);
 		}
-		return nodes;
+		return nodes1;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Node> getNodes2() {
+		if (nodes2 == null) {
+			nodes2 = new EObjectContainmentEList<Node>(Node.class, this, FlowchartPackage.FLOWCHART__NODES2);
+		}
+		return nodes2;
 	}
 
 	/**
@@ -107,10 +130,12 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case FlowchartPackage.FLOWCHART__NODES:
-				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
+			case FlowchartPackage.FLOWCHART__NODES2:
+				return ((InternalEList<?>)getNodes2()).basicRemove(otherEnd, msgs);
 			case FlowchartPackage.FLOWCHART__TRANSITIONS:
 				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
+			case FlowchartPackage.FLOWCHART__NODES1:
+				return ((InternalEList<?>)getNodes1()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -123,10 +148,12 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case FlowchartPackage.FLOWCHART__NODES:
-				return getNodes();
+			case FlowchartPackage.FLOWCHART__NODES2:
+				return getNodes2();
 			case FlowchartPackage.FLOWCHART__TRANSITIONS:
 				return getTransitions();
+			case FlowchartPackage.FLOWCHART__NODES1:
+				return getNodes1();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,13 +167,17 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case FlowchartPackage.FLOWCHART__NODES:
-				getNodes().clear();
-				getNodes().addAll((Collection<? extends Node>)newValue);
+			case FlowchartPackage.FLOWCHART__NODES2:
+				getNodes2().clear();
+				getNodes2().addAll((Collection<? extends Node>)newValue);
 				return;
 			case FlowchartPackage.FLOWCHART__TRANSITIONS:
 				getTransitions().clear();
 				getTransitions().addAll((Collection<? extends Transition>)newValue);
+				return;
+			case FlowchartPackage.FLOWCHART__NODES1:
+				getNodes1().clear();
+				getNodes1().addAll((Collection<? extends Node>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -160,11 +191,14 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case FlowchartPackage.FLOWCHART__NODES:
-				getNodes().clear();
+			case FlowchartPackage.FLOWCHART__NODES2:
+				getNodes2().clear();
 				return;
 			case FlowchartPackage.FLOWCHART__TRANSITIONS:
 				getTransitions().clear();
+				return;
+			case FlowchartPackage.FLOWCHART__NODES1:
+				getNodes1().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -178,10 +212,12 @@ public class FlowchartImpl extends EObjectImpl implements Flowchart {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case FlowchartPackage.FLOWCHART__NODES:
-				return nodes != null && !nodes.isEmpty();
+			case FlowchartPackage.FLOWCHART__NODES2:
+				return nodes2 != null && !nodes2.isEmpty();
 			case FlowchartPackage.FLOWCHART__TRANSITIONS:
 				return transitions != null && !transitions.isEmpty();
+			case FlowchartPackage.FLOWCHART__NODES1:
+				return nodes1 != null && !nodes1.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

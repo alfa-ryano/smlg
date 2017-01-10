@@ -6,8 +6,9 @@
   <foreignModel>flowchart.ecore</foreignModel>
   <genPackages prefix="Flowchart" disposableProviderFactory="true" ecorePackage="flowchart.ecore#/">
     <genClasses ecoreClass="flowchart.ecore#//Flowchart">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference flowchart.ecore#//Flowchart/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference flowchart.ecore#//Flowchart/nodes2"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference flowchart.ecore#//Flowchart/transitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference flowchart.ecore#//Flowchart/nodes1"/>
     </genClasses>
     <genClasses image="false" ecoreClass="flowchart.ecore#//Node">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute flowchart.ecore#//Node/name"/>

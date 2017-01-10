@@ -3,8 +3,9 @@ package flowchart;
 
 @gmf.diagram
 class Flowchart {
-   val Node[*] nodes;
+   val Node[*] nodes2;
    val Transition[*] transitions;
+   val Node[*] nodes1;
 }
 
 @gmf.node(label="name", label.icon="false")

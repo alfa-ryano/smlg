@@ -66,13 +66,13 @@ public interface FlowchartPackage extends EPackage {
 	int FLOWCHART = 0;
 
 	/**
-	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Nodes2</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOWCHART__NODES = 0;
+	int FLOWCHART__NODES2 = 0;
 
 	/**
 	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -84,13 +84,22 @@ public interface FlowchartPackage extends EPackage {
 	int FLOWCHART__TRANSITIONS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Nodes1</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOWCHART__NODES1 = 2;
+
+	/**
 	 * The number of structural features of the '<em>Flowchart</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOWCHART_FEATURE_COUNT = 2;
+	int FLOWCHART_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link flowchart.impl.NodeImpl <em>Node</em>}' class.
@@ -195,13 +204,13 @@ public interface FlowchartPackage extends EPackage {
 	int SUBFLOW = 3;
 
 	/**
-	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Nodes2</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBFLOW__NODES = FLOWCHART__NODES;
+	int SUBFLOW__NODES2 = FLOWCHART__NODES2;
 
 	/**
 	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
@@ -211,6 +220,15 @@ public interface FlowchartPackage extends EPackage {
 	 * @ordered
 	 */
 	int SUBFLOW__TRANSITIONS = FLOWCHART__TRANSITIONS;
+
+	/**
+	 * The feature id for the '<em><b>Nodes1</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBFLOW__NODES1 = FLOWCHART__NODES1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -352,15 +370,26 @@ public interface FlowchartPackage extends EPackage {
 	EClass getFlowchart();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link flowchart.Flowchart#getNodes <em>Nodes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link flowchart.Flowchart#getNodes1 <em>Nodes1</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Nodes</em>'.
-	 * @see flowchart.Flowchart#getNodes()
+	 * @return the meta object for the containment reference list '<em>Nodes1</em>'.
+	 * @see flowchart.Flowchart#getNodes1()
 	 * @see #getFlowchart()
 	 * @generated
 	 */
-	EReference getFlowchart_Nodes();
+	EReference getFlowchart_Nodes1();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link flowchart.Flowchart#getNodes2 <em>Nodes2</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Nodes2</em>'.
+	 * @see flowchart.Flowchart#getNodes2()
+	 * @see #getFlowchart()
+	 * @generated
+	 */
+	EReference getFlowchart_Nodes2();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link flowchart.Flowchart#getTransitions <em>Transitions</em>}'.
@@ -522,12 +551,20 @@ public interface FlowchartPackage extends EPackage {
 		EClass FLOWCHART = eINSTANCE.getFlowchart();
 
 		/**
-		 * The meta object literal for the '<em><b>Nodes</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Nodes1</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FLOWCHART__NODES = eINSTANCE.getFlowchart_Nodes();
+		EReference FLOWCHART__NODES1 = eINSTANCE.getFlowchart_Nodes1();
+
+		/**
+		 * The meta object literal for the '<em><b>Nodes2</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FLOWCHART__NODES2 = eINSTANCE.getFlowchart_Nodes2();
 
 		/**
 		 * The meta object literal for the '<em><b>Transitions</b></em>' containment reference list feature.
