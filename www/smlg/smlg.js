@@ -136,6 +136,8 @@ var SMLG = function(editorUI) {
 					break;
 				}
 			}
+			
+			
 
 			for (var i = 0; i < jsonProperties.length; i++) {
 				var property = jsonProperties[i];
@@ -147,7 +149,15 @@ var SMLG = function(editorUI) {
 					innerCell.vertex = true;
 					innerCell.value = mxUtils.createXmlDocument().createElement("SMLGCell");
 					innerCell.value.setAttribute("label", (property.name != null) ? property.name : '');
-					innerCell.value.setAttribute("properties", "[]");
+					
+					var clonedProperty = mxUtils.clone(property);
+					clonedProperty.name = "class";
+					clonedProperty.value = property.type;
+					clonedProperty.type = "EString";
+					clonedProperty.editable = false;
+					
+					var jsonString = JSON.stringify([clonedProperty]);
+					innerCell.value.setAttribute("properties", jsonString);
 					cells[0].insert(innerCell);
 				}
 			}

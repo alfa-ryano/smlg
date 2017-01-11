@@ -8,6 +8,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -42,10 +44,11 @@ public class SMLGUtil {
 	private static final String SMLG_NAME = "name";
 	private static final String SMLG_CLASS = "class";
 	private static final String SMLG_LABEL = "label";
+	private static final String SMLG_COMPARTMENT = "compartment";
 
 	Gson gson = new Gson();
 
-	private static void transformToTargetXML(Node sourceNode, Document targetDoc) throws ParserConfigurationException {
+	private static void transformToTargetXML(Node sourceNode, Document targetDoc) throws ParserConfigurationException, TransformerException {
 
 		if (sourceNode.hasChildNodes()) {
 
@@ -122,6 +125,8 @@ public class SMLGUtil {
 						targetDoc.appendChild(targetNode);
 					} else {
 
+						
+						
 						// Get Type
 						for (int j = 0; j < jsonArray.size(); j++) {
 							name = jsonArray.get(j).getAsJsonObject().get(SMLG_NAME).getAsString();
@@ -143,35 +148,60 @@ public class SMLGUtil {
 							}
 						}
 
+						if (id.equals("3")){
+							System.out.println();
+							TransformerFactory tf = TransformerFactory.newInstance();
+							Transformer transformer = tf.newTransformer();
+							transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+							// transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+							// transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+							StringWriter writer = new StringWriter();
+							transformer.transform(new DOMSource(targetDoc), new StreamResult(writer));
+							String output = writer.getBuffer().toString();// .replaceAll("\n|\r",
+																			// "");
+							System.out.println(output);
+						}
+						
 						// get parent node
 						Node parentNode = SMLGUtil.findTargetParentNode(targetDoc, parentId);
 
+						if (id.equals("3")){
+							System.out.println();
+						}
 						// parent's child with the same type
 						if (parentNode != null) {
-							for (int j = 0; j < parentNode.getChildNodes().getLength(); j++) {
-								Node childNode = parentNode.getChildNodes().item(j);
-								if (node.getNodeType() == Node.ELEMENT_NODE
-										&& childNode.getAttributes().getNamedItem("xsi:type") != null) {
-									String childNodeName = childNode.getNodeName();
-									String childNodeType = childNode.getAttributes().getNamedItem("xsi:type")
-											.getNodeValue();
-									if ((prefixName + ":" + className).equals(childNodeType)) {
-										Element element = targetDoc.createElement(childNodeName);
-										for (int k = 0; k < jsonArray.size(); k++) {
-											name = jsonArray.get(k).getAsJsonObject().get(SMLG_NAME).getAsString();
-											String value = jsonArray.get(k).getAsJsonObject().get(SMLG_VALUE).getAsString();
-											if (!name.equals(SMLG_CLASS) && !name.equals(SMLG_PACKAGE)
-													&& !name.equals(SMLG_URI) && !name.equals(SMLG_DIAGRAM)
-													&& !name.equals(SMLG_PREFIX) && !name.equals(SMLG_LABEL)) {
-													
-													element.setAttribute(name, value);
-											}
-										}
-										parentNode.appendChild(element);
-									}
-								}
-							}
+//							for (int j = 0; j < parentNode.getChildNodes().getLength(); j++) {
+//								Node childNode = parentNode.getChildNodes().item(j);
+//								if (node.getNodeType() == Node.ELEMENT_NODE
+//										&& childNode.getAttributes().getNamedItem("xsi:type") != null) {
+//									String childNodeName = childNode.getNodeName();
+//									String childNodeType = childNode.getAttributes().getNamedItem("xsi:type")
+//											.getNodeValue();
+//									if ((prefixName + ":" + className).equals(childNodeType)) {
+//										Element element = targetDoc.createElement(childNodeName);
+//										for (int k = 0; k < jsonArray.size(); k++) {
+//											name = jsonArray.get(k).getAsJsonObject().get(SMLG_NAME).getAsString();
+//											String value = jsonArray.get(k).getAsJsonObject().get(SMLG_VALUE).getAsString();
+//											String type = jsonArray.get(k).getAsJsonObject().get(SMLG_TYPE).getAsString();
+//											boolean compartment = jsonArray.get(k).getAsJsonObject().get(SMLG_COMPARTMENT).getAsBoolean();
+//											
+//											if (!name.equals(SMLG_CLASS) && !name.equals(SMLG_PACKAGE)
+//												&& !name.equals(SMLG_URI) && !name.equals(SMLG_DIAGRAM)
+//												&& !name.equals(SMLG_PREFIX) && !name.equals(SMLG_LABEL)
+//												&& compartment == false) {
+//												element.setAttribute(name, value);
+//												element.setAttribute("smlgId", id);
+//											}
+//										}
+//										parentNode.appendChild(element);
+//									}
+//								}
+//							}
+							
+							
 						}
+						
+						
 					}
 				}
 			}
@@ -179,17 +209,26 @@ public class SMLGUtil {
 
 	}
 
+//	if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
+//		String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
+//		if (targetParentId.equals(searchedParentId)) {
+//			return node;
+//		}
+//	}
 	private static Node findTargetParentNode(Node node, String searchedParentId) {
+		Node target = null;
+		if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
+			String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
+			System.out.println(node.getNodeName() + ": " + targetParentId);
+			if (targetParentId.equals(searchedParentId)) {
+				return node;
+			}
+		}
 		for (int j = 0; j < node.getChildNodes().getLength(); j++) {
-			// System.out.println(node.getNodeName());
-			if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
-				String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
-				if (targetParentId != null && targetParentId.length() > 0 && targetParentId.equals(searchedParentId)) {
-					return node;
-				}
-			} else {
-				Node childNode = node.getChildNodes().item(j);
-				return SMLGUtil.findTargetParentNode(childNode, searchedParentId);
+			Node childNode = node.getChildNodes().item(j);
+			target = SMLGUtil.findTargetParentNode(childNode, searchedParentId);
+			if (target!= null){
+				return target;
 			}
 		}
 		return null;
