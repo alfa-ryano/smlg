@@ -31,6 +31,7 @@ import com.google.gson.JsonParser;
 
 public class SMLGUtil {
 
+	private static final String SMLG_MXREFERENCE = "reference";
 	private static final String SMLG_ID = "id";
 	private static final String SMLG_PARENT = "parent";
 	private static final String SMLG_CELL = "SMLGCell";
@@ -40,186 +41,165 @@ public class SMLGUtil {
 	private static final String SMLG_PREFIX = "prefix";
 	private static final String SMLG_PACKAGE = "package";
 	private static final String SMLG_TYPE = "type";
+	private static final String SMLG_ETYPE = "eType";
 	private static final String SMLG_VALUE = "value";
 	private static final String SMLG_NAME = "name";
 	private static final String SMLG_CLASS = "class";
 	private static final String SMLG_LABEL = "label";
 	private static final String SMLG_COMPARTMENT = "compartment";
+	private static final String SMLG_MXCOMPARTMENT = "mxCompartment";
 
 	Gson gson = new Gson();
 
-	private static void transformToTargetXML(Node sourceNode, Document targetDoc) throws ParserConfigurationException, TransformerException {
+	private static void transformToTargetXML(Node sourceParentNode, Document targetDoc)
+			throws ParserConfigurationException, TransformerException {
 
-		if (sourceNode.hasChildNodes()) {
+		if (!sourceParentNode.hasChildNodes()) {
+			return;
+		}
 
-			NodeList nodes = sourceNode.getChildNodes();
+		NodeList sourceItemNodes = sourceParentNode.getChildNodes();
 
-			String name = null;
-			String className = null;
-			String uriName = null;
-			String prefixName = null;
-			String packageName = null;
-			String diagramName = null;
-			String typeName = null;
-			String parentId = null;
+		String uriName = null;
+		String prefixName = null;
+		String packageName = null;
+		String diagramName = null;
 
-			for (int i = 0; i < nodes.getLength(); i++) {
+		for (int i = 0; i < sourceItemNodes.getLength(); i++) {
+			Node sourceItemNode = sourceItemNodes.item(i);
+			if (sourceItemNode.getNodeType() != Node.ELEMENT_NODE) {
+				continue;
+			}
 
-				Node node = nodes.item(i);
+			String id = sourceItemNode.getAttributes().getNamedItem(SMLG_ID).getNodeValue();
+			if (id.equals("0")) {
+				continue;
+			}
+			// create the root first
+			if (id.equals("1")) {
 
-				if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName() == SMLG_CELL) {
+				diagramName = sourceItemNode.getNodeName();
+				prefixName = sourceItemNode.getAttributes().getNamedItem(SMLG_PREFIX).getNodeValue();
+				uriName = sourceItemNode.getAttributes().getNamedItem(SMLG_URI).getNodeValue();
+				packageName = sourceItemNode.getAttributes().getNamedItem(SMLG_PACKAGE).getNodeValue();
 
-					Node smlgCell = node;
-					String id = smlgCell.getAttributes().getNamedItem(SMLG_ID).getNodeValue();
-					String jsonAttributes = smlgCell.getAttributes().getNamedItem(SMLG_PROPERTIES).getNodeValue();
-					JsonArray jsonArray = new JsonParser().parse(jsonAttributes).getAsJsonArray();
+				Element targetNode = targetDoc.createElement(prefixName + ":" + diagramName);
+				targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xmi", "http://www.omg.org/XMI");
+				targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsi",
+						"http://www.w3.org/2001/XMLSchema-instance");
+				targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:myPrefix", uriName);
+				targetNode.setAttribute("xmi:version", "2.0");
+				targetNode.setAttribute("smlgId", id);
 
-					if (id.equals("1")) {
+				NodeList nodes = sourceItemNode.getChildNodes();
+				for (int j = 0; j < nodes.getLength(); j++) {
+					Node node = nodes.item(j);
+					if (node.getNodeType() != Node.ELEMENT_NODE) {
+						continue;
+					}
+					if (!node.getNodeName().equals("mxCell")) {
+						String name = node.getAttributes().getNamedItem("name").getNodeValue();
+						String type = node.getAttributes().getNamedItem("type").getNodeValue();
+						Element targetChildNode = targetDoc.createElement(node.getNodeName());
+						targetChildNode.setAttribute("name", name);
+						targetChildNode.setAttribute("xsi:type", type);
+						targetNode.appendChild(targetChildNode);
+					}
+				}
 
-						for (int j = 0; j < jsonArray.size(); j++) {
-							name = jsonArray.get(j).getAsJsonObject().get(SMLG_NAME).getAsString();
-							if (name.equals(SMLG_CLASS)) {
-								className = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else if (name.equals(SMLG_PACKAGE)) {
-								packageName = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else if (name.equals(SMLG_PREFIX)) {
-								prefixName = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else if (name.equals(SMLG_URI)) {
-								uriName = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else if (name.equals(SMLG_DIAGRAM)) {
-								diagramName = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else {
-								break;
-							}
+				targetDoc.appendChild(targetNode);
+			}
+			// create other elements
+			else {
+
+				// get parent id
+				String parentId = null;
+				for (int j = 0; j < sourceItemNode.getChildNodes().getLength(); j++) {
+					Node node = sourceItemNode.getChildNodes().item(j);
+					if (node.getNodeType() != Node.ELEMENT_NODE
+							|| node.getAttributes().getNamedItem(SMLG_PARENT) == null) {
+						continue;
+					}
+					parentId = node.getAttributes().getNamedItem(SMLG_PARENT).getNodeValue();
+				}
+
+				// get parent node
+				Node targetParentNode = SMLGUtil.findTargetParentNode(targetDoc, parentId);
+				if (targetParentNode == null) {
+					continue;
+				}
+
+				String targetParentId = targetParentNode.getAttributes().getNamedItem("smlgId").getNodeValue();
+				if (targetParentId.equals("1")) {
+
+					for (int j = 0; j < targetParentNode.getChildNodes().getLength(); j++) {
+						Node targetParentChildNode = targetParentNode.getChildNodes().item(j);
+						if (targetParentChildNode.getNodeType() != Node.ELEMENT_NODE
+								|| targetParentChildNode.getNodeName().equals("mxCell")) {
+							continue;
 						}
-
-						Element targetNode = targetDoc.createElement(prefixName + ":" + className);
-						targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xmi",
-								"http://www.omg.org/XMI");
-						targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsi",
-								"http://www.w3.org/2001/XMLSchema-instance");
-						targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:myPrefix", uriName);
-						targetNode.setAttribute("xmi:version", "2.0");
-						targetNode.setAttribute("smlgId", id);
-
-						// add diagram's/root's properties
-						for (int j = 0; j < jsonArray.size(); j++) {
-							name = jsonArray.get(j).getAsJsonObject().get(SMLG_NAME).getAsString();
-							if (!name.equals(SMLG_CLASS) && !name.equals(SMLG_PACKAGE) && !name.equals(SMLG_URI)
-									&& !name.equals(SMLG_DIAGRAM) && !name.equals(SMLG_PREFIX)) {
-
-								typeName = jsonArray.get(j).getAsJsonObject().get(SMLG_TYPE).getAsString();
-								Element element = targetDoc.createElement(name);
-								element.setAttribute("xsi:type", prefixName + ":" + typeName);
-								element.setAttribute("smlgId", "-1");
-								targetNode.appendChild(element);
-								continue;
-							}
+						String targetType = targetParentChildNode.getAttributes().getNamedItem("xsi:type")
+								.getNodeValue();
+						String sourceType = sourceItemNode.getNodeName();
+						if (sourceType.equals(targetType)) {
+							Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
+							targetChildElement.setAttribute("smlgId", id);
+							targetParentChildNode.appendChild(targetChildElement);
+							continue;
 						}
+					}
+					continue;
+				}
+				Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
+				targetChildElement.setAttribute("smlgId", id);
+				targetParentNode.appendChild(targetChildElement);
+			}
+			// ---------------------------------------
 
-						targetDoc.appendChild(targetNode);
-					} else {
+		}
 
+		SMLGUtil.removeGSMNode(targetDoc, targetDoc);
+	}
+
+	private static void removeGSMNode(Node rootNode, Node sourceNode) {	
+			//for (int j = 0; j < sourceNode.getChildNodes().getLength(); j++) {
+			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
+				Node iNode = sourceNode.getChildNodes().item(j);
+				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+					String id = "";
+					if (iNode.getAttributes().getNamedItem("smlgId") != null) {
+						id = iNode.getAttributes().getNamedItem("smlgId").getNodeValue();
+						System.out.println(id);
+					}else{
+						System.out.println("");
+					}
+					if (iNode.getNodeName().equals("GSMRootContainer") || iNode.getNodeName().equals("GSMContainer")) {
+						System.out.println("(" + iNode.getNodeName() + ": " + id + ") This is a Container");
 						
+						Node parentNode = iNode.getParentNode();
+						parentNode.removeChild(iNode);
 						
-						// Get Type
-						for (int j = 0; j < jsonArray.size(); j++) {
-							name = jsonArray.get(j).getAsJsonObject().get(SMLG_NAME).getAsString();
-							if (name.equals(SMLG_CLASS)) {
-								className = jsonArray.get(j).getAsJsonObject().get(SMLG_VALUE).getAsString();
-								continue;
-							} else if (name.equals(SMLG_TYPE)) {
-								typeName = jsonArray.get(j).getAsJsonObject().get(SMLG_TYPE).getAsString();
-								continue;
-							}
+						for (int k = iNode.getChildNodes().getLength() - 1; k >= 0; k--){
+							Node childNode = iNode.getChildNodes().item(k);
+							parentNode.appendChild(childNode);
 						}
-
-						// Get parent Id
-						for (int j = 0; j < smlgCell.getChildNodes().getLength(); j++) {
-							Node mxCell = smlgCell.getChildNodes().item(j);
-							if (mxCell.getNodeType() == Node.ELEMENT_NODE
-									&& mxCell.getAttributes().getNamedItem(SMLG_PARENT) != null) {
-								parentId = mxCell.getAttributes().getNamedItem(SMLG_PARENT).getNodeValue();
-							}
-						}
-
-						if (id.equals("3")){
-							System.out.println();
-							TransformerFactory tf = TransformerFactory.newInstance();
-							Transformer transformer = tf.newTransformer();
-							transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-							// transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
-							// transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-							StringWriter writer = new StringWriter();
-							transformer.transform(new DOMSource(targetDoc), new StreamResult(writer));
-							String output = writer.getBuffer().toString();// .replaceAll("\n|\r",
-																			// "");
-							System.out.println(output);
-						}
-						
-						// get parent node
-						Node parentNode = SMLGUtil.findTargetParentNode(targetDoc, parentId);
-
-						if (id.equals("3")){
-							System.out.println();
-						}
-						// parent's child with the same type
-						if (parentNode != null) {
-//							for (int j = 0; j < parentNode.getChildNodes().getLength(); j++) {
-//								Node childNode = parentNode.getChildNodes().item(j);
-//								if (node.getNodeType() == Node.ELEMENT_NODE
-//										&& childNode.getAttributes().getNamedItem("xsi:type") != null) {
-//									String childNodeName = childNode.getNodeName();
-//									String childNodeType = childNode.getAttributes().getNamedItem("xsi:type")
-//											.getNodeValue();
-//									if ((prefixName + ":" + className).equals(childNodeType)) {
-//										Element element = targetDoc.createElement(childNodeName);
-//										for (int k = 0; k < jsonArray.size(); k++) {
-//											name = jsonArray.get(k).getAsJsonObject().get(SMLG_NAME).getAsString();
-//											String value = jsonArray.get(k).getAsJsonObject().get(SMLG_VALUE).getAsString();
-//											String type = jsonArray.get(k).getAsJsonObject().get(SMLG_TYPE).getAsString();
-//											boolean compartment = jsonArray.get(k).getAsJsonObject().get(SMLG_COMPARTMENT).getAsBoolean();
-//											
-//											if (!name.equals(SMLG_CLASS) && !name.equals(SMLG_PACKAGE)
-//												&& !name.equals(SMLG_URI) && !name.equals(SMLG_DIAGRAM)
-//												&& !name.equals(SMLG_PREFIX) && !name.equals(SMLG_LABEL)
-//												&& compartment == false) {
-//												element.setAttribute(name, value);
-//												element.setAttribute("smlgId", id);
-//											}
-//										}
-//										parentNode.appendChild(element);
-//									}
-//								}
-//							}
-							
-							
-						}
-						
-						
 					}
 				}
 			}
-		}
-
+			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
+				Node iNode = sourceNode.getChildNodes().item(j);
+				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+					removeGSMNode(rootNode, iNode);
+				}
+				
+			}
 	}
 
-//	if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
-//		String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
-//		if (targetParentId.equals(searchedParentId)) {
-//			return node;
-//		}
-//	}
 	private static Node findTargetParentNode(Node node, String searchedParentId) {
 		Node target = null;
 		if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
 			String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
-			System.out.println(node.getNodeName() + ": " + targetParentId);
+			// System.out.println(node.getNodeName() + ": " + targetParentId);
 			if (targetParentId.equals(searchedParentId)) {
 				return node;
 			}
@@ -227,7 +207,7 @@ public class SMLGUtil {
 		for (int j = 0; j < node.getChildNodes().getLength(); j++) {
 			Node childNode = node.getChildNodes().item(j);
 			target = SMLGUtil.findTargetParentNode(childNode, searchedParentId);
-			if (target!= null){
+			if (target != null) {
 				return target;
 			}
 		}
@@ -269,11 +249,14 @@ public class SMLGUtil {
 
 		TransformerFactory tf = TransformerFactory.newInstance();
 		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		// transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
 		// transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		StringWriter writer = new StringWriter();
-		transformer.transform(new DOMSource(targetDoc), new StreamResult(writer));
+		StreamResult streamResult = new StreamResult(writer);
+		transformer.transform(new DOMSource(targetDoc), streamResult);
 		String output = writer.getBuffer().toString();// .replaceAll("\n|\r",
 														// "");
 		System.out.println(output);

@@ -30,20 +30,22 @@
         if (source.isDefined()){
               if (source == "gmf.diagram"){
                 contextString = "JSON.stringify([";
-                contextString += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-	            contextString += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-	            contextString += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-	            contextString += "{ name: 'diagram', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-	            contextString += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-
+                contextString += "{ name: 'uri', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'prefix', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'package', type: 'EAttribute', eType: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'diagram', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                contextString += "{ properties: [ ";
               }
         }
        
         json = "JSON.stringify([";
-        json += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+        json += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+        json += "{ properties: [ ";
                        
         for (attribute in attributes){
             var name := attribute.get("name");
+            var type := attribute.get("type");
             var eType := attribute.get("eType");
             var value := attribute.get("defaultValue");
             var compartment := attribute.get("compartment");
@@ -66,12 +68,12 @@
 	            }
             }
             
-            json += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + editable + 
+            json += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + editable + 
                         ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
                         ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
             
             if (source == "gmf.diagram"){
-                contextString += "{ name: '" + name + "', type: '" + eType + "', value: '" + value + "', editable: " + 
+                contextString += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + 
                     editable + ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
                     ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
             } 
@@ -80,10 +82,17 @@
                 var style := attribute.get("style");
                 
                 var linkJson = "JSON.stringify([";
-                linkJson += "{ name: 'uri', type: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-                linkJson += "{ name: 'prefix', type: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-                linkJson += "{ name: 'package', type: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-                linkJson += "{ name: 'class', type: 'EString', value: '" + eClassifier.name + "." + name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                //linkJson += "{ name: 'uri', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                //linkJson += "{ name: 'prefix', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                //linkJson += "{ name: 'package', type: 'EAttribute', eType: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + name.firstToUpperCase() + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ properties: [ ";
+                linkJson += "{ name: 'source', type: 'EReference', eType: '" + eClassifier.name + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ name: 'target', type: 'EReference', eType: '" + eType + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ name: 'reference', type: '" + type + "', eType: '" + eType + "', value: '" + name + "', editable: " + editable + 
+                        ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
+                        ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
+                linkJson += "]}, "; 
                 linkJson += "])";
                 %]
                 this.SMLGCreateEdgeTemplateEntry('[%=style%]', 50, 50, 
@@ -91,11 +100,14 @@
             [%}
         }
         if (labels.first().isDefined() and labels.first() <> ""){
-            json += "{ name: 'label', type: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+            json += "{ name: 'label', type: 'EAttribute', eType: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
         }
+        
+        json += "]}, ";
         json += "])";
         
         if (source == "gmf.diagram"){
+            contextString += "]}, ";
             contextString += "])";
         }
                         
