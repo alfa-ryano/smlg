@@ -143,6 +143,10 @@ public class SMLGUtil {
 						String sourceType = sourceItemNode.getNodeName();
 						if (sourceType.equals(targetType)) {
 							Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
+							for (int k = 0; k < sourceItemNode.getAttributes().getLength();k++){
+								targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(), sourceItemNode.getAttributes().item(k).getNodeValue());
+							}
+							targetChildElement.setAttribute("xsi:type", "");
 							targetChildElement.setAttribute("smlgId", id);
 							targetParentChildNode.appendChild(targetChildElement);
 							continue;
@@ -151,6 +155,10 @@ public class SMLGUtil {
 					continue;
 				}
 				Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
+				for (int k = 0; k < sourceItemNode.getAttributes().getLength();k++){
+					targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(), sourceItemNode.getAttributes().item(k).getNodeValue());
+				}
+				targetChildElement.setAttribute("xsi:type", "");
 				targetChildElement.setAttribute("smlgId", id);
 				targetParentNode.appendChild(targetChildElement);
 			}
@@ -158,30 +166,36 @@ public class SMLGUtil {
 
 		}
 
-		SMLGUtil.removeGSMNode(targetDoc, targetDoc);
+		SMLGUtil.removeGSMNode(prefixName, targetDoc, targetDoc);
 	}
 
-	private static void removeGSMNode(Node rootNode, Node sourceNode) {	
+	private static void removeGSMNode(String prefixName, Document targetDoc, Node sourceNode) {	
 			//for (int j = 0; j < sourceNode.getChildNodes().getLength(); j++) {
 			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
 				Node iNode = sourceNode.getChildNodes().item(j);
 				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
 					String id = "";
-					if (iNode.getAttributes().getNamedItem("smlgId") != null) {
-						id = iNode.getAttributes().getNamedItem("smlgId").getNodeValue();
-						System.out.println(id);
-					}else{
-						System.out.println("");
-					}
+//					if (iNode.getAttributes().getNamedItem("smlgId") != null) {
+//						id = iNode.getAttributes().getNamedItem("smlgId").getNodeValue();
+//						System.out.println(id);					
+//					}else{
+//						System.out.println("");
+//					}
 					if (iNode.getNodeName().equals("GSMRootContainer") || iNode.getNodeName().equals("GSMContainer")) {
-						System.out.println("(" + iNode.getNodeName() + ": " + id + ") This is a Container");
+						//System.out.println("(" + iNode.getNodeName() + ": " + id + ") This is a Container");
 						
 						Node parentNode = iNode.getParentNode();
 						parentNode.removeChild(iNode);
+						String newName = iNode.getAttributes().getNamedItem("name").getNodeValue();
 						
 						for (int k = iNode.getChildNodes().getLength() - 1; k >= 0; k--){
 							Node childNode = iNode.getChildNodes().item(k);
+							String oldName = childNode.getNodeName();
+							childNode.getAttributes().getNamedItem("xsi:type").setNodeValue(prefixName+ ":" + oldName);
+							childNode.getAttributes().removeNamedItem("smlgId");
+							childNode.getAttributes().removeNamedItem("id");
 							parentNode.appendChild(childNode);
+							targetDoc.renameNode(childNode, null, newName);
 						}
 					}
 				}
@@ -189,7 +203,7 @@ public class SMLGUtil {
 			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
 				Node iNode = sourceNode.getChildNodes().item(j);
 				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
-					removeGSMNode(rootNode, iNode);
+					removeGSMNode(prefixName, targetDoc, iNode);
 				}
 				
 			}
