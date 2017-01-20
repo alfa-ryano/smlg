@@ -2,32 +2,25 @@ package uk.ac.york.cs.es.smlg;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.TypeInfo;
-import org.w3c.dom.UserDataHandler;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 public class SMLGUtil {
 
@@ -60,6 +53,7 @@ public class SMLGUtil {
 
 		NodeList sourceItemNodes = sourceParentNode.getChildNodes();
 
+		ArrayList<Node> edgeNodes = new ArrayList<>();
 		String uriName = null;
 		String prefixName = null;
 		String packageName = null;
@@ -89,7 +83,8 @@ public class SMLGUtil {
 						"http://www.w3.org/2001/XMLSchema-instance");
 				targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:myPrefix", uriName);
 				targetNode.setAttribute("xmi:version", "2.0");
-				targetNode.setAttribute("smlgId", id);
+				targetNode.setAttribute("gsmId", id);
+				targetNode.setAttribute("gsmNumber", "-1");
 
 				NodeList nodes = sourceItemNode.getChildNodes();
 				for (int j = 0; j < nodes.getLength(); j++) {
@@ -103,6 +98,9 @@ public class SMLGUtil {
 						Element targetChildNode = targetDoc.createElement(node.getNodeName());
 						targetChildNode.setAttribute("name", name);
 						targetChildNode.setAttribute("xsi:type", type);
+						targetChildNode.setAttribute("parentId", id);
+						targetChildNode.setAttribute("gsmNumber", "");
+
 						targetNode.appendChild(targetChildNode);
 					}
 				}
@@ -112,8 +110,11 @@ public class SMLGUtil {
 			// create other elements
 			else {
 
-				// get parent id
+				// get parent id, cell type (edge or vertex), source, and target
 				String parentId = null;
+				String isEdge = "false";
+				String source = null;
+				String target = null;
 				for (int j = 0; j < sourceItemNode.getChildNodes().getLength(); j++) {
 					Node node = sourceItemNode.getChildNodes().item(j);
 					if (node.getNodeType() != Node.ELEMENT_NODE
@@ -121,15 +122,23 @@ public class SMLGUtil {
 						continue;
 					}
 					parentId = node.getAttributes().getNamedItem(SMLG_PARENT).getNodeValue();
+					if (node.getAttributes().getNamedItem("edge") != null
+							&& node.getAttributes().getNamedItem("edge").getNodeValue().equals("1")) {
+						isEdge = "true";
+						source = node.getAttributes().getNamedItem("source").getNodeValue();
+						target = node.getAttributes().getNamedItem("target").getNodeValue();
+					} else {
+						isEdge = "false";
+					}
 				}
 
 				// get parent node
-				Node targetParentNode = SMLGUtil.findTargetParentNode(targetDoc, parentId);
+				Node targetParentNode = SMLGUtil.findNode(targetDoc, parentId);
 				if (targetParentNode == null) {
 					continue;
 				}
 
-				String targetParentId = targetParentNode.getAttributes().getNamedItem("smlgId").getNodeValue();
+				String targetParentId = targetParentNode.getAttributes().getNamedItem("gsmId").getNodeValue();
 				if (targetParentId.equals("1")) {
 
 					for (int j = 0; j < targetParentNode.getChildNodes().getLength(); j++) {
@@ -143,11 +152,17 @@ public class SMLGUtil {
 						String sourceType = sourceItemNode.getNodeName();
 						if (sourceType.equals(targetType)) {
 							Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
-							for (int k = 0; k < sourceItemNode.getAttributes().getLength();k++){
-								targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(), sourceItemNode.getAttributes().item(k).getNodeValue());
+							for (int k = 0; k < sourceItemNode.getAttributes().getLength(); k++) {
+								targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(),
+										sourceItemNode.getAttributes().item(k).getNodeValue());
 							}
 							targetChildElement.setAttribute("xsi:type", "");
-							targetChildElement.setAttribute("smlgId", id);
+							targetChildElement.setAttribute("gsmId", id);
+							targetChildElement.setAttribute("gsmParentId", parentId);
+							targetChildElement.setAttribute("gsmIsEdge", isEdge);
+							targetChildElement.setAttribute("gsmSource", source);
+							targetChildElement.setAttribute("gsmTarget", target);
+							targetChildElement.setAttribute("gsmNumber", "");
 							targetParentChildNode.appendChild(targetChildElement);
 							continue;
 						}
@@ -155,72 +170,158 @@ public class SMLGUtil {
 					continue;
 				}
 				Element targetChildElement = targetDoc.createElement(sourceItemNode.getNodeName());
-				for (int k = 0; k < sourceItemNode.getAttributes().getLength();k++){
-					targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(), sourceItemNode.getAttributes().item(k).getNodeValue());
+				for (int k = 0; k < sourceItemNode.getAttributes().getLength(); k++) {
+					targetChildElement.setAttribute(sourceItemNode.getAttributes().item(k).getNodeName(),
+							sourceItemNode.getAttributes().item(k).getNodeValue());
 				}
 				targetChildElement.setAttribute("xsi:type", "");
-				targetChildElement.setAttribute("smlgId", id);
+				targetChildElement.setAttribute("gsmId", id);
+				targetChildElement.setAttribute("gsmParentId", parentId);
+				targetChildElement.setAttribute("gsmIsEdge", isEdge);
+				targetChildElement.setAttribute("gsmSource", source);
+				targetChildElement.setAttribute("gsmTarget", target);
+				targetChildElement.setAttribute("gsmNumber", "");
 				targetParentNode.appendChild(targetChildElement);
 			}
 			// ---------------------------------------
 
 		}
 
-		SMLGUtil.removeGSMNode(prefixName, targetDoc, targetDoc);
+		SMLGUtil.removeGSMNode(prefixName, targetDoc, targetDoc, edgeNodes);
+		SMLGUtil.handleEdges(edgeNodes, targetDoc);
+		SMLGUtil.cleanDocumentFromTemporaryTags(targetDoc);
 	}
 
-	private static void removeGSMNode(String prefixName, Document targetDoc, Node sourceNode) {	
-			//for (int j = 0; j < sourceNode.getChildNodes().getLength(); j++) {
-			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
-				Node iNode = sourceNode.getChildNodes().item(j);
-				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
-					String id = "";
-//					if (iNode.getAttributes().getNamedItem("smlgId") != null) {
-//						id = iNode.getAttributes().getNamedItem("smlgId").getNodeValue();
-//						System.out.println(id);					
-//					}else{
-//						System.out.println("");
-//					}
-					if (iNode.getNodeName().equals("GSMRootContainer") || iNode.getNodeName().equals("GSMContainer")) {
-						//System.out.println("(" + iNode.getNodeName() + ": " + id + ") This is a Container");
-						
-						Node parentNode = iNode.getParentNode();
-						parentNode.removeChild(iNode);
-						String newName = iNode.getAttributes().getNamedItem("name").getNodeValue();
-						
-						for (int k = iNode.getChildNodes().getLength() - 1; k >= 0; k--){
-							Node childNode = iNode.getChildNodes().item(k);
-							String oldName = childNode.getNodeName();
-							childNode.getAttributes().getNamedItem("xsi:type").setNodeValue(prefixName+ ":" + oldName);
-							childNode.getAttributes().removeNamedItem("smlgId");
-							childNode.getAttributes().removeNamedItem("id");
-							parentNode.appendChild(childNode);
-							targetDoc.renameNode(childNode, null, newName);
-						}
+	private static void cleanDocumentFromTemporaryTags(Node sourceNode) {
+		for (int j = sourceNode.getChildNodes().getLength() - 1; j >= 0; j--) {
+			Node iNode = sourceNode.getChildNodes().item(j);
+			if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+				NamedNodeMap attributes = iNode.getAttributes();
+				if (attributes.getNamedItem("id") != null) {
+					attributes.removeNamedItem("id");
+				}
+				if (attributes.getNamedItem("label") != null) {
+					attributes.removeNamedItem("label");
+				}
+				for (int k = attributes.getLength() - 1; k >= 0; k--) {
+					Node attribute = attributes.item(k);
+					if (attribute.getNodeName().length() >= 3
+							&& attribute.getNodeName().substring(0, 3).toLowerCase().equals("gsm")) {
+						String name = attribute.getNodeName().toString();
+						attributes.removeNamedItem(name);
 					}
 				}
 			}
-			for (int j = sourceNode.getChildNodes().getLength() -1; j >= 0; j--){
-				Node iNode = sourceNode.getChildNodes().item(j);
-				if (iNode.getNodeType() == Node.ELEMENT_NODE) {
-					removeGSMNode(prefixName, targetDoc, iNode);
-				}
-				
+		}
+		for (int j = sourceNode.getChildNodes().getLength() - 1; j >= 0; j--) {
+			Node iNode = sourceNode.getChildNodes().item(j);
+			if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+				cleanDocumentFromTemporaryTags(iNode);
 			}
+		}
 	}
 
-	private static Node findTargetParentNode(Node node, String searchedParentId) {
+	private static void removeGSMNode(String prefixName, Document targetDoc, Node sourceNode,
+			ArrayList<Node> edgeNodes) {
+		for (int j = sourceNode.getChildNodes().getLength() - 1; j >= 0; j--) {
+			Node iNode = sourceNode.getChildNodes().item(j);
+			if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+				String id = "";
+				if (iNode.getNodeName().equals("GSMRootContainer") || iNode.getNodeName().equals("GSMContainer")) {
+					Node parentNode = iNode.getParentNode();
+					parentNode.removeChild(iNode);
+					String newName = iNode.getAttributes().getNamedItem("name").getNodeValue();
+
+					Integer number = 0;
+					for (int k = iNode.getChildNodes().getLength() - 1; k >= 0; k--) {
+						Node childNode = iNode.getChildNodes().item(k);
+
+						if (childNode.getAttributes().getNamedItem("gsmIsEdge").getNodeValue().equals("true")) {
+							edgeNodes.add(childNode);
+							if (childNode.getAttributes().getNamedItem("gsmReference") != null) {
+								continue;
+							}
+						}
+
+						String oldName = childNode.getNodeName();
+						childNode.getAttributes().getNamedItem("xsi:type").setNodeValue(prefixName + ":" + oldName);
+						childNode.getAttributes().getNamedItem("gsmNumber").setNodeValue(number.toString());
+
+						// childNode.getAttributes().removeNamedItem("gsmId");
+						// childNode.getAttributes().removeNamedItem("id");
+						parentNode.appendChild(childNode);
+						targetDoc.renameNode(childNode, null, newName);
+
+						number += 1;
+					}
+				}
+			}
+		}
+		for (int j = sourceNode.getChildNodes().getLength() - 1; j >= 0; j--) {
+			Node iNode = sourceNode.getChildNodes().item(j);
+			if (iNode.getNodeType() == Node.ELEMENT_NODE) {
+				removeGSMNode(prefixName, targetDoc, iNode, edgeNodes);
+			}
+		}
+	}
+
+	private static String getNodePath(Node iNode) {
+		Node parentNode = iNode;
+		String path = "";
+		while (parentNode != null && parentNode.getAttributes() != null
+				&& !parentNode.getAttributes().getNamedItem("gsmNumber").getNodeValue().equals("-1")) {
+			String gsmNumber = parentNode.getAttributes().getNamedItem("gsmNumber").getNodeValue();
+			String nodeName = parentNode.getNodeName();
+			path = "/@" + nodeName + "." + gsmNumber + path;
+			parentNode = parentNode.getParentNode();
+		}
+		path = "/" + path;
+		if (path.equals("/"))
+			path = "";
+		return path;
+	}
+
+	private static void handleEdges(ArrayList<Node> edgeNodes, Node docNode) {
+
+		for (Node edgeNode : edgeNodes) {
+			String source = edgeNode.getAttributes().getNamedItem("gsmSource").getNodeValue();
+			String target = edgeNode.getAttributes().getNamedItem("gsmTarget").getNodeValue();
+			String gsmReference = null;
+			if (edgeNode.getAttributes().getNamedItem("gsmReference") != null) {
+				gsmReference = edgeNode.getAttributes().getNamedItem("gsmReference").getNodeValue();
+			}
+			Node sourceNode = findNode(docNode, source);
+			Node targetNode = findNode(docNode, target);
+
+			String sourcePath = "";
+			if (sourceNode != null) {
+				sourcePath = getNodePath(sourceNode);
+				edgeNode.getAttributes().getNamedItem("gsmSource").setNodeValue(sourcePath);
+			}
+			String targetPath = "";
+			if (targetNode != null) {
+				targetPath = getNodePath(targetNode);
+				edgeNode.getAttributes().getNamedItem("gsmTarget").setNodeValue(targetPath);
+			}
+			if (gsmReference != null) {
+				for (int k = 0; k < sourceNode.getAttributes().getLength(); k++) {
+					sourceNode.getAttributes().getNamedItem(gsmReference).setNodeValue(targetPath);
+				}
+			}
+		}
+	}
+
+	private static Node findNode(Node node, String searchedParentId) {
 		Node target = null;
-		if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("smlgId") != null) {
-			String targetParentId = node.getAttributes().getNamedItem("smlgId").getNodeValue();
-			// System.out.println(node.getNodeName() + ": " + targetParentId);
+		if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("gsmId") != null) {
+			String targetParentId = node.getAttributes().getNamedItem("gsmId").getNodeValue();
 			if (targetParentId.equals(searchedParentId)) {
 				return node;
 			}
 		}
 		for (int j = 0; j < node.getChildNodes().getLength(); j++) {
 			Node childNode = node.getChildNodes().item(j);
-			target = SMLGUtil.findTargetParentNode(childNode, searchedParentId);
+			target = SMLGUtil.findNode(childNode, searchedParentId);
 			if (target != null) {
 				return target;
 			}

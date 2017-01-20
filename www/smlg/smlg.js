@@ -28,28 +28,10 @@ var SMLG = function (editorUI) {
     graph.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             var currentValue = convertValueToString.apply(this, arguments);
-            // var node = cell.value;
-            // var keyForLabelName = "";
-            // var jsonStringProperties = node.getAttribute("properties");
-            // var properties = JSON.parse(jsonStringProperties);
-            //
-            // for (var i = 0; i < properties.length; i++) {
-            //     var property = properties[i];
-            //
-            //     if (property["name"] == "label") {
-            //         keyForLabelName = property["value"].trim();
-            //         break;
-            //     }
-            // }
-            //
-            // for (var i = 0; i < properties.length; i++) {
-            //     var property = properties[i];
-            //
-            //     if (property["name"] == keyForLabelName) {
-            //         currentValue = property["value"].trim();
-            //         break;
-            //     }
-            // }
+            var node = cell.value;
+            var keyForLabelName = "";           
+            var gsmLabel = node.getAttribute("gsmLabel");
+            var currentValue = (mxLabel == null)? currentValue : node.getAttribute(gsmLabel);           
             return currentValue;
         }
     };
@@ -57,35 +39,11 @@ var SMLG = function (editorUI) {
     var cellLabelChanged = graph.cellLabelChanged;
     graph.cellLabelChanged = function (cell, newValue, autoSize) {
         if (mxUtils.isNode(cell.value)) {
-
-            // var node = cell.value.cloneNode(true);
-            // var keyForLabelName = "";
-            // var jsonStringProperties = node.getAttribute("properties");
-            // var properties = JSON.parse(jsonStringProperties);
-            //
-            // for (var i = 0; i < properties.length; i++) {
-            //     var property = properties[i];
-            //
-            //     if (property["name"] == "label") {
-            //         keyForLabelName = property["value"].trim();
-            //         break;
-            //     }
-            // }
-            //
-            // for (var i = 0; i < properties.length; i++) {
-            //     var property = properties[i];
-            //     if (property["name"] == keyForLabelName) {
-            //         property["value"] = newValue;
-            //         node.setAttribute("label", (newValue != null) ? newValue : '');
-            //         break;
-            //     }
-            // }
-            // jsonStringProperties = JSON.stringify(properties);
-            // node.setAttribute("properties", jsonStringProperties);
-            // cell.value = node;
-
-            //graph.convertValueToString(cell);
-            //SMLG.editorUI.format.refresh();
+             var node = cell.value.cloneNode(true);             
+             var gsmLabel = node.getAttribute("gsmLabel");
+             node.setAttribute(gsmLabel, newValue);
+             node.setAttribute("label", (newValue != null) ? newValue : '');
+             cell.value = node;
         }
         cellLabelChanged.apply(this, arguments);
     };
@@ -132,10 +90,6 @@ var SMLG = function (editorUI) {
             node.setAttribute("prefix", prefix);
             node.setAttribute("uri", uri);
             node.setAttribute("package", myPackage);
-//            node.setAttribute("xmi:version", "2.0");
-//            node.setAttribute("xmlns:xmi", "http://www.omg.org/XMI");
-//            node.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-//            node.setAttribute("xmlns:" + prefix, uri);
 
             if (properties != null && properties.length > 0) {
 
@@ -181,7 +135,7 @@ var SMLG = function (editorUI) {
 
         if (jsonStringPoperties != null) {
 
-            var keyForLabelName = "";
+            var gsmLabel = null;
             var className = null;
             var properties = null;
 
@@ -191,7 +145,10 @@ var SMLG = function (editorUI) {
                 if (item["name"] == "class") {
                     className = item["value"];
                     continue;
-                } else if (item["properties"] != null && item["properties"].length > 0) {
+                }else if (item["name"] == "gsmLabel") {
+                	gsmLabel = item["value"];
+                    continue;
+                }else if (item["properties"] != null && item["properties"].length > 0) {
                     properties = item["properties"];
                     continue;
                 }
@@ -225,85 +182,6 @@ var SMLG = function (editorUI) {
                 }
                 cells[0].value = node;
             }
-
-            //cells[0].value.setAttribute("properties", jsonStringPoperties);
-            //
-            // for (var i = 0; i < jsonProperties.length; i++) {
-            //     var jsonProperty = jsonProperties[i];
-            //     if (jsonProperty["name"] == "label") {
-            //         keyForLabelName = jsonProperty["value"].trim();
-            //         break;
-            //     }
-            // }
-            // for (var i = 0; i < jsonProperties.length; i++) {
-            //     var jsonProperty = jsonProperties[i];
-            //
-            //     if (jsonProperty["name"] == keyForLabelName) {
-            //         cells[0].value.setAttribute("label", jsonProperty["value"].trim());
-            //         break;
-            //     }
-            // }
-            //
-            // for (var i = 0; i < jsonProperties.length; i++) {
-            //     var jsonProperty = jsonProperties[i];
-            //
-            //     if (jsonProperty["properties"] != null && jsonProperty["properties"].length > 0) {
-            //         properties = jsonProperty["properties"];
-            //         break;
-            //     }
-            // }
-            //
-            //
-            // for (var i = 0; i < properties.length; i++) {
-            //     var property = properties[i];
-            //
-            //     if (property.compartment != null && property.compartment == true) {
-            //
-            //         var innerCell = new mxCell(property.name, new mxGeometry(0, 0, height / 2, width),
-            //             'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
-            //         innerCell.vertex = true;
-            //         innerCell.value = mxUtils.createXmlDocument().createElement("SMLGCell");
-            //         innerCell.value.setAttribute("label", (property.name != null) ? property.name : '');
-            //
-            //         var refParentProperty = mxUtils.clone(property);
-            //         refParentProperty.name = "reference";
-            //         refParentProperty.value = property.name;
-            //         refParentProperty.type = "EAttribute";
-            //         refParentProperty.eType = "EString";
-            //         refParentProperty.visible = true;
-            //         refParentProperty.editable = false;
-            //         refParentProperty.defaultValue = "";
-            //         refParentProperty.compartment = false;
-            //         refParentProperty.upperBound = 1;
-            //         refParentProperty.lowerBound = 0;
-            //         refParentProperty.eOpposite = "";
-            //
-            //         var classProperty = mxUtils.clone(refParentProperty);
-            //         classProperty.name = "class";
-            //         classProperty.value = property.eType;
-            //         classProperty.type = "EAttribute";
-            //         classProperty.eType = "EString";
-            //
-            //         var nameProperty = mxUtils.clone(classProperty);
-            //         nameProperty.name = "name";
-            //         nameProperty.value = property.name;
-            //         nameProperty.visible = true;
-            //
-            //         var labelProperty = mxUtils.clone(nameProperty);
-            //         labelProperty.name = "label";
-            //         labelProperty.value = "name";
-            //
-            //         var mxCompartmentProperty = mxUtils.clone(labelProperty);
-            //         mxCompartmentProperty.name = "mxCompartment";
-            //         mxCompartmentProperty.value = true;
-            //
-            //         var jsonString = JSON.stringify([refParentProperty, classProperty, nameProperty, labelProperty, mxCompartmentProperty]);
-            //         innerCell.value.setAttribute("properties", jsonString);
-            //         cells[0].insert(innerCell);
-            //     }
-            // }
-
-
         }
 
         return this.createVertexTemplateFromCells(cells, width, height, title, showLabel, showTitle, allowCellsInserted);
@@ -335,12 +213,16 @@ var SMLG = function (editorUI) {
 
         	var className = null;
             var properties = null;
+            var gsmLabel = null;
             
             var jsonProperties = JSON.parse(jsonStringProperties);
             for (var i = 0; i < jsonProperties.length; i++) {
                 var item = jsonProperties[i];
                 if (item["name"] == "class") {
                     className = item["value"];
+                    continue;
+                } else if (item["name"] == "gsmLabel") {
+                	gsmLabel = item["value"];
                     continue;
                 } else if (item["properties"] != null && item["properties"].length > 0) {
                     properties = item["properties"];
@@ -690,6 +572,7 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function (input) {
                 attribute.value = input.value;
 
                 graph.cellLabelChanged(selectedCell, input.value, false);
+                ui.format.refresh();
 
                 var encoder = new mxCodec();
                 var model = graph.getModel();

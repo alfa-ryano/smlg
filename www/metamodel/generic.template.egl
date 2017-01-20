@@ -89,7 +89,7 @@
                 linkJson += "{ properties: [ ";
                 linkJson += "{ name: 'source', type: 'EReference', eType: '" + eClassifier.name + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
                 linkJson += "{ name: 'target', type: 'EReference', eType: '" + eType + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
-                linkJson += "{ name: 'reference', type: '" + type + "', eType: '" + eType + "', value: '" + name + "', editable: " + editable + 
+                linkJson += "{ name: 'gsmReference', type: '" + type + "', eType: '" + eType + "', value: '" + name + "', editable: " + editable + 
                         ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
                         ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
                 linkJson += "]}, "; 
@@ -100,7 +100,7 @@
             [%}
         }
         if (labels.first().isDefined() and labels.first() <> ""){
-            json += "{ name: 'label', type: 'EAttribute', eType: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+            json += "{ name: 'gsmLabel', type: 'EAttribute', eType: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
         }
         
         json += "]}, ";
