@@ -1,7 +1,10 @@
 package uk.ac.york.cs.es.smlg;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,7 +25,7 @@ import org.w3c.dom.NodeList;
 
 import com.google.gson.Gson;
 
-public class SMLGUtil {
+public class GSMUtil {
 
 	private static final String SMLG_MXREFERENCE = "reference";
 	private static final String SMLG_ID = "id";
@@ -133,7 +136,7 @@ public class SMLGUtil {
 				}
 
 				// get parent node
-				Node targetParentNode = SMLGUtil.findNode(targetDoc, parentId);
+				Node targetParentNode = GSMUtil.findNode(targetDoc, parentId);
 				if (targetParentNode == null) {
 					continue;
 				}
@@ -187,9 +190,9 @@ public class SMLGUtil {
 
 		}
 
-		SMLGUtil.removeGSMNode(prefixName, targetDoc, targetDoc, edgeNodes);
-		SMLGUtil.handleEdges(edgeNodes, targetDoc);
-		SMLGUtil.cleanDocumentFromTemporaryTags(targetDoc);
+		GSMUtil.removeGSMNode(prefixName, targetDoc, targetDoc, edgeNodes);
+		GSMUtil.handleEdges(edgeNodes, targetDoc);
+		GSMUtil.cleanDocumentFromTemporaryTags(targetDoc);
 	}
 
 	private static void cleanDocumentFromTemporaryTags(Node sourceNode) {
@@ -321,7 +324,7 @@ public class SMLGUtil {
 		}
 		for (int j = 0; j < node.getChildNodes().getLength(); j++) {
 			Node childNode = node.getChildNodes().item(j);
-			target = SMLGUtil.findNode(childNode, searchedParentId);
+			target = GSMUtil.findNode(childNode, searchedParentId);
 			if (target != null) {
 				return target;
 			}
@@ -329,14 +332,17 @@ public class SMLGUtil {
 		return null;
 	}
 
-	public static String loadXML(String path) throws Exception {
+	public static String convertToXMIfromXmXMLFile(String path) throws Exception {
+		String xmlString = new String(Files.readAllBytes(Paths.get(path)));
+		String output = transformMxXMLtoXMI(xmlString);
+		return output;
+	}
 
-		// initialise source document
-		File fXmlFile = new File(path);
+	public static String transformMxXMLtoXMI(String xml) throws Exception {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(fXmlFile);
+		Document doc = dBuilder.parse(new ByteArrayInputStream(xml.getBytes()));
 
 		doc.getDocumentElement().normalize();
 
@@ -376,7 +382,7 @@ public class SMLGUtil {
 														// "");
 		System.out.println(output);
 
-		return "";
+		return output;
 
 	}
 

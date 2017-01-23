@@ -29,9 +29,9 @@ var SMLG = function (editorUI) {
         if (mxUtils.isNode(cell.value)) {
             var currentValue = convertValueToString.apply(this, arguments);
             var node = cell.value;
-            var keyForLabelName = "";           
+            var keyForLabelName = "";
             var gsmLabel = node.getAttribute("gsmLabel");
-            var currentValue = (mxLabel == null)? currentValue : node.getAttribute(gsmLabel);           
+            var currentValue = (mxLabel == null) ? currentValue : node.getAttribute(gsmLabel);
             return currentValue;
         }
     };
@@ -39,11 +39,11 @@ var SMLG = function (editorUI) {
     var cellLabelChanged = graph.cellLabelChanged;
     graph.cellLabelChanged = function (cell, newValue, autoSize) {
         if (mxUtils.isNode(cell.value)) {
-             var node = cell.value.cloneNode(true);             
-             var gsmLabel = node.getAttribute("gsmLabel");
-             node.setAttribute(gsmLabel, newValue);
-             node.setAttribute("label", (newValue != null) ? newValue : '');
-             cell.value = node;
+            var node = cell.value.cloneNode(true);
+            var gsmLabel = node.getAttribute("gsmLabel");
+            node.setAttribute(gsmLabel, newValue);
+            node.setAttribute("label", (newValue != null) ? newValue : '');
+            cell.value = node;
         }
         cellLabelChanged.apply(this, arguments);
     };
@@ -74,10 +74,10 @@ var SMLG = function (editorUI) {
                 SMLG.uri = uri;
                 continue;
             } else if (item["name"] == "package") {
-            	myPackage = item["value"];
+                myPackage = item["value"];
                 SMLG.package = myPackage;
                 continue;
-            }else if (item["properties"] != null && item["properties"].length > 0) {
+            } else if (item["properties"] != null && item["properties"].length > 0) {
                 properties = item["properties"];
                 continue;
             }
@@ -145,10 +145,10 @@ var SMLG = function (editorUI) {
                 if (item["name"] == "class") {
                     className = item["value"];
                     continue;
-                }else if (item["name"] == "gsmLabel") {
-                	gsmLabel = item["value"];
+                } else if (item["name"] == "gsmLabel") {
+                    gsmLabel = item["value"];
                     continue;
-                }else if (item["properties"] != null && item["properties"].length > 0) {
+                } else if (item["properties"] != null && item["properties"].length > 0) {
                     properties = item["properties"];
                     continue;
                 }
@@ -211,10 +211,10 @@ var SMLG = function (editorUI) {
 
         if (jsonStringProperties != null) {
 
-        	var className = null;
+            var className = null;
             var properties = null;
             var gsmLabel = null;
-            
+
             var jsonProperties = JSON.parse(jsonStringProperties);
             for (var i = 0; i < jsonProperties.length; i++) {
                 var item = jsonProperties[i];
@@ -222,7 +222,7 @@ var SMLG = function (editorUI) {
                     className = item["value"];
                     continue;
                 } else if (item["name"] == "gsmLabel") {
-                	gsmLabel = item["value"];
+                    gsmLabel = item["value"];
                     continue;
                 } else if (item["properties"] != null && item["properties"].length > 0) {
                     properties = item["properties"];
@@ -579,99 +579,26 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function (input) {
                 var encodedModel = encoder.encode(model);
                 //var xml = mxUtils.getXml(encodedModel);
                 var xml = mxUtils.getPrettyXml(encodedModel);
-                console.log(xml);
-                SMLG.SMLGPostModel("POST", "../ModelPost", xml, function (response) {
-                    console.log("Response-----------------------------------------------: " + response);
-                });
+                //console.log(xml);
+                // SMLG.SMLGPostModel("POST", "../ModelPost", xml, function (response) {
+                //     console.log("Response-----------------------------------------------: " + response);
+                // });
+                SMLG.SMLGPostModel("POST", "../ModelPost", xml, GSMResponse);
                 break;
             }
         }
-
-
-//        var jsonStringProperties = selectedCell.value.getAttribute("properties");
-//        var jsonProperties = JSON.parse(jsonStringProperties);
-//        var keyForLabelName = "";
-//
-//        var properties = null;
-//        for (var i = 0; i < jsonProperties.length; i++) {
-//            var jsonProperty = jsonProperties[i];
-//            if (jsonProperty["properties"] != null && jsonProperty["properties"].length > 0) {
-//                properties = jsonProperty["properties"];
-//                break;
-//            }
-//        }
-//
-//        for (var i = 0; i < jsonProperties.length; i++) {
-//            var jsonProperty = jsonProperties[i];
-//
-//            if (jsonProperty["name"] == id) {
-//                jsonProperty["value"] = input.value;
-//
-//                jsonStringProperties = JSON.stringify(jsonProperties);
-//                selectedCell.value.setAttribute("properties", jsonStringProperties);
-//
-//                var encoder = new mxCodec();
-//                var model = graph.getModel();
-//                var encodedModel = encoder.encode(model);
-//                var xml = mxUtils.getXml(encodedModel);
-//                //				console.log("-----------------------------------------");
-//                //				console.log(xml);
-//                // SMLG.SMLGPostModel("POST", "../ModelPost", xml, function (response) {
-//                //     console.log("Response: " + response);
-//                // });
-//
-//                break;
-//            }
-//        }
-//
-//        for (var i = 0; i < properties.length; i++) {
-//            var property = properties[i];
-//
-//            if (property["name"] == id) {
-//                property["value"] = input.value;
-//
-//                jsonStringProperties = JSON.stringify(jsonProperties);
-//                selectedCell.value.setAttribute("properties", jsonStringProperties);
-//
-//                var encoder = new mxCodec();
-//                var model = graph.getModel();
-//                var encodedModel = encoder.encode(model);
-//                var xml = mxUtils.getXml(encodedModel);
-//                //				console.log("-----------------------------------------");
-//                //				console.log(xml);
-//                SMLG.SMLGPostModel("POST", "../ModelPost", xml, function (response) {
-//                    console.log("Response: " + response);
-//                });
-//
-//                break;
-//            }
-//        }
-//
-//
-//        for (var i = 0; i < jsonProperties.length; i++) {
-//            var property = jsonProperties[i];
-//
-//            if (property["name"] == "label") {
-//                keyForLabelName = property["value"].trim();
-//                break;
-//            }
-//        }
-//
-//        for (var i = 0; i < jsonProperties.length; i++) {
-//            var property = jsonProperties[i];
-//
-//            if (property["name"] == keyForLabelName) {
-//                var newValue = property["value"].trim();
-//                graph.cellLabelChanged(selectedCell, newValue, false);
-//                return;
-//            }
-//        }
         mxEvent.consume(evt);
-    }
-    ;
-
-    //mxEvent.addListener(input, 'blur', update);
+    };
     mxEvent.addListener(input, 'change', update);
+
+
+    function GSMResponse(response) {
+        console.log("#Response-----------------------------------------------");
+        console.log(response);
+         var dlg = new UnsatisfiedConstraintDialog(ui);
+         ui.showDialog(dlg.container, 620, 420, true, true);
+         dlg.init();
+    }
 }
 
 /**
@@ -820,3 +747,166 @@ SMLGPropertiesPanel.prototype.addProperties = function (container) {
 
     return container;
 };
+
+var UnsatisfiedConstraintDialog = function (editorUi) {
+    var div = document.createElement('div');
+    div.style.textAlign = 'right';
+    var textarea = document.createElement('textarea');
+    textarea.setAttribute('wrap', 'off');
+    textarea.style.overflow = 'auto';
+    textarea.style.resize = 'none';
+    textarea.style.width = '600px';
+    textarea.style.height = '370px';
+    textarea.style.marginBottom = '16px';
+
+    var div = document.createElement('div');
+    div.style.textAlign = 'right';
+    var textarea = document.createElement('textarea');
+    textarea.setAttribute('wrap', 'off');
+    textarea.style.overflow = 'auto';
+    textarea.style.resize = 'none';
+    textarea.style.width = '600px';
+    textarea.style.height = '370px';
+    textarea.style.marginBottom = '16px';
+
+    textarea.value = mxUtils.getPrettyXml(editorUi.editor.getGraphXml());
+    div.appendChild(textarea);
+
+    this.init = function () {
+        textarea.focus();
+    };
+
+    // Enables dropping files
+    if (Graph.fileSupport) {
+        function handleDrop(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            if (evt.dataTransfer.files.length > 0) {
+                var file = evt.dataTransfer.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    textarea.value = e.target.result;
+                };
+
+                reader.readAsText(file);
+            }
+            else {
+                textarea.value = editorUi.extractGraphModelFromEvent(evt);
+            }
+        };
+
+        function handleDragOver(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+        };
+
+        // Setup the dnd listeners.
+        textarea.addEventListener('dragover', handleDragOver, false);
+        textarea.addEventListener('drop', handleDrop, false);
+    }
+
+    var cancelBtn = mxUtils.button(mxResources.get('cancel'), function () {
+        editorUi.hideDialog();
+    });
+    cancelBtn.className = 'geBtn';
+
+    if (editorUi.editor.cancelFirst) {
+        div.appendChild(cancelBtn);
+    }
+
+    var select = document.createElement('select');
+    select.style.width = '180px';
+    select.className = 'geBtn';
+
+    if (editorUi.editor.graph.isEnabled()) {
+        var replaceOption = document.createElement('option');
+        replaceOption.setAttribute('value', 'replace');
+        mxUtils.write(replaceOption, mxResources.get('replaceExistingDrawing'));
+        select.appendChild(replaceOption);
+    }
+
+    var newOption = document.createElement('option');
+    newOption.setAttribute('value', 'new');
+    mxUtils.write(newOption, mxResources.get('openInNewWindow'));
+
+    var chromeApp = window.chrome != null && chrome.app != null && chrome.app.runtime != null;
+
+    if (!chromeApp) {
+        select.appendChild(newOption);
+    }
+
+    if (editorUi.editor.graph.isEnabled()) {
+        var importOption = document.createElement('option');
+        importOption.setAttribute('value', 'import');
+        mxUtils.write(importOption, mxResources.get('addToExistingDrawing'));
+        select.appendChild(importOption);
+    }
+
+    div.appendChild(select);
+
+    var okBtn = mxUtils.button(mxResources.get('ok'), function () {
+        // Removes all illegal control characters before parsing
+        var data = editorUi.editor.graph.zapGremlins(mxUtils.trim(textarea.value));
+        var error = null;
+
+        if (select.value == 'new') {
+            window.openFile = new OpenFile(function () {
+                editorUi.hideDialog();
+                window.openFile = null;
+            });
+
+            window.openFile.setData(data, null);
+            window.open(editorUi.getUrl());
+        }
+        else if (select.value == 'replace') {
+            editorUi.editor.graph.model.beginUpdate();
+            try {
+                editorUi.editor.setGraphXml(mxUtils.parseXml(data).documentElement);
+                // LATER: Why is hideDialog between begin-/endUpdate faster?
+                editorUi.hideDialog();
+            }
+            catch (e) {
+                error = e;
+            }
+            finally {
+                editorUi.editor.graph.model.endUpdate();
+            }
+        }
+        else if (select.value == 'import') {
+            editorUi.editor.graph.model.beginUpdate();
+            try {
+                var doc = mxUtils.parseXml(data);
+                var model = new mxGraphModel();
+                var codec = new mxCodec(doc);
+                codec.decode(doc.documentElement, model);
+
+                var children = model.getChildren(model.getChildAt(model.getRoot(), 0));
+                editorUi.editor.graph.setSelectionCells(editorUi.editor.graph.importCells(children));
+
+                // LATER: Why is hideDialog between begin-/endUpdate faster?
+                editorUi.hideDialog();
+            }
+            catch (e) {
+                error = e;
+            }
+            finally {
+                editorUi.editor.graph.model.endUpdate();
+            }
+        }
+
+        if (error != null) {
+            mxUtils.alert(error.message);
+        }
+    });
+    okBtn.className = 'geBtn gePrimaryBtn';
+    div.appendChild(okBtn);
+
+    if (!editorUi.editor.cancelFirst) {
+        div.appendChild(cancelBtn);
+    }
+
+    this.container = div;
+
+}

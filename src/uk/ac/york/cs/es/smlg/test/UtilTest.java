@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.york.cs.es.smlg.SMLGUtil;
+import uk.ac.york.cs.es.smlg.GSMUtil;
 
 /**
  * @author Alfa
@@ -54,7 +54,7 @@ public class UtilTest {
 		String path = System.getProperty("user.dir") + "\\resources\\modelFromMx.xml";
 		System.out.println(path);
 		try{
-			SMLGUtil.loadXML(path);
+			GSMUtil.convertToXMIfromXmXMLFile(path);
 		}catch(Exception exe){
 			exe.printStackTrace();
 		}

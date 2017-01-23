@@ -17,7 +17,8 @@
       <!-- @generated filesystem -->
       <package
             uri="myUri"
-            class="myPackage.MyPackagePackage"/>
+            class="myPackage.MyPackagePackage"
+            genModel="www/metamodel/filesystem/filesystem.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
