@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class GSMResult {
 
-	private ArrayList<GSMUnsatifiedConstraint> unsatisfiedConstraints = new ArrayList<>();
-	private boolean completed = true; 
+	public ArrayList<GSMUnsatifiedConstraint> unsatisfiedConstraints = new ArrayList<>();
+	public boolean completed = true; 
 
 	public class GSMUnsatifiedConstraint {
-		private String name = null;
-		private String message = null;
+		public String name = null;
+		public String message = null;
 		public String getName() {
 			return name;
 		}
@@ -40,7 +40,7 @@ public class GSMResult {
 		return unsatisfiedConstraints;
 	}
 
-	public boolean completed() {
+	public boolean getCompleted() {
 		return completed;
 	}
 }

@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.junit
 Bundle-ActivationPolicy: lazy
-Import-Package: com.fasterxml.jackson.databind;version="2.5.0",
+Import-Package: 
  com.google.gson;version="2.2.4",
  javax.servlet;version="3.1.0",
  javax.servlet.annotation;version="3.1.0",

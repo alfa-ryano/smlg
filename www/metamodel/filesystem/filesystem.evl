@@ -3,14 +3,14 @@ context myPackage!Filesystem {
         check: 
             self.hasDrive()
         message:
-            "Filesystem does not have, at least, one drive!"
+            "Filesystem must have at least one drive!"
     }
     
     constraint AllDrivesHasName {
         check: 
             self.allDrivesHasName()
         message:
-            "Every drive has a name!"
+            "Every drive must have a name!"
     }
 }
 
