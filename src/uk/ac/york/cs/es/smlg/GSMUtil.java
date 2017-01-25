@@ -1,7 +1,6 @@
 package uk.ac.york.cs.es.smlg;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,29 +22,12 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.google.gson.Gson;
-
 public class GSMUtil {
 
-	private static final String SMLG_MXREFERENCE = "reference";
 	private static final String SMLG_ID = "id";
 	private static final String SMLG_PARENT = "parent";
-	private static final String SMLG_CELL = "SMLGCell";
-	private static final String SMLG_PROPERTIES = "properties";
 	private static final String SMLG_URI = "uri";
-	private static final String SMLG_DIAGRAM = "diagram";
 	private static final String SMLG_PREFIX = "prefix";
-	private static final String SMLG_PACKAGE = "package";
-	private static final String SMLG_TYPE = "type";
-	private static final String SMLG_ETYPE = "eType";
-	private static final String SMLG_VALUE = "value";
-	private static final String SMLG_NAME = "name";
-	private static final String SMLG_CLASS = "class";
-	private static final String SMLG_LABEL = "label";
-	private static final String SMLG_COMPARTMENT = "compartment";
-	private static final String SMLG_MXCOMPARTMENT = "mxCompartment";
-
-	Gson gson = new Gson();
 
 	private static void transformToTargetXML(Node sourceParentNode, Document targetDoc)
 			throws ParserConfigurationException, TransformerException {
@@ -59,7 +41,6 @@ public class GSMUtil {
 		ArrayList<Node> edgeNodes = new ArrayList<>();
 		String uriName = null;
 		String prefixName = null;
-		String packageName = null;
 		String diagramName = null;
 
 		for (int i = 0; i < sourceItemNodes.getLength(); i++) {
@@ -78,7 +59,6 @@ public class GSMUtil {
 				diagramName = sourceItemNode.getNodeName();
 				prefixName = sourceItemNode.getAttributes().getNamedItem(SMLG_PREFIX).getNodeValue();
 				uriName = sourceItemNode.getAttributes().getNamedItem(SMLG_URI).getNodeValue();
-				packageName = sourceItemNode.getAttributes().getNamedItem(SMLG_PACKAGE).getNodeValue();
 
 				Element targetNode = targetDoc.createElement(prefixName + ":" + diagramName);
 				targetNode.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xmi", "http://www.omg.org/XMI");
@@ -229,7 +209,6 @@ public class GSMUtil {
 		for (int j = sourceNode.getChildNodes().getLength() - 1; j >= 0; j--) {
 			Node iNode = sourceNode.getChildNodes().item(j);
 			if (iNode.getNodeType() == Node.ELEMENT_NODE) {
-				String id = "";
 				if (iNode.getNodeName().equals("GSMRootContainer") || iNode.getNodeName().equals("GSMContainer")) {
 					Node parentNode = iNode.getParentNode();
 					parentNode.removeChild(iNode);
@@ -249,9 +228,6 @@ public class GSMUtil {
 						String oldName = childNode.getNodeName();
 						childNode.getAttributes().getNamedItem("xsi:type").setNodeValue(prefixName + ":" + oldName);
 						childNode.getAttributes().getNamedItem("gsmNumber").setNodeValue(number.toString());
-
-						// childNode.getAttributes().removeNamedItem("gsmId");
-						// childNode.getAttributes().removeNamedItem("id");
 						parentNode.appendChild(childNode);
 						targetDoc.renameNode(childNode, null, newName);
 
@@ -314,17 +290,17 @@ public class GSMUtil {
 		}
 	}
 
-	private static Node findNode(Node node, String searchedParentId) {
+	private static Node findNode(Node node, String searchedId) {
 		Node target = null;
 		if (node.getNodeType() == Node.ELEMENT_NODE && node.getAttributes().getNamedItem("gsmId") != null) {
 			String targetParentId = node.getAttributes().getNamedItem("gsmId").getNodeValue();
-			if (targetParentId.equals(searchedParentId)) {
+			if (targetParentId.equals(searchedId)) {
 				return node;
 			}
 		}
 		for (int j = 0; j < node.getChildNodes().getLength(); j++) {
 			Node childNode = node.getChildNodes().item(j);
-			target = GSMUtil.findNode(childNode, searchedParentId);
+			target = GSMUtil.findNode(childNode, searchedId);
 			if (target != null) {
 				return target;
 			}
@@ -373,13 +349,10 @@ public class GSMUtil {
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-		// transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
-		// transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		StringWriter writer = new StringWriter();
 		StreamResult streamResult = new StreamResult(writer);
 		transformer.transform(new DOMSource(targetDoc), streamResult);
-		String output = writer.getBuffer().toString();// .replaceAll("\n|\r",
-														// "");
+		String output = writer.getBuffer().toString();
 		System.out.println(output);
 
 		return output;
