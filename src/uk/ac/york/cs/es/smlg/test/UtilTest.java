@@ -97,26 +97,18 @@ public class UtilTest {
 		try {
 			ResourceSet resourceSet = new ResourceSetImpl();
 
-			//resourceSet.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi",
 					new XMIResourceFactoryImpl());
-
-//			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new FlexmiResourceFactory());
-//			Resource resource = resourceSet
-//					.createResource(URI.createURI(FlexmiResource.class.getResource("sample.xml").toString()));
-//			resource.load(null);
-//			EObject object = resource.getContents().get(0);
-
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml",
 					new MxGraphXMLResourceFactory());
-			Resource resource3 = resourceSet.createResource(
-					URI.createFileURI("D:/A-DATA/GoogleDriveYork/git/smlg/resources/modelFromMx.xml"));
+			Resource resource3 = resourceSet
+					.createResource(URI.createFileURI("D:/A-DATA/GoogleDriveYork/git/smlg/resources/modelFromMx.xml"));
 			resource3.load(null);
-		
+
 			Map<String, String> options = new HashMap<>();
 			options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 			Resource resource2 = resourceSet.createResource(URI.createFileURI("D:/test.xmi"));
-			for (int i = 0; i < resource3.getContents().size(); i++){
+			for (int i = 0; i < resource3.getContents().size(); i++) {
 				EObject item = resource3.getContents().get(i);
 				resource2.getContents().add(item);
 			}

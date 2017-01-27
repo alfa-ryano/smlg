@@ -1,45 +1,36 @@
 package uk.ac.york.cs.es.smlg;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Stack;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public class MxGraphXMLResource extends ResourceImpl {
 
+	private static final String GSM_GMF_LINK = "gmf.link";
+	private static final String GSM_TARGET = "target";
+	private static final String GSM_SOURCE = "source";
 	private static final String GSM_PARENT = "parent";
 	protected static final String GSM_ID = "id";
 	protected final HashMap<String, EObjectAdapter> objectList = new HashMap<>();
@@ -179,7 +170,6 @@ public class MxGraphXMLResource extends ResourceImpl {
 				for (int j = 0; j < sourceItemNode.getChildNodes().getLength(); j++) {
 					Node node = sourceItemNode.getChildNodes().item(j);
 					if (node.getNodeType() == Node.ELEMENT_NODE) {
-						System.out.println(node.getNodeName());
 						if (node.getNodeName().equals("mxCell")) {
 							parentId = node.getAttributes().getNamedItem(GSM_PARENT).getNodeValue();
 						}
@@ -201,9 +191,9 @@ public class MxGraphXMLResource extends ResourceImpl {
 
 				// get parent id, cell type (edge or vertex), source, and target
 				String parentId = null;
-				String isEdge = "false";
-				String source = null;
-				String target = null;
+				boolean isEdge = false;
+				String sourceId = null;
+				String targetId = null;
 				String gsmReference = null;
 
 				for (int j = 0; j < sourceItemNode.getChildNodes().getLength(); j++) {
@@ -215,23 +205,30 @@ public class MxGraphXMLResource extends ResourceImpl {
 					parentId = node.getAttributes().getNamedItem(GSM_PARENT).getNodeValue();
 					if (node.getAttributes().getNamedItem("edge") != null
 							&& node.getAttributes().getNamedItem("edge").getNodeValue().equals("1")) {
-						isEdge = "true";
-						source = node.getAttributes().getNamedItem("source").getNodeValue();
-						target = node.getAttributes().getNamedItem("target").getNodeValue();
+						isEdge = true;
+						sourceId = node.getAttributes().getNamedItem(GSM_SOURCE).getNodeValue();
+						targetId = node.getAttributes().getNamedItem(GSM_TARGET).getNodeValue();
 					} else {
-						isEdge = "false";
+						isEdge = false;
 					}
 				}
 
 				if (sourceItemNode.getAttributes().getNamedItem("gsmReference") != null) {
 					gsmReference = sourceItemNode.getAttributes().getNamedItem("gsmReference").getNodeValue();
 					if (gsmReference != null) {
+						EObject sourceObject = findParentEObject(sourceId);
+						EObject targetObject = findParentEObject(targetId);
+						
+						sourceObject.eSet(sourceObject.eClass().getEStructuralFeature(gsmReference), targetObject);
 						continue;
 					}
 				}
 
+				// if parentObject is null the it must be a GSMContainer which is a dummy node
+				// so we should take the grandParentObject (or the parent of parentObject) as 
+				// as the parent object while keeping parentStructuralFeatureName variable
+				// as the name of the attribute that child will be in its grand parent object.
 				String parentStructuralFeatureName = null;
-
 				EObjectAdapter parentObjectAdapter = findParentEObjectAdapter(parentId);
 				if (parentObjectAdapter.getObject() == null) {
 					parentStructuralFeatureName = parentObjectAdapter.getParentStructuralFeatureName();
@@ -241,12 +238,34 @@ public class MxGraphXMLResource extends ResourceImpl {
 				EObject eParentObject = parentObjectAdapter.getObject();
 				String targetParentId = parentObjectAdapter.getId();
 
+				//
 				if (targetParentId.equals("1")) {
 					String className = sourceItemNode.getNodeName();
 
 					EClassifier eCurrentClassifier = ePackage.getEClassifier(className);
 					EClass eCurrentClass = (EClass) eCurrentClassifier;
 					EObject eCurrentObject = ePackage.getEFactoryInstance().create(eCurrentClass);
+
+					if (isEdge == true) {
+						String sourceName = null;
+						String targetName = null;
+						EObject sourceObject = null;
+						EObject targetObject = null;
+						for (EAnnotation annotation : eCurrentClass.getEAnnotations()) {
+							if (annotation.getSource().equals(GSM_GMF_LINK)) {
+								sourceName = annotation.getDetails().get(GSM_SOURCE);
+								targetName = annotation.getDetails().get(GSM_TARGET);
+							}
+						}
+						if (sourceId != null)
+							sourceObject = findParentEObject(sourceId);
+						if (targetId != null)
+							targetObject = findParentEObject(targetId);
+						if (sourceObject != null && targetObject != null) {
+							eCurrentObject.eSet(eCurrentClass.getEStructuralFeature(sourceName), sourceObject);
+							eCurrentObject.eSet(eCurrentClass.getEStructuralFeature(targetName), targetObject);
+						}
+					}
 
 					for (int k = 0; k < sourceItemNode.getAttributes().getLength(); k++) {
 						String name = sourceItemNode.getAttributes().item(k).getNodeName();
@@ -256,7 +275,6 @@ public class MxGraphXMLResource extends ResourceImpl {
 						while (tempEClass != null) {
 							for (int n = 0; n < tempEClass.getEStructuralFeatures().size(); n++) {
 								EStructuralFeature ef = tempEClass.getEStructuralFeatures().get(n);
-								System.out.println(eCurrentClass.getName() + ": " + ef.getName());
 								if (ef instanceof EAttribute && ef.getName().equals(name)) {
 									eCurrentObject.eSet(ef, value);
 								}
@@ -294,6 +312,27 @@ public class MxGraphXMLResource extends ResourceImpl {
 				EClass eCurrentClass = (EClass) eCurrentClassifier;
 				EObject eCurrentObject = ePackage.getEFactoryInstance().create(eCurrentClass);
 
+				if (isEdge == true) {
+					String sourceName = null;
+					String targetName = null;
+					EObject sourceObject = null;
+					EObject targetObject = null;
+					for (EAnnotation annotation : eCurrentClass.getEAnnotations()) {
+						if (annotation.getSource().equals(GSM_GMF_LINK)) {
+							sourceName = annotation.getDetails().get(GSM_SOURCE);
+							targetName = annotation.getDetails().get(GSM_TARGET);
+						}
+					}
+					if (sourceId != null)
+						sourceObject = findParentEObject(sourceId);
+					if (targetId != null)
+						targetObject = findParentEObject(targetId);
+					if (sourceObject != null && targetObject != null) {
+						eCurrentObject.eSet(eCurrentClass.getEStructuralFeature(sourceName), sourceObject);
+						eCurrentObject.eSet(eCurrentClass.getEStructuralFeature(targetName), targetObject);
+					}
+				}
+				
 				for (int k = 0; k < sourceItemNode.getAttributes().getLength(); k++) {
 					String name = sourceItemNode.getAttributes().item(k).getNodeName();
 					String value = sourceItemNode.getAttributes().item(k).getNodeValue();
@@ -302,7 +341,6 @@ public class MxGraphXMLResource extends ResourceImpl {
 					while (tempEClass != null) {
 						for (int n = 0; n < tempEClass.getEStructuralFeatures().size(); n++) {
 							EStructuralFeature ef = tempEClass.getEStructuralFeatures().get(n);
-							System.out.println(eCurrentClass.getName() + ": " + ef.getName());
 							if (ef instanceof EAttribute && ef.getName().equals(name)) {
 								eCurrentObject.eSet(ef, value);
 							}
@@ -340,25 +378,4 @@ public class MxGraphXMLResource extends ResourceImpl {
 		result = objectList.get(searchedId).getObject();
 		return result;
 	}
-
-	// private Node findNode(Node node, String searchedId) {
-	// Node target = null;
-	// if (node.getNodeType() == Node.ELEMENT_NODE &&
-	// node.getAttributes().getNamedItem(GSM_ID) != null) {
-	// String targetParentId =
-	// node.getAttributes().getNamedItem(GSM_ID).getNodeValue();
-	// if (targetParentId.equals(searchedId)) {
-	// return node;
-	// }
-	// }
-	// for (int j = 0; j < node.getChildNodes().getLength(); j++) {
-	// Node childNode = node.getChildNodes().item(j);
-	// target = findNode(childNode, searchedId);
-	// if (target != null) {
-	// return target;
-	// }
-	// }
-	// return null;
-	// }
-
 }
