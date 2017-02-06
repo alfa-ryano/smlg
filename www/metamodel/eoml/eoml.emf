@@ -1,0 +1,53 @@
+@namespace(uri="eoml", prefix="eoml")
+package eoml;
+
+@gmf.diagram
+class EOML {
+  val Entity[*] entities;
+}
+
+abstract class Entity {
+  attr String name;
+  attr String description;
+}
+
+
+abstract class Node extends Entity {
+  ref Transition[*]#source outgoing;
+  ref Transition[*]#target incoming;
+}
+
+@gmf.link(label="name", style="endArrow=block;endFill=1;endSize=6;html=1;")
+class Transition extends Entity {
+  ref Node#outgoing source;
+  ref Node#incoming target;
+}
+
+@gmf.node(label="name", style="html=1;whiteSpace=wrap;rounded=1;")
+class EducationalObjective extends Node {
+
+  @gmf.compartment
+  ref Entity[*] entities;
+}
+
+@gmf.node(label="name", style="html=1;whiteSpace=wrap;rounded=1;")
+class LearningActivity extends Node {
+
+  @gmf.compartment
+  ref ActivityObjective[*] objectives;
+}
+
+@gmf.node(label="name", style="html=1;shape=plus;")
+class ActivityObjective extends Entity {
+}
+
+@Ecore(constraints="constraintNoIncoming")
+@gmf.node(label="name", style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;")
+class StartNode extends Node {
+}
+
+@Ecore(constraints="constraintNoOutgoing")
+@gmf.node(label="name", style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;")
+class EndNode extends Node {
+}
+

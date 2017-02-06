@@ -1,7 +1,7 @@
     /**
-     * Adds the myPackage to the sidebar.
+     * Adds the filesystem to the sidebar.
      */
-    SMLG.editorUI.sidebar.SMLGAddMyPackagePalette = function(expand) {
+    SMLG.editorUI.sidebar.SMLGAddFilesystemPalette = function(expand) {
  
         var fns = [
             this.SMLGCreateVertexTemplateEntry('swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;', 200, 200,  
@@ -17,10 +17,10 @@
             this.SMLGCreateVertexTemplateEntry('whiteSpace=wrap;html=1;', 200, 200,  
                  'File', 'File', null, null, 'File', JSON.stringify([{ name: 'class', type: 'EAttribute', eType: 'EString', value: 'File', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { properties: [ { name: 'name', type: 'EAttribute', eType: 'EString', value: 'foo', editable: true, visible: true, compartment: false, lowerBound: 0, upperBound: 1, eOpposite: ''   }, { name: 'gsmLabel', type: 'EAttribute', eType: 'EString', value: 'name', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ]}, ])),
         ]
-        this.SMLGSetDiagramContext(JSON.stringify([{ name: 'uri', type: 'EAttribute', eType: 'EString', value: 'myUri', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'prefix', type: 'EAttribute', eType: 'EString', value: 'myPrefix', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'package', type: 'EAttribute', eType: 'EString', value: 'myPackage', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'diagram', type: 'EAttribute', eType: 'EString', value: 'Filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'class', type: 'EAttribute', eType: 'EString', value: 'Filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { properties: [ { name: 'drives', type: 'EReference', eType: 'Drive', value: '', editable: true, visible: true, compartment: false, lowerBound: 0, upperBound: -1, eOpposite: ''   }, { name: 'syncs', type: 'EReference', eType: 'Sync', value: '', editable: true, visible: true, compartment: false, lowerBound: 0, upperBound: -1, eOpposite: ''   }, ]}, ]));
-        this.addPaletteFunctions('myPackage', 'MyPackage', (expand != null) ? expand : true, fns);
+        this.SMLGSetDiagramContext(JSON.stringify([{ name: 'uri', type: 'EAttribute', eType: 'EString', value: 'filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'prefix', type: 'EAttribute', eType: 'EString', value: 'filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'package', type: 'EAttribute', eType: 'EString', value: 'filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'diagram', type: 'EAttribute', eType: 'EString', value: 'Filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { name: 'class', type: 'EAttribute', eType: 'EString', value: 'Filesystem', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, { properties: [ { name: 'drives', type: 'EReference', eType: 'Drive', value: '', editable: true, visible: true, compartment: false, lowerBound: 0, upperBound: -1, eOpposite: ''   }, { name: 'syncs', type: 'EReference', eType: 'Sync', value: '', editable: true, visible: true, compartment: false, lowerBound: 0, upperBound: -1, eOpposite: ''   }, ]}, ]));
+        this.addPaletteFunctions('filesystem', 'Filesystem', (expand != null) ? expand : true, fns);
     }
-    SMLG.editorUI.sidebar.SMLGAddMyPackagePalette(true);
-    console.log("End of myPackage.js");
+    SMLG.editorUI.sidebar.SMLGAddFilesystemPalette(true);
+    console.log("End of filesystem.js");
 
 

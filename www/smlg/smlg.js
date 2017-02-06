@@ -1,8 +1,11 @@
 var SMLG_DIAGRAM_PATH = "../smlg/diagram/";
 
-var SMLG_DIAGRAM_TYPES = [ {
-	filename : "filesystem.js",
+var SMLG_DIAGRAM_TYPES = [ { 
+	filename : "eoml.js",
 	enabled : true 
+},{
+	filename : "filesystem.js",
+	enabled : false 
 }, {
 	filename : "flowchart.js",
 	enabled : false

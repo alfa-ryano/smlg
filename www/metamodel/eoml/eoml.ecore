@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="eoml" nsURI="eoml" nsPrefix="eoml">
+  <eClassifiers xsi:type="ecore:EClass" name="EOML">
+    <eAnnotations source="gmf.diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//Entity" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
+        eType="#//Transition" eOpposite="#//Transition/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
+        eType="#//Transition" eOpposite="#//Transition/target"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Entity">
+    <eAnnotations source="gmf.link">
+      <details key="label" value="name"/>
+      <details key="style" value="endArrow=block;endFill=1;endSize=6;html=1;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Node"
+        eOpposite="#//Node/outgoing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Node"
+        eOpposite="#//Node/incoming"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EducationalObjective" eSuperTypes="#//Node">
+    <eAnnotations source="gmf.node">
+      <details key="label" value="name"/>
+      <details key="style" value="html=1;whiteSpace=wrap;rounded=1;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//Entity">
+      <eAnnotations source="gmf.compartment"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LearningActivity" eSuperTypes="#//Node">
+    <eAnnotations source="gmf.node">
+      <details key="label" value="name"/>
+      <details key="style" value="html=1;whiteSpace=wrap;rounded=1;"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
+        eType="#//ActivityObjective">
+      <eAnnotations source="gmf.compartment"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivityObjective" eSuperTypes="#//Entity">
+    <eAnnotations source="gmf.node">
+      <details key="label" value="name"/>
+      <details key="style" value="html=1;shape=plus;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StartNode" eSuperTypes="#//Node">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="constraintNoIncoming"/>
+    </eAnnotations>
+    <eAnnotations source="gmf.node">
+      <details key="label" value="name"/>
+      <details key="style" value="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EndNode" eSuperTypes="#//Node">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="constraintNoOutgoing"/>
+    </eAnnotations>
+    <eAnnotations source="gmf.node">
+      <details key="label" value="name"/>
+      <details key="style" value="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;"/>
+    </eAnnotations>
+  </eClassifiers>
+</ecore:EPackage>

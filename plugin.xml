@@ -14,18 +14,26 @@
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated filesystem -->
-      <package
-            uri="myUri"
-            class="myPackage.MyPackagePackage"
-            genModel="www/metamodel/filesystem/filesystem.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated flowchart -->
       <package
             uri="flowchart"
             class="flowchart.FlowchartPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated eoml -->
+      <package
+            uri="eoml"
+            class="eoml.EomlPackage"
+            genModel="www/metamodel/eoml/eoml.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated filesystem -->
+      <package
+            uri="filesystem"
+            class="filesystem.FilesystemPackage"
+            genModel="www/metamodel/filesystem/filesystem.genmodel"/>
    </extension>
 
 </plugin>

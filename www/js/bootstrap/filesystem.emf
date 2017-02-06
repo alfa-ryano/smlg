@@ -1,0 +1,37 @@
+@namespace(
+	uri="filesystem",
+	prefix="filesystem")
+package filesystem;
+
+@gmf.diagram
+class Filesystem {
+    val Drive[*] drives;
+    val Sync[*] syncs;
+}
+
+@gmf.node(style="swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;")
+class Drive extends Folder {
+
+}
+
+@gmf.node(style="swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;")
+class Folder extends File {
+    @gmf.compartment
+    val File[*] contents;
+}
+
+class Shortcut extends File {
+    @gmf.link(style="dashed=1;endArrow=classic;")
+    ref File target;
+}
+
+@gmf.link(source="source", target="target", style="dashed=1;dashPattern=1 4;strokeWidth=2;endArrow=none;")
+class Sync {
+    ref File source;
+    ref File target;
+}
+
+@gmf.node(label = "name", style="whiteSpace=wrap;html=1;")
+class File {
+    attr String name = "foo";
+}
