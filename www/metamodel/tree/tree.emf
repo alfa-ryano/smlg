@@ -4,19 +4,16 @@ package tree;
 @gmf.diagram
 class Tree {
 
-  @gmf.compartment
-  val Node[*] children;
-  val Node parentValSingle;
-  @gmf.compartment
-  val Node parentComparment;
-  ref Node parent;
+  @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", mxStrokeColor="none")
+  ref Node[*]#parent children;
+  ref Node#children parent;
   attr String name = "1234";
 }
 
 @gmf.node(mxLabel="name", mxFill="1", mxHtml="1", mxFillColor="none", 
             //mxNoLabel="1",
             //mxEditable="0",
-            mxForm="swimlane",
+            mxShape="swimlane",
             mxChildLayout = "stackLayout",
             mxCollapsible = "1",
             mxHorizontalStack="0", 
@@ -24,7 +21,7 @@ class Tree {
             mxResizeLast="1", 
             mxRounded="1",
             //mxStartSize="10",
-            mxMarginBottom="10", mxMarginLeft="10", mxMarginRight="10", mxMarginTop="10",
+            mxMarginBottom="0", mxMarginLeft="0", mxMarginRight="0", mxMarginTop="0",
             mxHtml="1", mxWhiteSpace="wrap", 
             mxWidth="200", mxHeight="120")
 class Node extends Tree {

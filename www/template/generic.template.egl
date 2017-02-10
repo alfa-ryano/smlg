@@ -52,8 +52,8 @@
             var upperBound := attribute.get("upperBound");
             var lowerBound := attribute.get("lowerBound");
             var eOpposite:= attribute.get("eOpposite");
-            
-            
+            var style := attribute.get("style");
+
             if (compartment.isUndefined()){
                 compartment := false;
             }
@@ -70,7 +70,7 @@
             
             json += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + editable + 
                         ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
-                        ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
+                        ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"', style: '" + style + "'   }, ";
             
             if (source == "gmf.diagram"){
                 contextString += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + 
@@ -79,7 +79,6 @@
             } 
             
             if(link = true){
-                var style := attribute.get("style");
                 
                 var linkJson = "JSON.stringify([";
                 linkJson += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + name.firstToUpperCase() + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
@@ -123,9 +122,7 @@
         var keys = styles.keySet();
         for ( key in keys){
             var value = styles.get(key);
-            if (key = "form"){
-                styleString = value + ";" + styleString;
-            } else if(key = "width"){
+            if(key = "width"){
                 width = value;
             } else if(key = "height"){
                 height = value;
@@ -135,7 +132,6 @@
                 styleString += key + "=" + value + ";";
             } 
         }
-        styleString.println();
         
         if (eAnnotationSources.first() = "gmf.node" and eClassifier.abstract <> true) { %]
             this.SMLGCreateVertexTemplateEntry('[%=styleString%]', [%=width%], [%=height%],  
@@ -216,8 +212,34 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
 	       }else{
 	           map.put("compartment", false);
 	       }
+	       
+	       
+	       var style := "";
+	       
+	       for (detail in structuralAnnotation.details) { 
+	            details.put(detail.key, detail.value);
+	            if (detail.key = "mxLabel" or detail.key = "mxEndArrow" or detail.key = "mxBlockendFill" 
+                or detail.key = "mxEndSize" or detail.key = "mxHtml" or detail.key = "mxWhiteSpace" 
+                or detail.key = "mxRounded" or detail.key = "mxResizeParent" or detail.key = "mxResizeLast" 
+                or detail.key = "mxCollapsible" or detail.key = "mxHtml" or  detail.key = "mxWidth" 
+                or detail.key = "mxHeight" or detail.key = "mxFillColor" or detail.key = "mxEditable"
+                or detail.key = "mxDashed" or detail.key = "mxDashPattern" 
+                or detail.key = "mxStrokeWidth" or detail.key = "mxChildLayout" or detail.key = "mxHorizontalStack" 
+                or detail.key = "mxSwimlaneFillColor" or detail.key = "mxMarginBottom" or detail.key = "mxShape"
+                or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" or detail.key = "mxStrokeColor"
+                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel") {  
+	                
+	                style := style + detail.key.substring(2,detail.key.length()).firstToLowerCase() + "="; 
+	                style := style + detail.value + ";";
+	            }
+	            
+	            if (detail.key = "mxLabel"){
+	                labels.clear();
+	                labels.add(detail.value);
+	            }         
+            }
+            map.put("style", style);
 	    }
-	    
 	    attributes.add(map); 
     }
         
@@ -239,7 +261,7 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
                 or detail.key = "mxDashed" or detail.key = "mxDashPattern" 
                 or detail.key = "mxStrokeWidth" or detail.key = "mxChildLayout" or detail.key = "mxHorizontalStack" 
                 or detail.key = "mxSwimlaneFillColor" or detail.key = "mxMarginBottom" or detail.key = "mxShape"
-                or detail.key = "mxForm" or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" 
+                or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" or detail.key = "mxStrokeColor"
                 or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel") { 
                 styles.put(detail.key.substring(2,detail.key.length()).firstToLowerCase(), detail.value);
             }
@@ -247,8 +269,7 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
             if (detail.key = "mxLabel"){
                 labels.clear();
                 labels.add(detail.value);
-            }
-            
+            }         
         }         
         if (eAnnotation.source.isDefined()){
             eAnnotationSources.clear();

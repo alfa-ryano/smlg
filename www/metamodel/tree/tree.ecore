@@ -4,14 +4,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="Tree">
     <eAnnotations source="gmf.diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//Node" containment="true">
-      <eAnnotations source="gmf.compartment"/>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentValSingle" eType="#//Node"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentComparment" eType="#//Node"
-        containment="true">
-      <eAnnotations source="gmf.compartment"/>
+        eType="#//Node">
+      <eAnnotations source="gmf.compartment">
+        <details key="mxShape" value="swimlane"/>
+        <details key="mxCollapsible" value="0"/>
+        <details key="mxNoLabel" value="1"/>
+        <details key="xEditable" value="0"/>
+        <details key="mxFillColor" value="none"/>
+        <details key="mxStrokeColor" value="none"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -23,17 +24,17 @@
       <details key="mxFill" value="1"/>
       <details key="mxHtml" value="1"/>
       <details key="mxFillColor" value="none"/>
-      <details key="mxForm" value="swimlane"/>
+      <details key="mxShape" value="swimlane"/>
       <details key="mxChildLayout" value="stackLayout"/>
       <details key="mxCollapsible" value="1"/>
       <details key="mxHorizontalStack" value="0"/>
       <details key="mxResizeParent" value="0"/>
       <details key="mxResizeLast" value="1"/>
       <details key="mxRounded" value="1"/>
-      <details key="mxMarginBottom" value="10"/>
-      <details key="mxMarginLeft" value="10"/>
-      <details key="mxMarginRight" value="10"/>
-      <details key="mxMarginTop" value="10"/>
+      <details key="mxMarginBottom" value="0"/>
+      <details key="mxMarginLeft" value="0"/>
+      <details key="mxMarginRight" value="0"/>
+      <details key="mxMarginTop" value="0"/>
       <details key="mxWhiteSpace" value="wrap"/>
       <details key="mxWidth" value="200"/>
       <details key="mxHeight" value="120"/>
