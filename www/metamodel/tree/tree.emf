@@ -13,7 +13,20 @@ class Tree {
   attr String name = "1234";
 }
 
-@gmf.node(label="name", style="swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;")
+@gmf.node(mxLabel="name", mxFill="1", mxHtml="1", mxFillColor="none", 
+            //mxNoLabel="1",
+            //mxEditable="0",
+            mxForm="swimlane",
+            mxChildLayout = "stackLayout",
+            mxCollapsible = "1",
+            mxHorizontalStack="0", 
+            mxResizeParent="0", 
+            mxResizeLast="1", 
+            mxRounded="1",
+            //mxStartSize="10",
+            mxMarginBottom="10", mxMarginLeft="10", mxMarginRight="10", mxMarginTop="10",
+            mxHtml="1", mxWhiteSpace="wrap", 
+            mxWidth="200", mxHeight="120")
 class Node extends Tree {
 }
 

@@ -1,0 +1,262 @@
+[%
+    var name = "SMLGAdd" + metamodel.name.firstToUpperCase() + "Palette"; 
+    var contextString = "";      
+%]
+    /**
+     * Adds the [%=metamodel.name%] to the sidebar.
+     */
+    SMLG.editorUI.sidebar.[%=name%] = function(expand) {
+ 
+        var fns = [
+	[% for (eClassifier in metamodel.eClassifiers){
+	   	 
+	   	var attributes := Collection{};
+	   	var eAnnotationSources:= Collection{};
+	   	var styles = Map{};
+	   	var labels = Collection{};
+	   	var details := Map{};
+	   	var json := "";
+	   	 
+        attributes = metamodel.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);         
+	   	 
+        
+        var source = eAnnotationSources.select( source |
+                  source="gmf.diagram" or
+                  source="gmf.compartment" or
+                  source="gmf.link" or
+                  source="gmf.node" 
+        ).first();
+           
+        if (source.isDefined()){
+              if (source == "gmf.diagram"){
+                contextString = "JSON.stringify([";
+                contextString += "{ name: 'uri', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsURI + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'prefix', type: 'EAttribute', eType: 'EString', value: '" + metamodel.nsPrefix + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'package', type: 'EAttribute', eType: 'EString', value: '" + metamodel.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'diagram', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+	            contextString += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                contextString += "{ properties: [ ";
+              }
+        }
+       
+        json = "JSON.stringify([";
+        json += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + eClassifier.name + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+        json += "{ properties: [ ";
+                       
+        for (attribute in attributes){
+            var name := attribute.get("name");
+            var type := attribute.get("type");
+            var eType := attribute.get("eType");
+            var value := attribute.get("defaultValue");
+            var compartment := attribute.get("compartment");
+            var upperBound := attribute.get("upperBound");
+            var lowerBound := attribute.get("lowerBound");
+            var eOpposite:= attribute.get("eOpposite");
+            
+            
+            if (compartment.isUndefined()){
+                compartment := false;
+            }
+            var link := attribute.get("link"); 
+            var editable := "true";
+            
+            if (eAnnotationSources.first() = "gmf.link"){
+	            for (detail in details){	                
+	                if (detail.get("source") = name or detail.get("target") = name){
+	                   editable := "false";
+	                }
+	            }
+            }
+            
+            json += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + editable + 
+                        ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
+                        ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
+            
+            if (source == "gmf.diagram"){
+                contextString += "{ name: '" + name + "', type: '" + type + "', eType: '" + eType + "', value: '" + value + "', editable: " + 
+                    editable + ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
+                    ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
+            } 
+            
+            if(link = true){
+                var style := attribute.get("style");
+                
+                var linkJson = "JSON.stringify([";
+                linkJson += "{ name: 'class', type: 'EAttribute', eType: 'EString', value: '" + name.firstToUpperCase() + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ properties: [ ";
+                linkJson += "{ name: 'source', type: 'EReference', eType: '" + eClassifier.name + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ name: 'target', type: 'EReference', eType: '" + eType + "', value: '', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+                linkJson += "{ name: 'gsmReference', type: '" + type + "', eType: '" + eType + "', value: '" + name + "', editable: " + editable + 
+                        ", visible: true, compartment: " + compartment + ", lowerBound: "+ lowerBound + 
+                        ", upperBound: "+ upperBound +", eOpposite: '"+ eOpposite +"'   }, ";
+                linkJson += "]}, "; 
+                linkJson += "])";
+                %]
+                this.SMLGCreateEdgeTemplateEntry('[%=style%]', 50, 50, 
+                 '[%=name.firstToUpperCase()%]', '[%=name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=linkJson%]),
+            [%}
+        }
+        if (labels.first().isDefined() and labels.first() <> ""){
+            json += "{ name: 'gsmLabel', type: 'EAttribute', eType: 'EString', value: '" + labels.first()  + "', editable: false, visible: true, compartment: false, lowerBound: 0, upperBound:1, eOpposite: '' }, ";
+        }
+        
+        json += "]}, ";
+        json += "])";
+        
+        if (source == "gmf.diagram"){
+            contextString += "]}, ";
+            contextString += "])";
+        }
+                        
+        "eClassifier = ".print(); eClassifier.name.println();
+        "eAnnotationSource = ".print(); eAnnotationSources.println();
+        "attributes = ".print(); attributes.println();
+        "details = ".print(); details.println();
+        "styles = ".print(); styles.println();
+        "labels = ".print(); labels.println();
+        "json = ".print(); json.println();
+        "".println();
+        
+        var styleString := "";
+        var width := "10";
+        var height := "10";
+        var keys = styles.keySet();
+        for ( key in keys){
+            var value = styles.get(key);
+            if (key = "form"){
+                styleString = value + ";" + styleString;
+            } else if(key = "width"){
+                width = value;
+            } else if(key = "height"){
+                height = value;
+            } else if(key = "label"){
+                continue;
+            } else{
+                styleString += key + "=" + value + ";";
+            } 
+        }
+        styleString.println();
+        
+        if (eAnnotationSources.first() = "gmf.node" and eClassifier.abstract <> true) { %]
+            this.SMLGCreateVertexTemplateEntry('[%=styleString%]', [%=width%], [%=height%],  
+                 '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
+        [%} else if (eAnnotationSources.first() = "gmf.link" and eClassifier.abstract <> true) { %]
+            this.SMLGCreateEdgeTemplateEntry('[%=styleString%]', [%=width%], [%=height%], 
+                 '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
+        [% }
+        
+        
+	} %]
+        ]
+        [% contextString.println(); %]
+        this.SMLGSetDiagramContext([%=contextString%]);
+        this.addPaletteFunctions('[%=metamodel.name%]', '[%=metamodel.name.firstToUpperCase()%]', (expand != null) ? expand : true, fns);
+    }
+    SMLG.editorUI.sidebar.[%=name%](true);
+    console.log("End of [%=metamodel.name%].js");
+
+[% "Finish!".println(); %]
+
+[%
+
+operation Integer counting(a : Integer){
+    if (a < 10){
+        a.println();
+        a = a + 1;
+        a.counting(a);
+    }
+}
+
+operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attributes: Collection, details: Map, eAnnotationSources: Collection, styles: Map, labels: Collection): Collection {
+
+    if (not eClassifier.eSuperTypes.isEmpty()){
+        for (superType in eClassifier.eSuperTypes){
+            for (eClassifier in metamodel.eClassifiers){
+                if (eClassifier == superType){
+                    attributes = self.getAttributes(metamodel, eClassifier, attributes, details, eAnnotationSources, styles, labels);
+                }
+            }
+        }
+    }
+    
+        
+    for (eStructuralFeature in eClassifier.eStructuralFeatures) {
+        var map := new Map();
+        map.put("name", eStructuralFeature.name);
+        map.put("type", eStructuralFeature.type.name);
+        map.put("eType", eStructuralFeature.eType.name);
+        map.put("lowerBound", eStructuralFeature.lowerBound);
+        map.put("upperBound", eStructuralFeature.upperBound);
+        
+        if (eStructuralFeature.defaultValueLiteral.isDefined()){
+           map.put("defaultValue", eStructuralFeature.defaultValueLiteral);
+        }
+        
+        if (eStructuralFeature.eOpposite.isDefined()){
+            map.put("eOpposite", eStructuralFeature.eOpposite.name);
+        }
+        
+        var structuralAnnotation = eStructuralFeature.eAnnotations.select(a |
+            a.source="gmf.link" or
+            a.source="gmf.compartment" 
+            ).first();
+            
+	    if (structuralAnnotation.isDefined()){
+	       if(structuralAnnotation.source = "gmf.link"){
+	            map.put("link", true);
+		        for (detail in structuralAnnotation.details) { 
+		            details.put(detail.key, detail.value);
+	                if (detail.key = "style"){
+		               map.put("style", detail.value);
+		            }
+		        }  
+	       } 
+	       if (structuralAnnotation.source = "gmf.compartment"){
+	           map.put("compartment", true);
+	       }else{
+	           map.put("compartment", false);
+	       }
+	    }
+	    
+	    attributes.add(map); 
+    }
+        
+    var eAnnotation = eClassifier.eAnnotations.select(a |
+            a.source="gmf.diagram" or
+            a.source="gmf.compartment" or
+            a.source="gmf.link" or
+            a.source="gmf.node" 
+            ).first();
+            
+    if (eAnnotation.isDefined()){
+        for (detail in eAnnotation.details) { 
+            details.put(detail.key, detail.value);
+            if (detail.key = "mxLabel" or detail.key = "mxEndArrow" or detail.key = "mxBlockendFill" 
+                or detail.key = "mxEndSize" or detail.key = "mxHtml" or detail.key = "mxWhiteSpace" 
+                or detail.key = "mxRounded" or detail.key = "mxResizeParent" or detail.key = "mxResizeLast" 
+                or detail.key = "mxCollapsible" or detail.key = "mxHtml" or  detail.key = "mxWidth" 
+                or detail.key = "mxHeight" or detail.key = "mxFillColor" or detail.key = "mxEditable"
+                or detail.key = "mxDashed" or detail.key = "mxDashPattern" 
+                or detail.key = "mxStrokeWidth" or detail.key = "mxChildLayout" or detail.key = "mxHorizontalStack" 
+                or detail.key = "mxSwimlaneFillColor" or detail.key = "mxMarginBottom" or detail.key = "mxShape"
+                or detail.key = "mxForm" or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" 
+                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel") { 
+                styles.put(detail.key.substring(2,detail.key.length()).firstToLowerCase(), detail.value);
+            }
+			
+            if (detail.key = "mxLabel"){
+                labels.clear();
+                labels.add(detail.value);
+            }
+            
+        }         
+        if (eAnnotation.source.isDefined()){
+            eAnnotationSources.clear();
+            eAnnotationSources.add(eAnnotation.source); 
+        }    
+    }
+       
+    return attributes; 
+}
+
+%]

@@ -18,8 +18,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Entity">
     <eAnnotations source="gmf.link">
-      <details key="label" value="name"/>
-      <details key="style" value="endArrow=block;endFill=1;endSize=6;html=1;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxEndArrow" value="classic"/>
+      <details key="mxBlockendFill" value="1"/>
+      <details key="mxEndSize" value="6"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxWidth" value="120"/>
+      <details key="mxHeight" value="120"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Node"
         eOpposite="#//Node/outgoing"/>
@@ -28,28 +33,53 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EducationalObjective" eSuperTypes="#//Node">
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="html=1;whiteSpace=wrap;rounded=1;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxRounded" value="1"/>
+      <details key="mxWidth" value="480"/>
+      <details key="mxHeight" value="240"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
         eType="#//Entity">
-      <eAnnotations source="gmf.compartment"/>
+      <eAnnotations source="gmf.compartment">
+        <details key="mxForm" value="swimlane"/>
+        <details key="mxWiteSpace" value="wrap"/>
+        <details key="mxHtml" value="1"/>
+        <details key="mxCollapsible" value="1"/>
+        <details key="mxResizeParent" value="1"/>
+        <details key="mxResizeLast" value="1"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LearningActivity" eSuperTypes="#//Node">
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="html=1;whiteSpace=wrap;rounded=1;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxRounded" value="1"/>
+      <details key="mxWidth" value="240"/>
+      <details key="mxHeight" value="120"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
         eType="#//ActivityObjective">
-      <eAnnotations source="gmf.compartment"/>
+      <eAnnotations source="gmf.compartment">
+        <details key="mxForm" value="swimlane"/>
+        <details key="mxWiteSpace" value="wrap"/>
+        <details key="mxHtml" value="1"/>
+        <details key="mxCollapsible" value="1"/>
+        <details key="mxResizeParent" value="1"/>
+        <details key="mxResizeLast" value="1"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityObjective" eSuperTypes="#//Entity">
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="html=1;shape=plus;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxShape" value="plus"/>
+      <details key="mxWidth" value="30"/>
+      <details key="mxHeight" value="30"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StartNode" eSuperTypes="#//Node">
@@ -57,8 +87,13 @@
       <details key="constraints" value="constraintNoIncoming"/>
     </eAnnotations>
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxForm" value="ellipse"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxFillColor" value="#000000"/>
+      <details key="mxWidth" value="30"/>
+      <details key="mxHeight" value="30"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EndNode" eSuperTypes="#//Node">
@@ -66,8 +101,13 @@
       <details key="constraints" value="constraintNoOutgoing"/>
     </eAnnotations>
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;"/>
+      <details key="mxLabel" value=""/>
+      <details key="mxForm" value="ellipse"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxFillColor" value="#FFFFFF"/>
+      <details key="mxWidth" value="30"/>
+      <details key="mxHeight" value="30"/>
     </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

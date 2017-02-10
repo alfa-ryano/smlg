@@ -23,7 +23,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Transition">
     <eAnnotations source="gmf.link">
-      <details key="value1" value="30"/>
+      <details key="value" value="30"/>
       <details key="label" value="name"/>
       <details key="source" value="source"/>
       <details key="target" value="target"/>

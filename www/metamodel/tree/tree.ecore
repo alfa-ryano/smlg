@@ -19,8 +19,24 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//Tree">
     <eAnnotations source="gmf.node">
-      <details key="label" value="name"/>
-      <details key="style" value="swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;"/>
+      <details key="mxLabel" value="name"/>
+      <details key="mxFill" value="1"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxFillColor" value="none"/>
+      <details key="mxForm" value="swimlane"/>
+      <details key="mxChildLayout" value="stackLayout"/>
+      <details key="mxCollapsible" value="1"/>
+      <details key="mxHorizontalStack" value="0"/>
+      <details key="mxResizeParent" value="0"/>
+      <details key="mxResizeLast" value="1"/>
+      <details key="mxRounded" value="1"/>
+      <details key="mxMarginBottom" value="10"/>
+      <details key="mxMarginLeft" value="10"/>
+      <details key="mxMarginRight" value="10"/>
+      <details key="mxMarginTop" value="10"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxWidth" value="200"/>
+      <details key="mxHeight" value="120"/>
     </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,11 +1,11 @@
 var SMLG_DIAGRAM_PATH = "../smlg/diagram/";
 
-var SMLG_DIAGRAM_TYPES = [ { 
+var SMLG_DIAGRAM_TYPES = [ {
 	filename : "eoml.js",
-	enabled : true 
-},{
+	enabled : true
+}, {
 	filename : "filesystem.js",
-	enabled : false 
+	enabled : false
 }, {
 	filename : "flowchart.js",
 	enabled : false
@@ -14,8 +14,9 @@ var SMLG_DIAGRAM_TYPES = [ {
 	enabled : false
 } ];
 
-var SMLG = function(editorUI) {
+var SMLG = function(editorUI, currentMetamodel) {
 
+	SMLG.currentMetamodel = currentMetamodel; 
 	SMLG.prefix = null;
 	SMLG.uri = null;
 	SMLG.uri = null;
@@ -31,7 +32,7 @@ var SMLG = function(editorUI) {
 			var keyForLabelName = "";
 			var gsmLabel = node.getAttribute("gsmLabel");
 			var currentValue = (gsmLabel == null) ? currentValue : node
-					.getAttribute(gsmLabel);
+				.getAttribute(gsmLabel);
 			return currentValue;
 		}
 	};
@@ -78,7 +79,7 @@ var SMLG = function(editorUI) {
 				SMLG.package = myPackage;
 				continue;
 			} else if (item["properties"] != null
-					&& item["properties"].length > 0) {
+				&& item["properties"].length > 0) {
 				properties = item["properties"];
 				continue;
 			}
@@ -102,11 +103,11 @@ var SMLG = function(editorUI) {
 					if (property["type"] == "EAttribute") {
 						node.setAttribute(property["name"], property["value"]);
 					} else if (property["type"] == "EReference"
-							&& property["upperBound"] != -1) {
+						&& property["upperBound"] != -1) {
 						node.setAttribute(property["name"], property["value"]);
 					} else {
 						var element = mxUtils.createXmlDocument()
-								.createElement("GSMRootContainer");
+							.createElement("GSMRootContainer");
 						element.setAttribute("name", property["name"]);
 						element.setAttribute("type", property["eType"]);
 						node.appendChild(element);
@@ -123,12 +124,12 @@ var SMLG = function(editorUI) {
 	 * Creates a drop handler for inserting the given cells.
 	 */
 	editorUI.sidebar.SMLGCreateVertexTemplateEntry = function(style, width,
-			height, value, title, showLabel, showTitle, tags, properties) {
+		height, value, title, showLabel, showTitle, tags, properties) {
 		tags = (tags != null && tags.length > 0) ? tags : title.toLowerCase();
 
 		return this.addEntry(tags, mxUtils.bind(this, function() {
 			return this.SMLGCreateVertexTemplate(style, width, height, value,
-					title, showLabel, showTitle, null, properties);
+				title, showLabel, showTitle, null, properties);
 		}));
 	}
 
@@ -136,10 +137,10 @@ var SMLG = function(editorUI) {
 	 * Creates a drop handler for inserting the given cells.
 	 */
 	editorUI.sidebar.SMLGCreateVertexTemplate = function(style, width, height,
-			value, title, showLabel, showTitle, allowCellsInserted,
-			jsonStringPoperties) {
+		value, title, showLabel, showTitle, allowCellsInserted,
+		jsonStringPoperties) {
 		var cells = [ new mxCell((value != null) ? value : '', new mxGeometry(
-				0, 0, width, height), style) ];
+			0, 0, width, height), style) ];
 		cells[0].vertex = true;
 
 		if (jsonStringPoperties != null) {
@@ -158,7 +159,7 @@ var SMLG = function(editorUI) {
 					gsmLabel = item["value"];
 					continue;
 				} else if (item["properties"] != null
-						&& item["properties"].length > 0) {
+					&& item["properties"].length > 0) {
 					properties = item["properties"];
 					continue;
 				}
@@ -174,26 +175,26 @@ var SMLG = function(editorUI) {
 
 						if (property["type"] == "EAttribute") {
 							node.setAttribute(property["name"],
-									property["value"]);
+								property["value"]);
 						} else if (property["type"] == "EReference"
-								&& property["upperBound"] != -1) {
+							&& property["upperBound"] != -1) {
 							node.setAttribute(property["name"],
-									property["value"]);
+								property["value"]);
 						} else {
 							if (property["compartment"] != null
-									&& property["compartment"] == true) {
+								&& property["compartment"] == true) {
 								var innerCell = new mxCell(
-										property.name,
-										new mxGeometry(0, 0, height / 2, width),
-										'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
+									property.name,
+									new mxGeometry(0, 0, height / 2, width),
+									'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;');
 								innerCell.vertex = true;
 								innerCell.value = mxUtils.createXmlDocument()
-										.createElement("GSMContainer");
+									.createElement("GSMContainer");
 								innerCell.value.setAttribute("name",
-										property["name"]);
+									property["name"]);
 								innerCell.value.setAttribute("label",
-										(property.name != null) ? property.name
-												: '');
+									(property.name != null) ? property.name
+										: '');
 								cells[0].insert(innerCell);
 							}
 						}
@@ -204,20 +205,20 @@ var SMLG = function(editorUI) {
 		}
 
 		return this.createVertexTemplateFromCells(cells, width, height, title,
-				showLabel, showTitle, allowCellsInserted);
+			showLabel, showTitle, allowCellsInserted);
 	};
 
 	/**
 	 * Creates a drop handler for inserting the given cells.
 	 */
 	editorUI.sidebar.SMLGCreateEdgeTemplateEntry = function(style, width,
-			height, value, title, showLabel, tags, allowCellsInserted,
-			properties) {
+		height, value, title, showLabel, tags, allowCellsInserted,
+		properties) {
 		tags = (tags != null && tags.length > 0) ? tags : title.toLowerCase();
 
 		return this.addEntry(tags, mxUtils.bind(this, function() {
 			return this.SMLGCreateEdgeTemplate(style, width, height, value,
-					title, showLabel, allowCellsInserted, properties);
+				title, showLabel, allowCellsInserted, properties);
 		}));
 	};
 
@@ -225,9 +226,9 @@ var SMLG = function(editorUI) {
 	 * Creates a drop handler for inserting the given cells.
 	 */
 	editorUI.sidebar.SMLGCreateEdgeTemplate = function(style, width, height,
-			value, title, showLabel, allowCellsInserted, jsonStringProperties) {
+		value, title, showLabel, allowCellsInserted, jsonStringProperties) {
 		var cell = new mxCell((value != null) ? value : '', new mxGeometry(0,
-				0, width, height), style);
+			0, width, height), style);
 		cell.geometry.setTerminalPoint(new mxPoint(0, height), true);
 		cell.geometry.setTerminalPoint(new mxPoint(width, 0), false);
 		cell.geometry.relative = true;
@@ -249,7 +250,7 @@ var SMLG = function(editorUI) {
 					gsmLabel = item["value"];
 					continue;
 				} else if (item["properties"] != null
-						&& item["properties"].length > 0) {
+					&& item["properties"].length > 0) {
 					properties = item["properties"];
 					continue;
 				}
@@ -265,24 +266,24 @@ var SMLG = function(editorUI) {
 
 						if (property["type"] == "EAttribute") {
 							node.setAttribute(property["name"],
-									property["value"]);
+								property["value"]);
 						} else if (property["type"] == "EReference"
-								&& property["upperBound"] != -1) {
+							&& property["upperBound"] != -1) {
 							node.setAttribute(property["name"],
-									property["value"]);
+								property["value"]);
 						}
 					}
 				}
 				cell.value = node;
 			}
-			// var node = mxUtils.createXmlDocument().createElement("SMLGCell");
-			// cell.value = node;
-			// cell.value.setAttribute("label", (value != null) ? value : '');
-			// cell.value.setAttribute("properties", properties);
+		// var node = mxUtils.createXmlDocument().createElement("SMLGCell");
+		// cell.value = node;
+		// cell.value.setAttribute("label", (value != null) ? value : '');
+		// cell.value.setAttribute("properties", properties);
 		}
 
 		return this.createEdgeTemplateFromCells([ cell ], width, height, title,
-				showLabel, allowCellsInserted);
+			showLabel, allowCellsInserted);
 	};
 
 	/**
@@ -354,51 +355,51 @@ var SMLG = function(editorUI) {
 			var currentPanel = null;
 
 			var addClickHandler = mxUtils
-					.bind(
-							this,
-							function(elt, panel, index) {
-								var clickHandler = mxUtils
-										.bind(
-												this,
-												function(evt) {
-													// console.log(currentLabel.prototype);
+				.bind(
+					this,
+					function(elt, panel, index) {
+						var clickHandler = mxUtils
+							.bind(
+								this,
+								function(evt) {
+									// console.log(currentLabel.prototype);
 
-													if (currentLabel != elt) {
-														if (containsLabel) {
-															this.labelIndex = index;
-														} else {
-															this.currentIndex = index;
-														}
+									if (currentLabel != elt) {
+										if (containsLabel) {
+											this.labelIndex = index;
+										} else {
+											this.currentIndex = index;
+										}
 
-														if (currentLabel != null) {
-															currentLabel.style.backgroundColor = '#d7d7d7';
-															currentLabel.style.borderBottomWidth = '1px';
-														}
+										if (currentLabel != null) {
+											currentLabel.style.backgroundColor = '#d7d7d7';
+											currentLabel.style.borderBottomWidth = '1px';
+										}
 
-														currentLabel = elt;
-														currentLabel.style.backgroundColor = '';
-														currentLabel.style.borderBottomWidth = '0px';
+										currentLabel = elt;
+										currentLabel.style.backgroundColor = '';
+										currentLabel.style.borderBottomWidth = '0px';
 
-														if (currentPanel != panel) {
-															if (currentPanel != null) {
-																currentPanel.style.display = 'none';
-															}
+										if (currentPanel != panel) {
+											if (currentPanel != null) {
+												currentPanel.style.display = 'none';
+											}
 
-															currentPanel = panel;
-															currentPanel.style.display = '';
-														}
-													}
-												});
+											currentPanel = panel;
+											currentPanel.style.display = '';
+										}
+									}
+								});
 
-								mxEvent.addListener(elt, 'click', clickHandler);
+						mxEvent.addListener(elt, 'click', clickHandler);
 
-								if (index == ((containsLabel) ? this.labelIndex
-										: this.currentIndex)) {
-									// Invokes handler directly as a workaround
-									// for no click on DIV in KHTML.
-									clickHandler();
-								}
-							});
+						if (index == ((containsLabel) ? this.labelIndex
+								: this.currentIndex)) {
+							// Invokes handler directly as a workaround
+							// for no click on DIV in KHTML.
+							clickHandler();
+						}
+					});
 
 			var idx = 0;
 
@@ -465,19 +466,20 @@ var SMLG = function(editorUI) {
 			var propertiesPanel = div.cloneNode(false);
 			propertiesPanel.style.display = 'none';
 			this.panels
-					.push(new SMLGPropertiesPanel(this, ui, propertiesPanel));
+				.push(new SMLGPropertiesPanel(this, ui, propertiesPanel));
 			this.container.appendChild(propertiesPanel);
 			addClickHandler(SMLGlabel, propertiesPanel, idx++);
 
-			// End SMLG
+		// End SMLG
 		}
 	};
 
 	// clear sidebar
 	SMLG.ClearSidebar();
 
-	// Load modelling language
-	SMLG.SMLGLoadModellingLangauges();
+//	// Load modelling language
+//	SMLG.SMLGLoadModellingLangauges();
+	SMLG.SMLGLoadJavascript(SMLG_DIAGRAM_PATH + currentMetamodel + ".js");
 }
 
 SMLG.prototype.ClearSidebar = function() {
@@ -491,7 +493,7 @@ SMLG.prototype.ClearSidebar = function() {
 		var child = children[i];
 
 		if (child == sidebar.palettes['search'][0]
-				|| child == sidebar.palettes['search'][1]) {
+			|| child == sidebar.palettes['search'][1]) {
 			continue;
 		} else {
 			container.removeChild(child);
@@ -538,7 +540,7 @@ SMLG.SMLGLoadModellingLangauges = function() {
 		var modellingLanguage = SMLG_DIAGRAM_TYPES[i];
 		if (modellingLanguage.enabled == true) {
 			this.SMLGLoadJavascript(SMLG_DIAGRAM_PATH
-					+ modellingLanguage.filename);
+				+ modellingLanguage.filename);
 		}
 	}
 };
@@ -692,7 +694,7 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 
 			mxUtils.write(stylePropertyLabel, attribute.name.trim().charAt(0)
 					.toUpperCase()
-					+ attribute.name.trim().slice(1));
+				+ attribute.name.trim().slice(1));
 
 			var propertyInput = document.createElement('input');
 			propertyInput.setAttribute("id", attribute.name);
@@ -837,3 +839,4 @@ var UnsatisfiedConstraintDialog = function(editorUi, response) {
 	this.container = div;
 
 }
+
