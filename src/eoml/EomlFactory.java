@@ -40,49 +40,40 @@ public interface EomlFactory extends EFactory {
 	Transition createTransition();
 
 	/**
-	 * Returns a new object of class '<em>Educational Objective</em>'.
+	 * Returns a new object of class '<em>Activity</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Educational Objective</em>'.
+	 * @return a new object of class '<em>Activity</em>'.
 	 * @generated
 	 */
-	EducationalObjective createEducationalObjective();
+	Activity createActivity();
 
 	/**
-	 * Returns a new object of class '<em>Learning Activity</em>'.
+	 * Returns a new object of class '<em>Objective</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Learning Activity</em>'.
+	 * @return a new object of class '<em>Objective</em>'.
 	 * @generated
 	 */
-	LearningActivity createLearningActivity();
+	Objective createObjective();
 
 	/**
-	 * Returns a new object of class '<em>Activity Objective</em>'.
+	 * Returns a new object of class '<em>Start</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Activity Objective</em>'.
+	 * @return a new object of class '<em>Start</em>'.
 	 * @generated
 	 */
-	ActivityObjective createActivityObjective();
+	Start createStart();
 
 	/**
-	 * Returns a new object of class '<em>Start Node</em>'.
+	 * Returns a new object of class '<em>End</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Start Node</em>'.
+	 * @return a new object of class '<em>End</em>'.
 	 * @generated
 	 */
-	StartNode createStartNode();
-
-	/**
-	 * Returns a new object of class '<em>End Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>End Node</em>'.
-	 * @generated
-	 */
-	EndNode createEndNode();
+	End createEnd();
 
 	/**
 	 * Returns the package supported by this factory.

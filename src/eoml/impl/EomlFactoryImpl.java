@@ -58,11 +58,10 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 		switch (eClass.getClassifierID()) {
 			case EomlPackage.EOML: return createEOML();
 			case EomlPackage.TRANSITION: return createTransition();
-			case EomlPackage.EDUCATIONAL_OBJECTIVE: return createEducationalObjective();
-			case EomlPackage.LEARNING_ACTIVITY: return createLearningActivity();
-			case EomlPackage.ACTIVITY_OBJECTIVE: return createActivityObjective();
-			case EomlPackage.START_NODE: return createStartNode();
-			case EomlPackage.END_NODE: return createEndNode();
+			case EomlPackage.ACTIVITY: return createActivity();
+			case EomlPackage.OBJECTIVE: return createObjective();
+			case EomlPackage.START: return createStart();
+			case EomlPackage.END: return createEnd();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -93,9 +92,9 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EducationalObjective createEducationalObjective() {
-		EducationalObjectiveImpl educationalObjective = new EducationalObjectiveImpl();
-		return educationalObjective;
+	public Activity createActivity() {
+		ActivityImpl activity = new ActivityImpl();
+		return activity;
 	}
 
 	/**
@@ -103,9 +102,9 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LearningActivity createLearningActivity() {
-		LearningActivityImpl learningActivity = new LearningActivityImpl();
-		return learningActivity;
+	public Objective createObjective() {
+		ObjectiveImpl objective = new ObjectiveImpl();
+		return objective;
 	}
 
 	/**
@@ -113,9 +112,9 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ActivityObjective createActivityObjective() {
-		ActivityObjectiveImpl activityObjective = new ActivityObjectiveImpl();
-		return activityObjective;
+	public Start createStart() {
+		StartImpl start = new StartImpl();
+		return start;
 	}
 
 	/**
@@ -123,19 +122,9 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartNode createStartNode() {
-		StartNodeImpl startNode = new StartNodeImpl();
-		return startNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EndNode createEndNode() {
-		EndNodeImpl endNode = new EndNodeImpl();
-		return endNode;
+	public End createEnd() {
+		EndImpl end = new EndImpl();
+		return end;
 	}
 
 	/**

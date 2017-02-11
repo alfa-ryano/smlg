@@ -2,15 +2,14 @@
  */
 package eoml.impl;
 
-import eoml.ActivityObjective;
-import eoml.EducationalObjective;
-import eoml.EndNode;
+import eoml.Activity;
+import eoml.End;
 import eoml.Entity;
 import eoml.EomlFactory;
 import eoml.EomlPackage;
-import eoml.LearningActivity;
 import eoml.Node;
-import eoml.StartNode;
+import eoml.Objective;
+import eoml.Start;
 import eoml.Transition;
 
 import eoml.util.EomlValidator;
@@ -63,35 +62,28 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass educationalObjectiveEClass = null;
+	private EClass activityEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass learningActivityEClass = null;
+	private EClass objectiveEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass activityObjectiveEClass = null;
+	private EClass startEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass startNodeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass endNodeEClass = null;
+	private EClass endEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -267,8 +259,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEducationalObjective() {
-		return educationalObjectiveEClass;
+	public EClass getActivity() {
+		return activityEClass;
 	}
 
 	/**
@@ -276,8 +268,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEducationalObjective_Entities() {
-		return (EReference)educationalObjectiveEClass.getEStructuralFeatures().get(0);
+	public EReference getActivity_Objectives() {
+		return (EReference)activityEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -285,8 +277,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getLearningActivity() {
-		return learningActivityEClass;
+	public EClass getObjective() {
+		return objectiveEClass;
 	}
 
 	/**
@@ -294,8 +286,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLearningActivity_Objectives() {
-		return (EReference)learningActivityEClass.getEStructuralFeatures().get(0);
+	public EClass getStart() {
+		return startEClass;
 	}
 
 	/**
@@ -303,26 +295,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getActivityObjective() {
-		return activityObjectiveEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStartNode() {
-		return startNodeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEndNode() {
-		return endNodeEClass;
+	public EClass getEnd() {
+		return endEClass;
 	}
 
 	/**
@@ -368,17 +342,14 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		createEReference(transitionEClass, TRANSITION__SOURCE);
 		createEReference(transitionEClass, TRANSITION__TARGET);
 
-		educationalObjectiveEClass = createEClass(EDUCATIONAL_OBJECTIVE);
-		createEReference(educationalObjectiveEClass, EDUCATIONAL_OBJECTIVE__ENTITIES);
+		activityEClass = createEClass(ACTIVITY);
+		createEReference(activityEClass, ACTIVITY__OBJECTIVES);
 
-		learningActivityEClass = createEClass(LEARNING_ACTIVITY);
-		createEReference(learningActivityEClass, LEARNING_ACTIVITY__OBJECTIVES);
+		objectiveEClass = createEClass(OBJECTIVE);
 
-		activityObjectiveEClass = createEClass(ACTIVITY_OBJECTIVE);
+		startEClass = createEClass(START);
 
-		startNodeEClass = createEClass(START_NODE);
-
-		endNodeEClass = createEClass(END_NODE);
+		endEClass = createEClass(END);
 	}
 
 	/**
@@ -411,19 +382,18 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		// Add supertypes to classes
 		nodeEClass.getESuperTypes().add(this.getEntity());
 		transitionEClass.getESuperTypes().add(this.getEntity());
-		educationalObjectiveEClass.getESuperTypes().add(this.getNode());
-		learningActivityEClass.getESuperTypes().add(this.getNode());
-		activityObjectiveEClass.getESuperTypes().add(this.getEntity());
-		startNodeEClass.getESuperTypes().add(this.getNode());
-		endNodeEClass.getESuperTypes().add(this.getNode());
+		activityEClass.getESuperTypes().add(this.getNode());
+		objectiveEClass.getESuperTypes().add(this.getEntity());
+		startEClass.getESuperTypes().add(this.getNode());
+		endEClass.getESuperTypes().add(this.getNode());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(eomlEClass, eoml.EOML.class, "EOML", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEOML_Entities(), this.getEntity(), null, "entities", null, 0, -1, eoml.EOML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(entityEClass, Entity.class, "Entity", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEntity_Name(), ecorePackage.getEString(), "name", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEntity_Description(), ecorePackage.getEString(), "description", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEntity_Name(), ecorePackage.getEString(), "name", "", 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEntity_Description(), ecorePackage.getEString(), "description", "", 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNode_Outgoing(), this.getTransition(), this.getTransition_Source(), "outgoing", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -433,17 +403,14 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		initEReference(getTransition_Source(), this.getNode(), this.getNode_Outgoing(), "source", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Target(), this.getNode(), this.getNode_Incoming(), "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(educationalObjectiveEClass, EducationalObjective.class, "EducationalObjective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEducationalObjective_Entities(), this.getEntity(), null, "entities", null, 0, -1, EducationalObjective.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getActivity_Objectives(), this.getObjective(), null, "objectives", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(learningActivityEClass, LearningActivity.class, "LearningActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLearningActivity_Objectives(), this.getActivityObjective(), null, "objectives", null, 0, -1, LearningActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(objectiveEClass, Objective.class, "Objective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(activityObjectiveEClass, ActivityObjective.class, "ActivityObjective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(startEClass, Start.class, "Start", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(startNodeEClass, StartNode.class, "StartNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(endNodeEClass, EndNode.class, "EndNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(endEClass, End.class, "End", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -488,8 +455,15 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		  (transitionEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "endArrow=block;endFill=1;endSize=6;html=1;"
+			 "mxLabel", "name",
+			 "source", "source",
+			 "target", "target",
+			 "mxEndArrow", "block",
+			 "mxBlockendFill", "1",
+			 "mxEndSize", "6",
+			 "mxHtml", "1",
+			 "mxWidth", "120",
+			 "mxHeight", "120"
 		   });
 	}
 
@@ -502,39 +476,58 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	protected void createGmf_2Annotations() {
 		String source = "gmf.node";	
 		addAnnotation
-		  (educationalObjectiveEClass, 
+		  (activityEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "html=1;whiteSpace=wrap;rounded=1;"
+			 "mxShape", "swimlane",
+			 "mxChildLayout", "stackLayout",
+			 "mxCollapsible", "1",
+			 "mxHorizontalStack", "0",
+			 "mxResizeParent", "0",
+			 "mxResizeLast", "1",
+			 "mxRounded", "1",
+			 "mxMarginBottom", "5",
+			 "mxMarginLeft", "5",
+			 "mxMarginRight", "5",
+			 "mxMarginTop", "5",
+			 "mxHtml", "1",
+			 "mxWhiteSpace", "wrap",
+			 "mxWidth", "200",
+			 "mxHeight", "120"
 		   });	
 		addAnnotation
-		  (learningActivityEClass, 
+		  (objectiveEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "html=1;whiteSpace=wrap;rounded=1;"
+			 "mxLabel", "name",
+			 "mxHtml", "1",
+			 "mxShape", "plus",
+			 "mxWidth", "30",
+			 "mxHeight", "30"
 		   });	
 		addAnnotation
-		  (activityObjectiveEClass, 
+		  (startEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "html=1;shape=plus;"
+			 "mxLabel", "name",
+			 "mxShape", "ellipse",
+			 "mxWhiteSpace", "wrap",
+			 "mxHtml", "1",
+			 "mxFillColor", "#000000",
+			 "mxWidth", "30",
+			 "mxHeight", "30"
 		   });	
 		addAnnotation
-		  (startNodeEClass, 
+		  (endEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "ellipse;whiteSpace=wrap;html=1;fillColor=#000000;"
-		   });	
-		addAnnotation
-		  (endNodeEClass, 
-		   source, 
-		   new String[] {
-			 "label", "name",
-			 "style", "ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;"
+			 "mxLabel", "name",
+			 "mxShape", "ellipse",
+			 "mxWhiteSpace", "wrap",
+			 "mxHtml", "1",
+			 "mxFillColor", "#FFFFFF",
+			 "mxWidth", "30",
+			 "mxHeight", "30"
 		   });
 	}
 
@@ -547,14 +540,16 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	protected void createGmf_3Annotations() {
 		String source = "gmf.compartment";	
 		addAnnotation
-		  (getEducationalObjective_Entities(), 
+		  (getActivity_Objectives(), 
 		   source, 
 		   new String[] {
-		   });	
-		addAnnotation
-		  (getLearningActivity_Objectives(), 
-		   source, 
-		   new String[] {
+			 "mxShape", "swimlane",
+			 "mxCollapsible", "0",
+			 "mxNoLabel", "1",
+			 "xEditable", "0",
+			 "mxFillColor", "none",
+			 "mxStrokeColor", "none",
+			 "mxStartSize", "0"
 		   });
 	}
 
@@ -567,13 +562,13 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	protected void createEcoreAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/Ecore";	
 		addAnnotation
-		  (startNodeEClass, 
+		  (startEClass, 
 		   source, 
 		   new String[] {
 			 "constraints", "constraintNoIncoming"
 		   });	
 		addAnnotation
-		  (endNodeEClass, 
+		  (endEClass, 
 		   source, 
 		   new String[] {
 			 "constraints", "constraintNoOutgoing"

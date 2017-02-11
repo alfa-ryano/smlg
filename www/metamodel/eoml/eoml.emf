@@ -7,8 +7,8 @@ class EOML {
 }
 
 abstract class Entity {
-  attr String name;
-  attr String description;
+  attr String name = "";
+  attr String description = "";
 }
 
 
@@ -17,38 +17,34 @@ abstract class Node extends Entity {
   ref Transition[*]#target incoming;
 }
 
-@gmf.link(source="source", target="target", mxLabel="", mxEndArrow="classic", mxBlockendFill="1", mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120")
+@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="block", mxBlockendFill="1", 
+           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120")
 class Transition extends Entity {
   ref Node#outgoing source;
   ref Node#incoming target;
 }
 
-@gmf.node(mxLabel="", mxHtml="1", mxWhiteSpace="wrap", mxRounded="1", mxWidth="480", mxHeight="240")
-class EducationalObjective extends Node {
+@gmf.node(mxShape="swimlane", mxChildLayout = "stackLayout", mxCollapsible = "1", mxHorizontalStack="0", mxResizeParent="0", 
+            mxResizeLast="1", mxRounded="1", mxMarginBottom="5", mxMarginLeft="5", mxMarginRight="5", mxMarginTop="5",
+            mxHtml="1", mxWhiteSpace="wrap", mxWidth="200", mxHeight="120")
+class Activity extends Node {
 
-  @gmf.compartment(mxForm="swimlane", mxWiteSpace="wrap", mxHtml="1", mxCollapsible="1", mxResizeParent="1", mxResizeLast="1")
-  ref Entity[*] entities;
+  @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", 
+            mxStrokeColor="none", mxStartSize="0")
+  ref Objective[*] objectives;
 }
 
-
-@gmf.node(mxLabel="", mxHtml="1", mxWhiteSpace="wrap", mxRounded="1", mxWidth="240", mxHeight="120")
-class LearningActivity extends Node {
-
-  @gmf.compartment(mxForm="swimlane", mxWiteSpace="wrap", mxHtml="1", mxCollapsible="1", mxResizeParent="1", mxResizeLast="1")
-  ref ActivityObjective[*] objectives;
-}
-
-@gmf.node(mxLabel="", mxHtml="1", mxShape="plus", mxWidth="30", mxHeight="30")
-class ActivityObjective extends Entity {
+@gmf.node(mxLabel="name", mxHtml="1", mxShape="plus", mxWidth="30", mxHeight="30")
+class Objective extends Entity {
 }
 
 
 @Ecore(constraints="constraintNoIncoming")
-@gmf.node(mxLabel="", mxForm="ellipse", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#000000", mxWidth="30", mxHeight="30")
-class StartNode extends Node {
+@gmf.node(mxLabel="name", mxShape="ellipse", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#000000", mxWidth="30", mxHeight="30")
+class Start extends Node {
 }
 
 @Ecore(constraints="constraintNoOutgoing")
-@gmf.node(mxLabel="", mxForm="ellipse", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#FFFFFF", mxWidth="30", mxHeight="30")
-class EndNode extends Node {
+@gmf.node(mxLabel="name", mxShape="ellipse", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#FFFFFF", mxWidth="30", mxHeight="30")
+class End extends Node {
 }

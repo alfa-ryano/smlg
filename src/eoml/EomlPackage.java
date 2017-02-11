@@ -231,14 +231,14 @@ public interface EomlPackage extends EPackage {
 	int TRANSITION_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link eoml.impl.EducationalObjectiveImpl <em>Educational Objective</em>}' class.
+	 * The meta object id for the '{@link eoml.impl.ActivityImpl <em>Activity</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eoml.impl.EducationalObjectiveImpl
-	 * @see eoml.impl.EomlPackageImpl#getEducationalObjective()
+	 * @see eoml.impl.ActivityImpl
+	 * @see eoml.impl.EomlPackageImpl#getActivity()
 	 * @generated
 	 */
-	int EDUCATIONAL_OBJECTIVE = 4;
+	int ACTIVITY = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -247,7 +247,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDUCATIONAL_OBJECTIVE__NAME = NODE__NAME;
+	int ACTIVITY__NAME = NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -256,7 +256,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDUCATIONAL_OBJECTIVE__DESCRIPTION = NODE__DESCRIPTION;
+	int ACTIVITY__DESCRIPTION = NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
@@ -265,7 +265,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDUCATIONAL_OBJECTIVE__OUTGOING = NODE__OUTGOING;
+	int ACTIVITY__OUTGOING = NODE__OUTGOING;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
@@ -274,71 +274,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDUCATIONAL_OBJECTIVE__INCOMING = NODE__INCOMING;
-
-	/**
-	 * The feature id for the '<em><b>Entities</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDUCATIONAL_OBJECTIVE__ENTITIES = NODE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Educational Objective</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDUCATIONAL_OBJECTIVE_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link eoml.impl.LearningActivityImpl <em>Learning Activity</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see eoml.impl.LearningActivityImpl
-	 * @see eoml.impl.EomlPackageImpl#getLearningActivity()
-	 * @generated
-	 */
-	int LEARNING_ACTIVITY = 5;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LEARNING_ACTIVITY__NAME = NODE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LEARNING_ACTIVITY__DESCRIPTION = NODE__DESCRIPTION;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LEARNING_ACTIVITY__OUTGOING = NODE__OUTGOING;
-
-	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LEARNING_ACTIVITY__INCOMING = NODE__INCOMING;
+	int ACTIVITY__INCOMING = NODE__INCOMING;
 
 	/**
 	 * The feature id for the '<em><b>Objectives</b></em>' reference list.
@@ -347,26 +283,26 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LEARNING_ACTIVITY__OBJECTIVES = NODE_FEATURE_COUNT + 0;
+	int ACTIVITY__OBJECTIVES = NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Learning Activity</em>' class.
+	 * The number of structural features of the '<em>Activity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LEARNING_ACTIVITY_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
+	int ACTIVITY_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link eoml.impl.ActivityObjectiveImpl <em>Activity Objective</em>}' class.
+	 * The meta object id for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eoml.impl.ActivityObjectiveImpl
-	 * @see eoml.impl.EomlPackageImpl#getActivityObjective()
+	 * @see eoml.impl.ObjectiveImpl
+	 * @see eoml.impl.EomlPackageImpl#getObjective()
 	 * @generated
 	 */
-	int ACTIVITY_OBJECTIVE = 6;
+	int OBJECTIVE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -375,7 +311,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_OBJECTIVE__NAME = ENTITY__NAME;
+	int OBJECTIVE__NAME = ENTITY__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -384,26 +320,26 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_OBJECTIVE__DESCRIPTION = ENTITY__DESCRIPTION;
+	int OBJECTIVE__DESCRIPTION = ENTITY__DESCRIPTION;
 
 	/**
-	 * The number of structural features of the '<em>Activity Objective</em>' class.
+	 * The number of structural features of the '<em>Objective</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_OBJECTIVE_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 0;
+	int OBJECTIVE_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link eoml.impl.StartNodeImpl <em>Start Node</em>}' class.
+	 * The meta object id for the '{@link eoml.impl.StartImpl <em>Start</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eoml.impl.StartNodeImpl
-	 * @see eoml.impl.EomlPackageImpl#getStartNode()
+	 * @see eoml.impl.StartImpl
+	 * @see eoml.impl.EomlPackageImpl#getStart()
 	 * @generated
 	 */
-	int START_NODE = 7;
+	int START = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -412,7 +348,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int START_NODE__NAME = NODE__NAME;
+	int START__NAME = NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -421,7 +357,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int START_NODE__DESCRIPTION = NODE__DESCRIPTION;
+	int START__DESCRIPTION = NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
@@ -430,7 +366,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int START_NODE__OUTGOING = NODE__OUTGOING;
+	int START__OUTGOING = NODE__OUTGOING;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
@@ -439,26 +375,26 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int START_NODE__INCOMING = NODE__INCOMING;
+	int START__INCOMING = NODE__INCOMING;
 
 	/**
-	 * The number of structural features of the '<em>Start Node</em>' class.
+	 * The number of structural features of the '<em>Start</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int START_NODE_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+	int START_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link eoml.impl.EndNodeImpl <em>End Node</em>}' class.
+	 * The meta object id for the '{@link eoml.impl.EndImpl <em>End</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eoml.impl.EndNodeImpl
-	 * @see eoml.impl.EomlPackageImpl#getEndNode()
+	 * @see eoml.impl.EndImpl
+	 * @see eoml.impl.EomlPackageImpl#getEnd()
 	 * @generated
 	 */
-	int END_NODE = 8;
+	int END = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -467,7 +403,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_NODE__NAME = NODE__NAME;
+	int END__NAME = NODE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -476,7 +412,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_NODE__DESCRIPTION = NODE__DESCRIPTION;
+	int END__DESCRIPTION = NODE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
@@ -485,7 +421,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_NODE__OUTGOING = NODE__OUTGOING;
+	int END__OUTGOING = NODE__OUTGOING;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
@@ -494,16 +430,16 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_NODE__INCOMING = NODE__INCOMING;
+	int END__INCOMING = NODE__INCOMING;
 
 	/**
-	 * The number of structural features of the '<em>End Node</em>' class.
+	 * The number of structural features of the '<em>End</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int END_NODE_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+	int END_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
 
 
 	/**
@@ -624,76 +560,55 @@ public interface EomlPackage extends EPackage {
 	EReference getTransition_Target();
 
 	/**
-	 * Returns the meta object for class '{@link eoml.EducationalObjective <em>Educational Objective</em>}'.
+	 * Returns the meta object for class '{@link eoml.Activity <em>Activity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Educational Objective</em>'.
-	 * @see eoml.EducationalObjective
+	 * @return the meta object for class '<em>Activity</em>'.
+	 * @see eoml.Activity
 	 * @generated
 	 */
-	EClass getEducationalObjective();
+	EClass getActivity();
 
 	/**
-	 * Returns the meta object for the reference list '{@link eoml.EducationalObjective#getEntities <em>Entities</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Entities</em>'.
-	 * @see eoml.EducationalObjective#getEntities()
-	 * @see #getEducationalObjective()
-	 * @generated
-	 */
-	EReference getEducationalObjective_Entities();
-
-	/**
-	 * Returns the meta object for class '{@link eoml.LearningActivity <em>Learning Activity</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Learning Activity</em>'.
-	 * @see eoml.LearningActivity
-	 * @generated
-	 */
-	EClass getLearningActivity();
-
-	/**
-	 * Returns the meta object for the reference list '{@link eoml.LearningActivity#getObjectives <em>Objectives</em>}'.
+	 * Returns the meta object for the reference list '{@link eoml.Activity#getObjectives <em>Objectives</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Objectives</em>'.
-	 * @see eoml.LearningActivity#getObjectives()
-	 * @see #getLearningActivity()
+	 * @see eoml.Activity#getObjectives()
+	 * @see #getActivity()
 	 * @generated
 	 */
-	EReference getLearningActivity_Objectives();
+	EReference getActivity_Objectives();
 
 	/**
-	 * Returns the meta object for class '{@link eoml.ActivityObjective <em>Activity Objective</em>}'.
+	 * Returns the meta object for class '{@link eoml.Objective <em>Objective</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Activity Objective</em>'.
-	 * @see eoml.ActivityObjective
+	 * @return the meta object for class '<em>Objective</em>'.
+	 * @see eoml.Objective
 	 * @generated
 	 */
-	EClass getActivityObjective();
+	EClass getObjective();
 
 	/**
-	 * Returns the meta object for class '{@link eoml.StartNode <em>Start Node</em>}'.
+	 * Returns the meta object for class '{@link eoml.Start <em>Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Start Node</em>'.
-	 * @see eoml.StartNode
+	 * @return the meta object for class '<em>Start</em>'.
+	 * @see eoml.Start
 	 * @generated
 	 */
-	EClass getStartNode();
+	EClass getStart();
 
 	/**
-	 * Returns the meta object for class '{@link eoml.EndNode <em>End Node</em>}'.
+	 * Returns the meta object for class '{@link eoml.End <em>End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>End Node</em>'.
-	 * @see eoml.EndNode
+	 * @return the meta object for class '<em>End</em>'.
+	 * @see eoml.End
 	 * @generated
 	 */
-	EClass getEndNode();
+	EClass getEnd();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -814,32 +729,14 @@ public interface EomlPackage extends EPackage {
 		EReference TRANSITION__TARGET = eINSTANCE.getTransition_Target();
 
 		/**
-		 * The meta object literal for the '{@link eoml.impl.EducationalObjectiveImpl <em>Educational Objective</em>}' class.
+		 * The meta object literal for the '{@link eoml.impl.ActivityImpl <em>Activity</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see eoml.impl.EducationalObjectiveImpl
-		 * @see eoml.impl.EomlPackageImpl#getEducationalObjective()
+		 * @see eoml.impl.ActivityImpl
+		 * @see eoml.impl.EomlPackageImpl#getActivity()
 		 * @generated
 		 */
-		EClass EDUCATIONAL_OBJECTIVE = eINSTANCE.getEducationalObjective();
-
-		/**
-		 * The meta object literal for the '<em><b>Entities</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EDUCATIONAL_OBJECTIVE__ENTITIES = eINSTANCE.getEducationalObjective_Entities();
-
-		/**
-		 * The meta object literal for the '{@link eoml.impl.LearningActivityImpl <em>Learning Activity</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see eoml.impl.LearningActivityImpl
-		 * @see eoml.impl.EomlPackageImpl#getLearningActivity()
-		 * @generated
-		 */
-		EClass LEARNING_ACTIVITY = eINSTANCE.getLearningActivity();
+		EClass ACTIVITY = eINSTANCE.getActivity();
 
 		/**
 		 * The meta object literal for the '<em><b>Objectives</b></em>' reference list feature.
@@ -847,37 +744,37 @@ public interface EomlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference LEARNING_ACTIVITY__OBJECTIVES = eINSTANCE.getLearningActivity_Objectives();
+		EReference ACTIVITY__OBJECTIVES = eINSTANCE.getActivity_Objectives();
 
 		/**
-		 * The meta object literal for the '{@link eoml.impl.ActivityObjectiveImpl <em>Activity Objective</em>}' class.
+		 * The meta object literal for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see eoml.impl.ActivityObjectiveImpl
-		 * @see eoml.impl.EomlPackageImpl#getActivityObjective()
+		 * @see eoml.impl.ObjectiveImpl
+		 * @see eoml.impl.EomlPackageImpl#getObjective()
 		 * @generated
 		 */
-		EClass ACTIVITY_OBJECTIVE = eINSTANCE.getActivityObjective();
+		EClass OBJECTIVE = eINSTANCE.getObjective();
 
 		/**
-		 * The meta object literal for the '{@link eoml.impl.StartNodeImpl <em>Start Node</em>}' class.
+		 * The meta object literal for the '{@link eoml.impl.StartImpl <em>Start</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see eoml.impl.StartNodeImpl
-		 * @see eoml.impl.EomlPackageImpl#getStartNode()
+		 * @see eoml.impl.StartImpl
+		 * @see eoml.impl.EomlPackageImpl#getStart()
 		 * @generated
 		 */
-		EClass START_NODE = eINSTANCE.getStartNode();
+		EClass START = eINSTANCE.getStart();
 
 		/**
-		 * The meta object literal for the '{@link eoml.impl.EndNodeImpl <em>End Node</em>}' class.
+		 * The meta object literal for the '{@link eoml.impl.EndImpl <em>End</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see eoml.impl.EndNodeImpl
-		 * @see eoml.impl.EomlPackageImpl#getEndNode()
+		 * @see eoml.impl.EndImpl
+		 * @see eoml.impl.EomlPackageImpl#getEnd()
 		 * @generated
 		 */
-		EClass END_NODE = eINSTANCE.getEndNode();
+		EClass END = eINSTANCE.getEnd();
 
 	}
 

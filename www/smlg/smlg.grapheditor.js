@@ -16,7 +16,7 @@ var SMLG_DIAGRAM_TYPES = [ {
 
 var SMLG = function(editorUI, currentMetamodel) {
 
-	SMLG.currentMetamodel = currentMetamodel; 
+	SMLG.currentMetamodel = currentMetamodel;
 	SMLG.prefix = null;
 	SMLG.uri = null;
 	SMLG.uri = null;
@@ -184,12 +184,7 @@ var SMLG = function(editorUI, currentMetamodel) {
 							if (property["compartment"] != null
 								&& property["compartment"] == true) {
 								var style = property["style"];
-								var innerCell = new mxCell(
-									property.name,
-									new mxGeometry(0, 0, height / 2, width),
-									//'swimlane;whiteSpace=wrap;html=1;collapsible=1;resizeParent=1;resizeLast=1;'
-									style
-									);
+								var innerCell = new mxCell(property.name, new mxGeometry(0, 0, height / 2, width), style);
 								innerCell.vertex = true;
 								innerCell.value = mxUtils.createXmlDocument()
 									.createElement("GSMContainer");
@@ -480,8 +475,8 @@ var SMLG = function(editorUI, currentMetamodel) {
 	// clear sidebar
 	SMLG.ClearSidebar();
 
-//	// Load modelling language
-//	SMLG.SMLGLoadModellingLangauges();
+	//	// Load modelling language
+	//	SMLG.SMLGLoadModellingLangauges();
 	SMLG.SMLGLoadJavascript(SMLG_DIAGRAM_PATH + currentMetamodel + ".js");
 }
 
@@ -842,4 +837,3 @@ var UnsatisfiedConstraintDialog = function(editorUi, response) {
 	this.container = div;
 
 }
-

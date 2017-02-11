@@ -92,7 +92,7 @@
                 linkJson += "])";
                 %]
                 this.SMLGCreateEdgeTemplateEntry('[%=style%]', 50, 50, 
-                 '[%=name.firstToUpperCase()%]', '[%=name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=linkJson%]),
+                 '', '[%=name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=linkJson%]),
             [%}
         }
         if (labels.first().isDefined() and labels.first() <> ""){
@@ -135,10 +135,10 @@
         
         if (eAnnotationSources.first() = "gmf.node" and eClassifier.abstract <> true) { %]
             this.SMLGCreateVertexTemplateEntry('[%=styleString%]', [%=width%], [%=height%],  
-                 '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
+                 '', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
         [%} else if (eAnnotationSources.first() = "gmf.link" and eClassifier.abstract <> true) { %]
             this.SMLGCreateEdgeTemplateEntry('[%=styleString%]', [%=width%], [%=height%], 
-                 '[%=eClassifier.name%]', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
+                 '', '[%=eClassifier.name.firstToUpperCase()%]', null, null, '[%=eClassifier.name%]', [%=json%]),
         [% }
         
         

@@ -29,8 +29,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.york.cs.es.smlg.GSMUtil;
-import uk.ac.york.cs.es.smlg.MxGraphXMLResourceFactory;
+import uk.ac.york.cs.es.smlg.util.MxGraphXMLResourceFactory;
+import uk.ac.york.cs.es.smlg.util.SMLGTransformer;
 
 /**
  * @author Alfa
@@ -79,7 +79,7 @@ public class UtilTest {
 		}
 
 		try {
-			String xmi = GSMUtil.convertToXMIfromXmXMLFile(path);
+			String xmi = SMLGTransformer.convertToXMIfromXmXMLFile(path);
 			if (xmi != null && xmi.length() > 0)
 				isTrue = true;
 		} catch (Exception exe) {

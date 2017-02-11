@@ -84,24 +84,20 @@ public class EomlAdapterFactory extends AdapterFactoryImpl {
 				return createTransitionAdapter();
 			}
 			@Override
-			public Adapter caseEducationalObjective(EducationalObjective object) {
-				return createEducationalObjectiveAdapter();
+			public Adapter caseActivity(Activity object) {
+				return createActivityAdapter();
 			}
 			@Override
-			public Adapter caseLearningActivity(LearningActivity object) {
-				return createLearningActivityAdapter();
+			public Adapter caseObjective(Objective object) {
+				return createObjectiveAdapter();
 			}
 			@Override
-			public Adapter caseActivityObjective(ActivityObjective object) {
-				return createActivityObjectiveAdapter();
+			public Adapter caseStart(Start object) {
+				return createStartAdapter();
 			}
 			@Override
-			public Adapter caseStartNode(StartNode object) {
-				return createStartNodeAdapter();
-			}
-			@Override
-			public Adapter caseEndNode(EndNode object) {
-				return createEndNodeAdapter();
+			public Adapter caseEnd(End object) {
+				return createEndAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -180,72 +176,58 @@ public class EomlAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link eoml.EducationalObjective <em>Educational Objective</em>}'.
+	 * Creates a new adapter for an object of class '{@link eoml.Activity <em>Activity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see eoml.EducationalObjective
+	 * @see eoml.Activity
 	 * @generated
 	 */
-	public Adapter createEducationalObjectiveAdapter() {
+	public Adapter createActivityAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link eoml.LearningActivity <em>Learning Activity</em>}'.
+	 * Creates a new adapter for an object of class '{@link eoml.Objective <em>Objective</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see eoml.LearningActivity
+	 * @see eoml.Objective
 	 * @generated
 	 */
-	public Adapter createLearningActivityAdapter() {
+	public Adapter createObjectiveAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link eoml.ActivityObjective <em>Activity Objective</em>}'.
+	 * Creates a new adapter for an object of class '{@link eoml.Start <em>Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see eoml.ActivityObjective
+	 * @see eoml.Start
 	 * @generated
 	 */
-	public Adapter createActivityObjectiveAdapter() {
+	public Adapter createStartAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link eoml.StartNode <em>Start Node</em>}'.
+	 * Creates a new adapter for an object of class '{@link eoml.End <em>End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see eoml.StartNode
+	 * @see eoml.End
 	 * @generated
 	 */
-	public Adapter createStartNodeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link eoml.EndNode <em>End Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see eoml.EndNode
-	 * @generated
-	 */
-	public Adapter createEndNodeAdapter() {
+	public Adapter createEndAdapter() {
 		return null;
 	}
 

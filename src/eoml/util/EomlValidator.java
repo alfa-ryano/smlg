@@ -94,16 +94,14 @@ public class EomlValidator extends EObjectValidator {
 				return validateNode((Node)value, diagnostics, context);
 			case EomlPackage.TRANSITION:
 				return validateTransition((Transition)value, diagnostics, context);
-			case EomlPackage.EDUCATIONAL_OBJECTIVE:
-				return validateEducationalObjective((EducationalObjective)value, diagnostics, context);
-			case EomlPackage.LEARNING_ACTIVITY:
-				return validateLearningActivity((LearningActivity)value, diagnostics, context);
-			case EomlPackage.ACTIVITY_OBJECTIVE:
-				return validateActivityObjective((ActivityObjective)value, diagnostics, context);
-			case EomlPackage.START_NODE:
-				return validateStartNode((StartNode)value, diagnostics, context);
-			case EomlPackage.END_NODE:
-				return validateEndNode((EndNode)value, diagnostics, context);
+			case EomlPackage.ACTIVITY:
+				return validateActivity((Activity)value, diagnostics, context);
+			case EomlPackage.OBJECTIVE:
+				return validateObjective((Objective)value, diagnostics, context);
+			case EomlPackage.START:
+				return validateStart((Start)value, diagnostics, context);
+			case EomlPackage.END:
+				return validateEnd((End)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -150,8 +148,8 @@ public class EomlValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEducationalObjective(EducationalObjective educationalObjective, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(educationalObjective, diagnostics, context);
+	public boolean validateActivity(Activity activity, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(activity, diagnostics, context);
 	}
 
 	/**
@@ -159,8 +157,8 @@ public class EomlValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLearningActivity(LearningActivity learningActivity, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(learningActivity, diagnostics, context);
+	public boolean validateObjective(Objective objective, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(objective, diagnostics, context);
 	}
 
 	/**
@@ -168,36 +166,27 @@ public class EomlValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateActivityObjective(ActivityObjective activityObjective, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint(activityObjective, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateStartNode(StartNode startNode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(startNode, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(startNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateStartNode_constraintNoIncoming(startNode, diagnostics, context);
+	public boolean validateStart(Start start, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(start, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(start, diagnostics, context);
+		if (result || diagnostics != null) result &= validateStart_constraintNoIncoming(start, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * Validates the constraintNoIncoming constraint of '<em>Start Node</em>'.
+	 * Validates the constraintNoIncoming constraint of '<em>Start</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateStartNode_constraintNoIncoming(StartNode startNode, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateStart_constraintNoIncoming(Start start, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		// TODO implement the constraint
 		// -> specify the condition that violates the constraint
 		// -> verify the diagnostic details, including severity, code, and message
@@ -210,8 +199,8 @@ public class EomlValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 "_UI_GenericConstraint_diagnostic",
-						 new Object[] { "constraintNoIncoming", getObjectLabel(startNode, context) },
-						 new Object[] { startNode },
+						 new Object[] { "constraintNoIncoming", getObjectLabel(start, context) },
+						 new Object[] { start },
 						 context));
 			}
 			return false;
@@ -224,27 +213,27 @@ public class EomlValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEndNode(EndNode endNode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		if (!validate_NoCircularContainment(endNode, diagnostics, context)) return false;
-		boolean result = validate_EveryMultiplicityConforms(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryProxyResolves(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_UniqueID(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryKeyUnique(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(endNode, diagnostics, context);
-		if (result || diagnostics != null) result &= validateEndNode_constraintNoOutgoing(endNode, diagnostics, context);
+	public boolean validateEnd(End end, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		if (!validate_NoCircularContainment(end, diagnostics, context)) return false;
+		boolean result = validate_EveryMultiplicityConforms(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryBidirectionalReferenceIsPaired(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(end, diagnostics, context);
+		if (result || diagnostics != null) result &= validateEnd_constraintNoOutgoing(end, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * Validates the constraintNoOutgoing constraint of '<em>End Node</em>'.
+	 * Validates the constraintNoOutgoing constraint of '<em>End</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEndNode_constraintNoOutgoing(EndNode endNode, DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean validateEnd_constraintNoOutgoing(End end, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		// TODO implement the constraint
 		// -> specify the condition that violates the constraint
 		// -> verify the diagnostic details, including severity, code, and message
@@ -257,8 +246,8 @@ public class EomlValidator extends EObjectValidator {
 						 DIAGNOSTIC_SOURCE,
 						 0,
 						 "_UI_GenericConstraint_diagnostic",
-						 new Object[] { "constraintNoOutgoing", getObjectLabel(endNode, context) },
-						 new Object[] { endNode },
+						 new Object[] { "constraintNoOutgoing", getObjectLabel(end, context) },
+						 new Object[] { end },
 						 context));
 			}
 			return false;

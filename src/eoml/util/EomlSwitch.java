@@ -92,42 +92,34 @@ public class EomlSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EomlPackage.EDUCATIONAL_OBJECTIVE: {
-				EducationalObjective educationalObjective = (EducationalObjective)theEObject;
-				T result = caseEducationalObjective(educationalObjective);
-				if (result == null) result = caseNode(educationalObjective);
-				if (result == null) result = caseEntity(educationalObjective);
+			case EomlPackage.ACTIVITY: {
+				Activity activity = (Activity)theEObject;
+				T result = caseActivity(activity);
+				if (result == null) result = caseNode(activity);
+				if (result == null) result = caseEntity(activity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EomlPackage.LEARNING_ACTIVITY: {
-				LearningActivity learningActivity = (LearningActivity)theEObject;
-				T result = caseLearningActivity(learningActivity);
-				if (result == null) result = caseNode(learningActivity);
-				if (result == null) result = caseEntity(learningActivity);
+			case EomlPackage.OBJECTIVE: {
+				Objective objective = (Objective)theEObject;
+				T result = caseObjective(objective);
+				if (result == null) result = caseEntity(objective);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EomlPackage.ACTIVITY_OBJECTIVE: {
-				ActivityObjective activityObjective = (ActivityObjective)theEObject;
-				T result = caseActivityObjective(activityObjective);
-				if (result == null) result = caseEntity(activityObjective);
+			case EomlPackage.START: {
+				Start start = (Start)theEObject;
+				T result = caseStart(start);
+				if (result == null) result = caseNode(start);
+				if (result == null) result = caseEntity(start);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EomlPackage.START_NODE: {
-				StartNode startNode = (StartNode)theEObject;
-				T result = caseStartNode(startNode);
-				if (result == null) result = caseNode(startNode);
-				if (result == null) result = caseEntity(startNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EomlPackage.END_NODE: {
-				EndNode endNode = (EndNode)theEObject;
-				T result = caseEndNode(endNode);
-				if (result == null) result = caseNode(endNode);
-				if (result == null) result = caseEntity(endNode);
+			case EomlPackage.END: {
+				End end = (End)theEObject;
+				T result = caseEnd(end);
+				if (result == null) result = caseNode(end);
+				if (result == null) result = caseEntity(end);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -196,77 +188,62 @@ public class EomlSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Educational Objective</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Activity</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Educational Objective</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Activity</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEducationalObjective(EducationalObjective object) {
+	public T caseActivity(Activity object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Learning Activity</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Objective</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Learning Activity</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Objective</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseLearningActivity(LearningActivity object) {
+	public T caseObjective(Objective object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Activity Objective</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Start</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Activity Objective</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Start</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseActivityObjective(ActivityObjective object) {
+	public T caseStart(Start object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Start Node</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>End</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Start Node</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>End</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStartNode(StartNode object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>End Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>End Node</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEndNode(EndNode object) {
+	public T caseEnd(End object) {
 		return null;
 	}
 

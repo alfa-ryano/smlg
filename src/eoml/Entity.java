@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Entity extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
@@ -33,7 +34,7 @@ public interface Entity extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see eoml.EomlPackage#getEntity_Name()
-	 * @model
+	 * @model default=""
 	 * @generated
 	 */
 	String getName();
@@ -50,6 +51,7 @@ public interface Entity extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
@@ -59,7 +61,7 @@ public interface Entity extends EObject {
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
 	 * @see eoml.EomlPackage#getEntity_Description()
-	 * @model
+	 * @model default=""
 	 * @generated
 	 */
 	String getDescription();

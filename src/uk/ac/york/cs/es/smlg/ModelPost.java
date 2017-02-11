@@ -30,6 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import uk.ac.york.cs.es.smlg.model.GSMResult;
+import uk.ac.york.cs.es.smlg.util.MxGraphXMLResourceFactory;
+import uk.ac.york.cs.es.smlg.util.SMLGTransformer;
 
 /**
  * Servlet implementation class ModelPost
@@ -65,7 +67,7 @@ public class ModelPost extends HttpServlet {
 		String xml = stringBuilder.toString();
 
 		try {
-			String xmi = GSMUtil.transformMxXMLtoXMI(xml);
+			String xmi = SMLGTransformer.transformMxXMLtoXMI(xml);
 			
 			String packageName = "myPackage";
 			String fullClassName = packageName + "." + packageName.substring(0, 1).toUpperCase()

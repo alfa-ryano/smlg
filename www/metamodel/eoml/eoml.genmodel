@@ -20,14 +20,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//Transition/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//Transition/target"/>
     </genClasses>
-    <genClasses ecoreClass="eoml.ecore#//EducationalObjective">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//EducationalObjective/entities"/>
+    <genClasses ecoreClass="eoml.ecore#//Activity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//Activity/objectives"/>
     </genClasses>
-    <genClasses ecoreClass="eoml.ecore#//LearningActivity">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//LearningActivity/objectives"/>
-    </genClasses>
-    <genClasses ecoreClass="eoml.ecore#//ActivityObjective"/>
-    <genClasses ecoreClass="eoml.ecore#//StartNode"/>
-    <genClasses ecoreClass="eoml.ecore#//EndNode"/>
+    <genClasses ecoreClass="eoml.ecore#//Objective"/>
+    <genClasses ecoreClass="eoml.ecore#//Start"/>
+    <genClasses ecoreClass="eoml.ecore#//End"/>
   </genPackages>
 </genmodel:GenModel>
