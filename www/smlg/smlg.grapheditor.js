@@ -14,9 +14,11 @@ var SMLG_DIAGRAM_TYPES = [ {
 	enabled : false
 } ];
 
-var SMLG = function(editorUI, currentMetamodel) {
+var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 
 	SMLG.currentMetamodel = currentMetamodel;
+	SMLG.currentMode = currentMode;
+	SMLG.currentModel = currentModel;
 	SMLG.prefix = null;
 	SMLG.uri = null;
 	SMLG.uri = null;
@@ -478,7 +480,34 @@ var SMLG = function(editorUI, currentMetamodel) {
 	//	// Load modelling language
 	//	SMLG.SMLGLoadModellingLangauges();
 	SMLG.SMLGLoadJavascript(SMLG_DIAGRAM_PATH + currentMetamodel + ".js");
+
+	//Load Model
+	SMLG.LoadModel(currentMetamodel, currentMode, currentModel);
 }
+
+
+SMLG.prototype.LoadModel = function(metamodel, mode, model) {
+	var editorUi = SMLG.editorUI;
+	var editor = editorUi.editor;
+
+	if (metamodel != null && mode == "learning" && model != null) {
+
+		var params = "metamodel=" + metamodel + "&mode=" + mode + "&model=" + model;
+		var request = new XMLHttpRequest;
+		request.onload = function() {
+			handleResponse();
+		};
+		request.open("GET", "/smlg/LoadModel?" + params, true);
+		request.send();
+
+		function handleResponse() {
+			var responseText = request.responseText;
+			editor.setGraphXml(mxUtils.parseXml(responseText).documentElement);
+		}
+	}
+}
+SMLG.LoadModel = SMLG.prototype.LoadModel;
+
 
 SMLG.prototype.ClearSidebar = function() {
 	var editorUI = SMLG.editorUI;

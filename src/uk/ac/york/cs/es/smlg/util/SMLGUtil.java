@@ -1,8 +1,11 @@
 package uk.ac.york.cs.es.smlg.util;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 public class SMLGUtil {
 
@@ -13,10 +16,10 @@ public class SMLGUtil {
 			File sourceMxGraphFile = new File(
 					(path + "/../template/mxgraph.template.xml").replace("/", File.separator));
 			File sourceDescriptionFile = new File(
-					(path + "/../template/description.template.xml").replace("/", File.separator));
+					(path + "/../template/description.template.txt").replace("/", File.separator));
 			File targetMxGraphFile = new File((path + "/" + name + "/mxgraph.xml").replace("/", File.separator));
 			File targetDescriptionFile = new File(
-					(path + "/" + name + "/description.xml").replace("/", File.separator));
+					(path + "/" + name + "/description.txt").replace("/", File.separator));
 
 			if (!targetDirectory.exists()) {
 				if (targetDirectory.mkdir()) {
@@ -24,7 +27,10 @@ public class SMLGUtil {
 							StandardCopyOption.REPLACE_EXISTING);
 					Files.copy(sourceDescriptionFile.toPath(), targetDescriptionFile.toPath(),
 							StandardCopyOption.REPLACE_EXISTING);
-
+					List<String> lines = Arrays.asList(description.split("\n"));
+					//Files.write(targetDescriptionFile.toPath(), description.getBytes("UTF-8"), StandardOpenOption.TRUNCATE_EXISTING);
+					Files.write(targetDescriptionFile.toPath(), lines, Charset.forName("UTF-8"));
+					
 					System.out.println("The new directory is successfully created!");
 				} else {
 					System.out.println("Failed to create directory!");

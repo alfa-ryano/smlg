@@ -4,7 +4,7 @@ var displayAvailableMetamodels = function() {
 	request.onload = function() {
 		listFiles()
 	};
-	request.open("GET", "ListFiles?path=./metamodel/", false);
+	request.open("GET", "ListFiles?path=./metamodel/", true);
 	request.send();
 
 	function listFiles() {
@@ -30,32 +30,34 @@ var displayAvailableLearning = function() {
 	request.onload = function() {
 		listFiles()
 	};
-	request.open("GET", "ListFiles?path=./learning/", true);
+	request.open("GET", "DisplayAvailableLearning?path=./learning/", true);
 	request.send();
 
 	function listFiles() {
 		var files = JSON.parse(request.responseText);
 		var divMetamodelList = document.getElementById("divLearningList");
 
-		for (var i = 0; i < files.length; i++) {
+		for (var file in files) {
+			if (files.hasOwnProperty(file)) {
+				var innerHtmlString = "<div class='panel-heading'>" +
+					"	<h2>" + capitalizeFirstLetter(file) + "</h2>" +
+					"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?" +
+						"metamodel=eoml&mode=learning&model=" + file + "')\">Edit Model</button>" +
+					"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?metamodel=eoml')\">Edit Information</button>" +
+					"	<button type='button' class='btn btn-default'" +
+					"		data-toggle='modal' data-target='#delete-learning'" +
+					"		value='" + file + "'" +
+					"		onclick='setWillBeDeletedLearningDesign(this.value)'>Delete" +
+					"	</button>" +
+					"</div>" +
+					"<div class='panel-body'>" + files[file] + "</div>";
 
-			var innerHtmlString = "<div class='panel-heading'>" +
-				"	<h2>" + capitalizeFirstLetter(files[i]) + "</h2>" +
-				"	<button type='button' class='btn btn-default'>Edit</button>" +
-				"	<button type='button' class='btn btn-default'" +
-				"		data-toggle='modal' data-target='#delete-learning'" +
-				"		value='" + files[i] + "'" +
-				"		onclick='setWillBeDeletedLearningDesign(this.value)'>Delete" +
-				"	</button>" +
-				"</div>" +
-				"<div class='panel-body'>Description</div>";
-
-			var divPanel = document.createElement('div');
-			divPanel.id = "div-" + files[i];
-			divPanel.setAttribute("class", "panel panel-default");
-			divPanel.innerHTML = innerHtmlString;
-			divMetamodelList.appendChild(divPanel);
-
+				var divPanel = document.createElement('div');
+				divPanel.id = "div-" + file;
+				divPanel.setAttribute("class", "panel panel-default");
+				divPanel.innerHTML = innerHtmlString;
+				divMetamodelList.appendChild(divPanel);
+			}
 		}
 	}
 }
@@ -65,7 +67,7 @@ var setWillBeDeletedLearningDesign = function(value) {
 	document.getElementById("button-delete-learning").value = value;
 }
 var deleteLearningDesign = function(learningDesignName) {
-	
+
 	var params = "name=" + learningDesignName;
 	var request = new XMLHttpRequest;
 	request.onload = function() {
@@ -73,11 +75,11 @@ var deleteLearningDesign = function(learningDesignName) {
 	};
 	request.open("GET", "DeleteLearningDesign?" + params, true);
 	request.send();
-	
+
 	function handleResponse() {
 		var responseText = request.responseText;
 		alert(responseText);
-		
+
 		var element = document.getElementById("div-" + learningDesignName);
 		element.parentNode.removeChild(element);
 		$('#delete-learning').modal('hide');
@@ -98,35 +100,42 @@ var createNewLearningDesign = function() {
 	request.onload = function() {
 		handleResponse();
 	};
-	request.open("GET", "CreateLearningDesign?" + params, true);
-	request.send();
+	console.log(params);
+	request.open("POST", "CreateLearningDesign?", true);
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(params);
 
 	function handleResponse() {
 		var responseText = request.responseText;
 		alert(responseText);
 
 		$('#create-learning').modal('hide');
-		
+
 		var name = document.getElementById("labelName").value;
+		var description = document.getElementById("textareaDescription").value;
 		var divMetamodelList = document.getElementById("divLearningList");
 
 		var innerHtmlString = "<div class='panel-heading'>" +
 			"	<h2>" + capitalizeFirstLetter(name) + "</h2>" +
-			"	<button type='button' class='btn btn-default'>Edit</button>" +
+			"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?metamodel=eoml')\">Edit Model</button>" +
+			"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?metamodel=eoml')\">Edit Information</button>" +
 			"	<button type='button' class='btn btn-default'" +
 			"		data-toggle='modal' data-target='#delete-learning'" +
 			"		value='" + name + "'" +
 			"		onclick='setWillBeDeletedLearningDesign(this.value)'>Delete" +
 			"	</button>" +
 			"</div>" +
-			"<div class='panel-body'>Description</div>";
+			"<div class='panel-body'>" + description + "</div>";
 
 		var divPanel = document.createElement('div');
 		divPanel.id = "div-" + name;
 		divPanel.setAttribute("class", "panel panel-default");
 		divPanel.innerHTML = innerHtmlString;
 		divMetamodelList.insertBefore(divPanel, divMetamodelList.firstChild);
-		
-		
+
+		document.getElementById("labelName").value = "";
+		document.getElementById("textareaDescription").value = "";
+
+
 	}
 }

@@ -100,7 +100,9 @@
 	
 				//Execute SMLG custom code
 				var currentMetamodel = urlParams["metamodel"];
-				SMLG(editorUI, currentMetamodel);
+				var currentMode = urlParams["mode"];
+				var model = urlParams["model"];
+				SMLG(editorUI, currentMetamodel, currentMode, model);
 				
 	
 			}, function() {
