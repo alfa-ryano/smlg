@@ -8,7 +8,8 @@ window.MAX_AREA = window.MAX_AREA || 10000 * 10000;
 // URLs for save and export
 window.EXPORT_URL = window.EXPORT_URL || '/export';
 window.SAVE_URL = window.SAVE_URL || '/save';
-window.OPEN_URL = window.OPEN_URL || '/open';
+window.OPEN_URL = window.OPEN_URL || '/smlg/Open';
+//window.OPEN_URL = window.OPEN_URL || '/open';
 window.RESOURCES_PATH = window.RESOURCES_PATH || 'resources';
 window.RESOURCE_BASE = window.RESOURCE_BASE || window.RESOURCES_PATH + '/grapheditor';
 window.STENCIL_PATH = window.STENCIL_PATH || 'stencils';

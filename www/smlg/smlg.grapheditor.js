@@ -474,6 +474,34 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 		}
 	};
 
+
+	editorUI.saveFile = function(forceDialog) {
+		
+		var metamodelName = SMLG.currentMetamodel;
+		var modeName = SMLG.currentMode;
+		var modelName = SMLG.currentModel;
+		
+		var encoder = new mxCodec();
+		var model = graph.getModel();
+		var encodedModel = encoder.encode(model);
+		var xml = mxUtils.getPrettyXml(encodedModel);
+		
+		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName+"&xml=" + xml;
+		var request = new XMLHttpRequest;
+		request.onload = function() {
+			handleResponse();
+		};
+		console.log(params);
+		request.open("POST", "/smlg/SaveFile?", true);
+		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		request.send(params);
+		
+		function handleResponse() {
+			var responseText = request.responseText;
+			alert(responseText);
+		}
+	}
+
 	// clear sidebar
 	SMLG.ClearSidebar();
 

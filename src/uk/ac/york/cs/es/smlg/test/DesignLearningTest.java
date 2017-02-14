@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.york.cs.es.smlg.util.SMLGUtil;
+import uk.ac.york.cs.es.smlg.util.SMLGAdapter;
 
 public class DesignLearningTest {
 
@@ -36,7 +36,7 @@ public class DesignLearningTest {
 		boolean isTrue = false;
 		String path = ("D:/A-DATA/GoogleDriveYork/git/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/smlg"
 				+ "/learning").replace("/", File.separator);
-		isTrue = SMLGUtil.createLearningDesign(path, "My Title", "My Description");
+		isTrue = SMLGAdapter.createLearningDesign(path, "My Title", "My Description");
 		Assert.assertEquals(true, isTrue);
 	}
 

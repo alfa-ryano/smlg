@@ -4,10 +4,43 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 
-public class SMLGUtil {
+public class SMLGAdapter {
+
+	public static boolean saveFile(String path, String xml) {
+		boolean isSuccess = false;
+		try {
+			File targetFile = new File(path);
+			
+			if (!targetFile.exists() || !targetFile.isFile() || xml == null) {
+				return false;
+			}
+			Files.write(targetFile.toPath(), xml.getBytes("UTF-8"), StandardOpenOption.TRUNCATE_EXISTING);
+			isSuccess = true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			isSuccess = false;
+		}
+		return isSuccess;
+	}
+
+	public static String readModel(String dirPath, String xmlFilePath) {
+		String result = null;
+		try {
+			File directory = new File(dirPath);
+			File xmlFile = new File(xmlFilePath);
+
+			if (directory.exists() && directory.isDirectory() && xmlFile.exists() && xmlFile.isFile()) {
+				result = new String(Files.readAllBytes(xmlFile.toPath()));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
 
 	public static boolean createLearningDesign(String path, String name, String description) {
 		boolean isSuccess = false;
@@ -28,9 +61,11 @@ public class SMLGUtil {
 					Files.copy(sourceDescriptionFile.toPath(), targetDescriptionFile.toPath(),
 							StandardCopyOption.REPLACE_EXISTING);
 					List<String> lines = Arrays.asList(description.split("\n"));
-					//Files.write(targetDescriptionFile.toPath(), description.getBytes("UTF-8"), StandardOpenOption.TRUNCATE_EXISTING);
+					// Files.write(targetDescriptionFile.toPath(),
+					// description.getBytes("UTF-8"),
+					// StandardOpenOption.TRUNCATE_EXISTING);
 					Files.write(targetDescriptionFile.toPath(), lines, Charset.forName("UTF-8"));
-					
+
 					System.out.println("The new directory is successfully created!");
 				} else {
 					System.out.println("Failed to create directory!");
@@ -46,19 +81,19 @@ public class SMLGUtil {
 		}
 		return isSuccess;
 	}
-	
+
 	private static boolean deleteDir(File dir) {
-	    if (dir.isDirectory()) {
-	      String[] children = dir.list();
-	      for (int i = 0; i < children.length; i++) {
-	        boolean success = deleteDir(new File(dir, children[i]));
-	        if (!success) {
-	          return false;
-	        }
-	      }
-	    }
-	    return dir.delete();
-	  }
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++) {
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success) {
+					return false;
+				}
+			}
+		}
+		return dir.delete();
+	}
 
 	public static boolean deleteLearningDesign(String path, String name) {
 		boolean isSuccess = false;
@@ -78,8 +113,8 @@ public class SMLGUtil {
 		}
 		return isSuccess;
 	}
-	
-	public static String capitalizeFirstLetter(String text){
+
+	public static String capitalizeFirstLetter(String text) {
 		return text.trim().substring(0, 1).toUpperCase() + text.substring(1);
 	}
 }

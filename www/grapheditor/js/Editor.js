@@ -87,6 +87,11 @@ Editor.pageCounter = 0;
 /**
  * Specifies if local storage should be used (eg. on the iPad which has no filesystem)
  */
+//var temp = mxClient.IS_IOS;
+//var temp2 = Storage;
+//var x = typeof(Storage);
+//var d = typeof(Storage) != 'undefined';
+//var b = typeof(Storage) != 'undefined' && mxClient.IS_IOS;
 Editor.useLocalStorage = typeof(Storage) != 'undefined' && mxClient.IS_IOS;
 
 /**

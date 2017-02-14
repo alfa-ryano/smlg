@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uk.ac.york.cs.es.smlg.util.SMLGUtil;
+import uk.ac.york.cs.es.smlg.util.SMLGAdapter;
 
 /**
  * Servlet implementation class CreateLearningDesign
@@ -42,7 +42,7 @@ public class CreateLearningDesign extends HttpServlet {
 				throw new Exception("Error: Name is not defined!");
 
 			String path = (getServletContext().getRealPath(".") + "/learning").replace("/", File.separator);
-			boolean result = SMLGUtil.createLearningDesign(path, name, description);
+			boolean result = SMLGAdapter.createLearningDesign(path, name, description);
 
 			if (result) {
 				response.getWriter().append("Success: Learning design has just been created!");

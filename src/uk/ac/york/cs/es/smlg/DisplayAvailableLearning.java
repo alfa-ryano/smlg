@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import uk.ac.york.cs.es.smlg.util.SMLGUtil;
+import uk.ac.york.cs.es.smlg.util.SMLGAdapter;
 
 /**
  * Servlet implementation class ListAvailableLearning

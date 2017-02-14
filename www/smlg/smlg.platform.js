@@ -117,7 +117,8 @@ var createNewLearningDesign = function() {
 
 		var innerHtmlString = "<div class='panel-heading'>" +
 			"	<h2>" + capitalizeFirstLetter(name) + "</h2>" +
-			"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?metamodel=eoml')\">Edit Model</button>" +
+			"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?" +
+					"metamodel=eoml&mode=learning&model=" + name + "')\">Edit Model</button>" +
 			"	<button type='button' class='btn btn-default' onclick=\"openUrl('./grapheditor?metamodel=eoml')\">Edit Information</button>" +
 			"	<button type='button' class='btn btn-default'" +
 			"		data-toggle='modal' data-target='#delete-learning'" +

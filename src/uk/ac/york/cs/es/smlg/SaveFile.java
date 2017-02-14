@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.york.cs.es.smlg.util.SMLGAdapter;
 
 /**
- * Servlet implementation class LoadModel
+ * Servlet implementation class SaveFile
  */
-@WebServlet(description = "Load Model", urlPatterns = { "/LoadModel" })
-public class LoadModel extends HttpServlet {
+@WebServlet(description = "Save File", urlPatterns = { "/SaveFile" })
+public class SaveFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoadModel() {
+	public SaveFile() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,24 +34,26 @@ public class LoadModel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			response.setContentType("application/text");
+			
+			String metamodel = request.getParameter("metamodel");
 			String mode = request.getParameter("mode");
 			String model = request.getParameter("model");
+			String xml = request.getParameter("xml");
 
-			String directoryPathParam = "./" + mode + "/" + model;
-			String xmlPathParam = "./" + mode + "/" + model + "/mxgraph.xml";
-			String path = getServletContext().getRealPath((directoryPathParam).replace("/", File.separator));
-			String xmlStringPath = getServletContext().getRealPath((xmlPathParam).replace("/", File.separator));
-
-			String xmlString = SMLGAdapter.readModel(path, xmlStringPath);
-			if (xmlString != null) {
-				response.setContentType("application/xml");
-				response.getWriter().append(xmlString);
-			} else {
-				throw new Exception();
+			String xmlPathString = "./" + mode + "/" + model + "/mxgraph.xml";
+			String xmlPath = getServletContext().getRealPath((xmlPathString).replace("/", File.separator));
+			
+			boolean isSuccess =  SMLGAdapter.saveFile(xmlPath, xml);
+			if (isSuccess){
+				response.getWriter().append("SUCCESS: Model has been saved successfully!");
+			}
+			else{
+				throw new Exception("Cannot save file!");
 			}
 		} catch (Exception ex) {
-			response.setContentType("application/text");
-			response.getWriter().append("ERROR: Process or model that you choose does not exist!");
+			ex.printStackTrace();
+			response.getWriter().append("ERROR: " + ex.getMessage());
 		}
 		response.getWriter().flush();
 	}
