@@ -7,6 +7,7 @@ import eoml.End;
 import eoml.Entity;
 import eoml.EomlFactory;
 import eoml.EomlPackage;
+import eoml.Model;
 import eoml.Node;
 import eoml.Objective;
 import eoml.Start;
@@ -63,6 +64,13 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * @generated
 	 */
 	private EClass activityEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -277,6 +285,15 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getModel() {
+		return modelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getObjective() {
 		return objectiveEClass;
 	}
@@ -345,6 +362,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		activityEClass = createEClass(ACTIVITY);
 		createEReference(activityEClass, ACTIVITY__OBJECTIVES);
 
+		modelEClass = createEClass(MODEL);
+
 		objectiveEClass = createEClass(OBJECTIVE);
 
 		startEClass = createEClass(START);
@@ -383,6 +402,7 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		nodeEClass.getESuperTypes().add(this.getEntity());
 		transitionEClass.getESuperTypes().add(this.getEntity());
 		activityEClass.getESuperTypes().add(this.getNode());
+		modelEClass.getESuperTypes().add(this.getNode());
 		objectiveEClass.getESuperTypes().add(this.getEntity());
 		startEClass.getESuperTypes().add(this.getNode());
 		endEClass.getESuperTypes().add(this.getNode());
@@ -405,6 +425,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 
 		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivity_Objectives(), this.getObjective(), null, "objectives", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(objectiveEClass, Objective.class, "Objective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -494,6 +516,16 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 			 "mxWhiteSpace", "wrap",
 			 "mxWidth", "200",
 			 "mxHeight", "120"
+		   });	
+		addAnnotation
+		  (modelEClass, 
+		   source, 
+		   new String[] {
+			 "mxShape", "rectangle",
+			 "mxHtml", "1",
+			 "mxWhiteSpace", "wrap",
+			 "mxWidth", "40",
+			 "mxHeight", "50"
 		   });	
 		addAnnotation
 		  (objectiveEClass, 

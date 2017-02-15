@@ -96,6 +96,8 @@ public class EomlValidator extends EObjectValidator {
 				return validateTransition((Transition)value, diagnostics, context);
 			case EomlPackage.ACTIVITY:
 				return validateActivity((Activity)value, diagnostics, context);
+			case EomlPackage.MODEL:
+				return validateModel((Model)value, diagnostics, context);
 			case EomlPackage.OBJECTIVE:
 				return validateObjective((Objective)value, diagnostics, context);
 			case EomlPackage.START:
@@ -150,6 +152,15 @@ public class EomlValidator extends EObjectValidator {
 	 */
 	public boolean validateActivity(Activity activity, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(activity, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateModel(Model model, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(model, diagnostics, context);
 	}
 
 	/**

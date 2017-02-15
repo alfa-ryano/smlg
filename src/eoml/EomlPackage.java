@@ -295,6 +295,61 @@ public interface EomlPackage extends EPackage {
 	int ACTIVITY_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link eoml.impl.ModelImpl <em>Model</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eoml.impl.ModelImpl
+	 * @see eoml.impl.EomlPackageImpl#getModel()
+	 * @generated
+	 */
+	int MODEL = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__NAME = NODE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__DESCRIPTION = NODE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__OUTGOING = NODE__OUTGOING;
+
+	/**
+	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__INCOMING = NODE__INCOMING;
+
+	/**
+	 * The number of structural features of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -302,7 +357,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getObjective()
 	 * @generated
 	 */
-	int OBJECTIVE = 5;
+	int OBJECTIVE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -339,7 +394,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getStart()
 	 * @generated
 	 */
-	int START = 6;
+	int START = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -394,7 +449,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getEnd()
 	 * @generated
 	 */
-	int END = 7;
+	int END = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -581,6 +636,16 @@ public interface EomlPackage extends EPackage {
 	EReference getActivity_Objectives();
 
 	/**
+	 * Returns the meta object for class '{@link eoml.Model <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model</em>'.
+	 * @see eoml.Model
+	 * @generated
+	 */
+	EClass getModel();
+
+	/**
 	 * Returns the meta object for class '{@link eoml.Objective <em>Objective</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -745,6 +810,16 @@ public interface EomlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTIVITY__OBJECTIVES = eINSTANCE.getActivity_Objectives();
+
+		/**
+		 * The meta object literal for the '{@link eoml.impl.ModelImpl <em>Model</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eoml.impl.ModelImpl
+		 * @see eoml.impl.EomlPackageImpl#getModel()
+		 * @generated
+		 */
+		EClass MODEL = eINSTANCE.getModel();
 
 		/**
 		 * The meta object literal for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.

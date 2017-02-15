@@ -34,8 +34,14 @@ class Activity extends Node {
   ref Objective[*] objectives;
 }
 
+@gmf.node(mxShape="rectangle", mxHtml="1", mxWhiteSpace="wrap", mxWidth="40", mxHeight="50")
+class Model extends Node {
+
+}
+
 @gmf.node(mxLabel="name", mxHtml="1", mxShape="plus", mxWidth="30", mxHeight="30")
 class Objective extends Entity {
+
 }
 
 

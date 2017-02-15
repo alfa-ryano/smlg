@@ -49,6 +49,15 @@ public interface EomlFactory extends EFactory {
 	Activity createActivity();
 
 	/**
+	 * Returns a new object of class '<em>Model</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model</em>'.
+	 * @generated
+	 */
+	Model createModel();
+
+	/**
 	 * Returns a new object of class '<em>Objective</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

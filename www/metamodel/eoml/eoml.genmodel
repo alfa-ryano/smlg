@@ -23,6 +23,7 @@
     <genClasses ecoreClass="eoml.ecore#//Activity">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference eoml.ecore#//Activity/objectives"/>
     </genClasses>
+    <genClasses ecoreClass="eoml.ecore#//Model"/>
     <genClasses ecoreClass="eoml.ecore#//Objective"/>
     <genClasses ecoreClass="eoml.ecore#//Start"/>
     <genClasses ecoreClass="eoml.ecore#//End"/>

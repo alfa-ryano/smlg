@@ -66,6 +66,15 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//Node">
+    <eAnnotations source="gmf.node">
+      <details key="mxShape" value="rectangle"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxWhiteSpace" value="wrap"/>
+      <details key="mxWidth" value="40"/>
+      <details key="mxHeight" value="50"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Objective" eSuperTypes="#//Entity">
     <eAnnotations source="gmf.node">
       <details key="mxLabel" value="name"/>

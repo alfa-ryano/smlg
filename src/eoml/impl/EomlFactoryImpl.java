@@ -59,6 +59,7 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 			case EomlPackage.EOML: return createEOML();
 			case EomlPackage.TRANSITION: return createTransition();
 			case EomlPackage.ACTIVITY: return createActivity();
+			case EomlPackage.MODEL: return createModel();
 			case EomlPackage.OBJECTIVE: return createObjective();
 			case EomlPackage.START: return createStart();
 			case EomlPackage.END: return createEnd();
@@ -95,6 +96,16 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	public Activity createActivity() {
 		ActivityImpl activity = new ActivityImpl();
 		return activity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Model createModel() {
+		ModelImpl model = new ModelImpl();
+		return model;
 	}
 
 	/**

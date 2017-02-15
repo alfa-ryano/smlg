@@ -88,6 +88,10 @@ public class EomlAdapterFactory extends AdapterFactoryImpl {
 				return createActivityAdapter();
 			}
 			@Override
+			public Adapter caseModel(Model object) {
+				return createModelAdapter();
+			}
+			@Override
 			public Adapter caseObjective(Objective object) {
 				return createObjectiveAdapter();
 			}
@@ -186,6 +190,20 @@ public class EomlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createActivityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link eoml.Model <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see eoml.Model
+	 * @generated
+	 */
+	public Adapter createModelAdapter() {
 		return null;
 	}
 
