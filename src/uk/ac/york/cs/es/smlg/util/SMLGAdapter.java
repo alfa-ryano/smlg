@@ -14,7 +14,7 @@ public class SMLGAdapter {
 		boolean isSuccess = false;
 		try {
 			File targetFile = new File(path);
-			
+
 			if (!targetFile.exists() || !targetFile.isFile() || xml == null) {
 				return false;
 			}
@@ -40,6 +40,50 @@ public class SMLGAdapter {
 			ex.printStackTrace();
 		}
 		return result;
+	}
+
+	public static boolean createModel(String path, String metamodel, String name, String description) {
+		boolean isSuccess = false;
+		try {
+			File metamodelDirectory = new File((path + "/" + metamodel).replace("/", File.separator));
+			File modelDirectory = new File((path + "/" + metamodel + "/" + name).replace("/", File.separator));
+
+			File sourceMxGraphFile = new File(
+					(path + "/../template/mxgraph.template.xml").replace("/", File.separator));
+			File sourceDescriptionFile = new File(
+					(path + "/../template/description.template.txt").replace("/", File.separator));
+			File targetMxGraphFile = new File(
+					(path + "/" + metamodel + "/" + name + "/mxgraph.xml").replace("/", File.separator));
+			File targetDescriptionFile = new File(
+					(path + "/" + metamodel + "/" + name + "/description.txt").replace("/", File.separator));
+
+			if (!metamodelDirectory.exists()) {
+				if (!metamodelDirectory.mkdir()){
+					throw new Exception("Cannot create metamodel directory!");
+				}
+			}
+			if (!modelDirectory.exists()) {
+				if (modelDirectory.mkdir()) {
+					Files.copy(sourceMxGraphFile.toPath(), targetMxGraphFile.toPath(),
+							StandardCopyOption.REPLACE_EXISTING);
+					Files.copy(sourceDescriptionFile.toPath(), targetDescriptionFile.toPath(),
+							StandardCopyOption.REPLACE_EXISTING);
+					List<String> lines = Arrays.asList(description.split("\n"));
+//					Files.write(targetDescriptionFile.toPath(), description.getBytes("UTF-8"),
+//							StandardOpenOption.TRUNCATE_EXISTING);
+					Files.write(targetDescriptionFile.toPath(), lines, Charset.forName("UTF-8"));
+				} else {
+					throw new Exception("Failed to create model directory!");
+				}
+			} else {
+				throw new Exception("Model already existed!");
+			}
+			isSuccess = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		return isSuccess;
 	}
 
 	public static boolean createLearningDesign(String path, String name, String description) {
@@ -95,7 +139,7 @@ public class SMLGAdapter {
 		return dir.delete();
 	}
 
-	public static boolean deleteLearningDesign(String path, String name) {
+	public static boolean deleteModel(String path, String name) {
 		boolean isSuccess = false;
 		try {
 			File targetDirectory = new File((path + "/" + name).replace("/", File.separator));

@@ -16,16 +16,16 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class ListAvailableLearning
+ * Servlet implementation class DisplayAvailableModels
  */
-@WebServlet(description = "List Available Learning", urlPatterns = { "/DisplayAvailableLearning" })
-public class DisplayAvailableLearning extends HttpServlet {
+@WebServlet(description = "Display Available Models", urlPatterns = { "/DisplayAvailableModels" })
+public class DisplayAvailableModels extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DisplayAvailableLearning() {
+	public DisplayAvailableModels() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -48,6 +48,7 @@ public class DisplayAvailableLearning extends HttpServlet {
 		if (file.exists() && file.isDirectory()) {
 
 			File[] subfiles = file.listFiles();
+
 			for (File subfile : subfiles) {
 				String descriptionFilePath = (subfile.getAbsolutePath() + "/description.txt").replace("/",
 						File.separator);

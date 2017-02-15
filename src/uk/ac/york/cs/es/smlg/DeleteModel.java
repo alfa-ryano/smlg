@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.york.cs.es.smlg.util.SMLGAdapter;
 
 /**
- * Servlet implementation class DeleteLearningDesign
+ * Servlet implementation class DeleteModel
  */
-@WebServlet(description = "Delete Learning Design", urlPatterns = { "/DeleteLearningDesign" })
-public class DeleteLearningDesign extends HttpServlet {
+@WebServlet(description = "DeleteModel", urlPatterns = { "/DeleteModel" })
+public class DeleteModel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteLearningDesign() {
+    public DeleteModel() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,19 @@ public class DeleteLearningDesign extends HttpServlet {
 		try {
 			response.setContentType("application/text");
 
-			String name = request.getParameter("name");
+			String metamodel =request.getParameter("metamodel");
+			String model = request.getParameter("model");
 
-			if (name == null || name.trim().length() < 0)
-				throw new Exception("Error: Name is not defined!");
+			if (model == null || model.trim().length() < 0)
+				throw new Exception("Error: Model is not defined!");
 
-			String path = (getServletContext().getRealPath(".") + "/learning").replace("/", File.separator);
-			boolean result = SMLGAdapter.deleteModel(path, name);
+			String path = (getServletContext().getRealPath(".") + "/modelling/" + metamodel).replace("/", File.separator);
+			boolean result = SMLGAdapter.deleteModel(path, model);
 			
 			if (result) {
-				response.getWriter().append("Success: " + SMLGAdapter.capitalizeFirstLetter(name) + " has just been deleted!");
+				response.getWriter().append("Success: " + SMLGAdapter.capitalizeFirstLetter(model) + " has just been deleted!");
 			} else {
-				throw new Exception("Error: Failed deleting learning design!");
+				throw new Exception("Error: Failed deleting model!");
 			}
 		} catch (Exception e) {
 			response.getWriter().append(e.getMessage());

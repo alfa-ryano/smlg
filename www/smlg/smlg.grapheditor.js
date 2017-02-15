@@ -518,7 +518,7 @@ SMLG.prototype.LoadModel = function(metamodel, mode, model) {
 	var editorUi = SMLG.editorUI;
 	var editor = editorUi.editor;
 
-	if (metamodel != null && mode == "learning" && model != null) {
+	if (metamodel != null && mode != null && model != null) {
 
 		var params = "metamodel=" + metamodel + "&mode=" + mode + "&model=" + model;
 		var request = new XMLHttpRequest;

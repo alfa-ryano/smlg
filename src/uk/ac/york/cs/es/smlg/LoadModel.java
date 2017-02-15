@@ -2,7 +2,6 @@ package uk.ac.york.cs.es.smlg;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,11 +33,14 @@ public class LoadModel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			String metamodel = request.getParameter("metamodel");
 			String mode = request.getParameter("mode");
 			String model = request.getParameter("model");
+			
+			if (mode.equals("learning")) metamodel = "";
 
-			String directoryPathParam = "./" + mode + "/" + model;
-			String xmlPathParam = "./" + mode + "/" + model + "/mxgraph.xml";
+			String directoryPathParam = "./" + mode + "/" + metamodel + "/" + model;
+			String xmlPathParam = "./" + mode + "/" + metamodel + "/" + model + "/mxgraph.xml";
 			String path = getServletContext().getRealPath((directoryPathParam).replace("/", File.separator));
 			String xmlStringPath = getServletContext().getRealPath((xmlPathParam).replace("/", File.separator));
 

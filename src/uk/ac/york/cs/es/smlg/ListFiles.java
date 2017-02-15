@@ -58,6 +58,9 @@ public class ListFiles extends HttpServlet {
 			String json = mapper.writeValueAsString(fileNames);			
 			response.setContentType("application/json");
 			response.getWriter().append(json);
+		}else{
+			response.setContentType("application/json");
+			response.getWriter().append("[]");
 		}
 		response.getWriter().flush();
 	}
