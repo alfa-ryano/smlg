@@ -475,18 +475,20 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 	};
 
 
+
+
 	editorUI.saveFile = function(forceDialog) {
-		
+
 		var metamodelName = SMLG.currentMetamodel;
 		var modeName = SMLG.currentMode;
 		var modelName = SMLG.currentModel;
-		
+
 		var encoder = new mxCodec();
 		var model = graph.getModel();
 		var encodedModel = encoder.encode(model);
 		var xml = mxUtils.getPrettyXml(encodedModel);
-		
-		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName+"&xml=" + xml;
+
+		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&xml=" + xml;
 		var request = new XMLHttpRequest;
 		request.onload = function() {
 			handleResponse();
@@ -495,7 +497,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 		request.open("POST", "/smlg/SaveFile?", true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send(params);
-		
+
 		function handleResponse() {
 			var responseText = request.responseText;
 			alert(responseText);
@@ -509,10 +511,49 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 	//	SMLG.SMLGLoadModellingLangauges();
 	SMLG.SMLGLoadJavascript(SMLG_DIAGRAM_PATH + currentMetamodel + ".js");
 
+	//Modify Menu
+	SMLG.ModifyMenu();
+
 	//Load Model
 	SMLG.LoadModel(currentMetamodel, currentMode, currentModel);
 }
 
+SMLG.prototype.ModifyMenu = function() {
+	var editorUi = SMLG.editorUI;
+
+	editorUi.actions.put('validate', new Action("Validate ...", function() {
+		alert("A")
+	}
+	));
+
+	editorUi.menus.defaultMenuItems.push("validate");
+	var validateMenu = editorUi.menus.put('validate', new Menu(mxUtils.bind(editorUi.menus, function(menu, parent) {
+		editorUi.menus.addMenuItems(menu, [ "validate" ]);
+	})));
+
+	var menu = validateMenu;
+	//(function(menu) {
+	var elt = editorUi.menubar.addMenu("Validation", menu.funct);
+	if (elt != null) {
+		menu.addListener('stateChanged', function() {
+			elt.enabled = menu.enabled;
+			if (!menu.enabled) {
+				elt.className = 'geItem mxDisabled';
+
+				if (document.documentMode == 8) {
+					elt.style.color = '#c3c3c3';
+				}
+			} else {
+				elt.className = 'geItem';
+				if (document.documentMode == 8) {
+					elt.style.color = '';
+				}
+			}
+		});
+	}
+//})(validateMenu);
+}
+SMLG.ModifyMenu = SMLG.prototype.ModifyMenu;
 
 SMLG.prototype.LoadModel = function(metamodel, mode, model) {
 	var editorUi = SMLG.editorUI;
@@ -680,7 +721,8 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 				// console.log("Response-----------------------------------------------:
 				// " + response);
 				// });
-				SMLG.SMLGPostModel("POST", "../ModelPost", xml, GSMResponse);
+
+				//SMLG.SMLGPostModel("POST", "../ModelPost", xml, GSMResponse);
 				break;
 			}
 		}
