@@ -3,10 +3,12 @@
 package eoml.impl;
 
 import eoml.Activity;
+import eoml.Edge;
 import eoml.End;
 import eoml.Entity;
 import eoml.EomlFactory;
 import eoml.EomlPackage;
+import eoml.Link;
 import eoml.Model;
 import eoml.Node;
 import eoml.Objective;
@@ -56,7 +58,21 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass edgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass transitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass linkEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,6 +256,33 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEdge() {
+		return edgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdge_Source() {
+		return (EReference)edgeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdge_Target() {
+		return (EReference)edgeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTransition() {
 		return transitionEClass;
 	}
@@ -249,17 +292,8 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTransition_Source() {
-		return (EReference)transitionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTransition_Target() {
-		return (EReference)transitionEClass.getEStructuralFeatures().get(1);
+	public EClass getLink() {
+		return linkEClass;
 	}
 
 	/**
@@ -355,9 +389,13 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		createEReference(nodeEClass, NODE__OUTGOING);
 		createEReference(nodeEClass, NODE__INCOMING);
 
+		edgeEClass = createEClass(EDGE);
+		createEReference(edgeEClass, EDGE__SOURCE);
+		createEReference(edgeEClass, EDGE__TARGET);
+
 		transitionEClass = createEClass(TRANSITION);
-		createEReference(transitionEClass, TRANSITION__SOURCE);
-		createEReference(transitionEClass, TRANSITION__TARGET);
+
+		linkEClass = createEClass(LINK);
 
 		activityEClass = createEClass(ACTIVITY);
 		createEReference(activityEClass, ACTIVITY__OBJECTIVES);
@@ -400,7 +438,9 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 
 		// Add supertypes to classes
 		nodeEClass.getESuperTypes().add(this.getEntity());
-		transitionEClass.getESuperTypes().add(this.getEntity());
+		edgeEClass.getESuperTypes().add(this.getEntity());
+		transitionEClass.getESuperTypes().add(this.getEdge());
+		linkEClass.getESuperTypes().add(this.getEdge());
 		activityEClass.getESuperTypes().add(this.getNode());
 		modelEClass.getESuperTypes().add(this.getNode());
 		objectiveEClass.getESuperTypes().add(this.getEntity());
@@ -416,15 +456,19 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		initEAttribute(getEntity_Description(), ecorePackage.getEString(), "description", "", 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNode_Outgoing(), this.getTransition(), this.getTransition_Source(), "outgoing", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNode_Incoming(), this.getTransition(), this.getTransition_Target(), "incoming", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNode_Outgoing(), this.getEdge(), this.getEdge_Source(), "outgoing", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNode_Incoming(), this.getEdge(), this.getEdge_Target(), "incoming", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(edgeEClass, Edge.class, "Edge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEdge_Source(), this.getNode(), this.getNode_Outgoing(), "source", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdge_Target(), this.getNode(), this.getNode_Incoming(), "target", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTransition_Source(), this.getNode(), this.getNode_Outgoing(), "source", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransition_Target(), this.getNode(), this.getNode_Incoming(), "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActivity_Objectives(), this.getObjective(), null, "objectives", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActivity_Objectives(), this.getObjective(), null, "objectives", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -486,6 +530,21 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 			 "mxHtml", "1",
 			 "mxWidth", "120",
 			 "mxHeight", "120"
+		   });	
+		addAnnotation
+		  (linkEClass, 
+		   source, 
+		   new String[] {
+			 "mxLabel", "name",
+			 "source", "source",
+			 "target", "target",
+			 "mxEndArrow", "block",
+			 "mxBlockendFill", "1",
+			 "mxEndSize", "6",
+			 "mxHtml", "1",
+			 "mxWidth", "120",
+			 "mxHeight", "120",
+			 "mxDashed", "1"
 		   });
 	}
 
@@ -501,6 +560,7 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		  (activityEClass, 
 		   source, 
 		   new String[] {
+			 "mxLabel", "name",
 			 "mxShape", "swimlane",
 			 "mxChildLayout", "stackLayout",
 			 "mxCollapsible", "1",
@@ -521,6 +581,7 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		  (modelEClass, 
 		   source, 
 		   new String[] {
+			 "mxLabel", "name",
 			 "mxShape", "rectangle",
 			 "mxHtml", "1",
 			 "mxWhiteSpace", "wrap",

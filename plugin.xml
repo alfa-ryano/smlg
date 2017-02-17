@@ -10,7 +10,8 @@
       <!-- @generated tree -->
       <package
             uri="tree"
-            class="tree.TreePackage"/>
+            class="tree.TreePackage"
+            genModel="www/metamodel/tree/tree.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">

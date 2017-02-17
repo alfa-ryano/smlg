@@ -13,28 +13,38 @@ abstract class Entity {
 
 
 abstract class Node extends Entity {
-  ref Transition[*]#source outgoing;
-  ref Transition[*]#target incoming;
+  ref Edge[*]#source outgoing;
+  ref Edge[*]#target incoming;
 }
 
-@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="block", mxBlockendFill="1", 
-           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120")
-class Transition extends Entity {
+class Edge extends Entity {
   ref Node#outgoing source;
   ref Node#incoming target;
 }
 
-@gmf.node(mxShape="swimlane", mxChildLayout = "stackLayout", mxCollapsible = "1", mxHorizontalStack="0", mxResizeParent="0", 
+@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="block", mxBlockendFill="1", 
+           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120")
+class Transition extends Edge {
+
+}
+
+@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="block", mxBlockendFill="1", 
+           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120", mxDashed="1")
+class Link extends Edge {
+
+}
+
+@gmf.node(mxLabel="name", mxShape="swimlane", mxChildLayout = "stackLayout", mxCollapsible = "1", mxHorizontalStack="0", mxResizeParent="0", 
             mxResizeLast="1", mxRounded="1", mxMarginBottom="5", mxMarginLeft="5", mxMarginRight="5", mxMarginTop="5",
             mxHtml="1", mxWhiteSpace="wrap", mxWidth="200", mxHeight="120")
 class Activity extends Node {
 
   @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", 
             mxStrokeColor="none", mxStartSize="0")
-  ref Objective[*] objectives;
+  val Objective[*] objectives;
 }
 
-@gmf.node(mxShape="rectangle", mxHtml="1", mxWhiteSpace="wrap", mxWidth="40", mxHeight="50")
+@gmf.node(mxLabel="name", mxShape="rectangle", mxHtml="1", mxWhiteSpace="wrap", mxWidth="40", mxHeight="50")
 class Model extends Node {
 
 }

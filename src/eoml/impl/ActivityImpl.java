@@ -8,11 +8,15 @@ import eoml.Objective;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +33,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  */
 public class ActivityImpl extends NodeImpl implements Activity {
 	/**
-	 * The cached value of the '{@link #getObjectives() <em>Objectives</em>}' reference list.
+	 * The cached value of the '{@link #getObjectives() <em>Objectives</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getObjectives()
@@ -64,9 +68,23 @@ public class ActivityImpl extends NodeImpl implements Activity {
 	 */
 	public EList<Objective> getObjectives() {
 		if (objectives == null) {
-			objectives = new EObjectResolvingEList<Objective>(Objective.class, this, EomlPackage.ACTIVITY__OBJECTIVES);
+			objectives = new EObjectContainmentEList<Objective>(Objective.class, this, EomlPackage.ACTIVITY__OBJECTIVES);
 		}
 		return objectives;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EomlPackage.ACTIVITY__OBJECTIVES:
+				return ((InternalEList<?>)getObjectives()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

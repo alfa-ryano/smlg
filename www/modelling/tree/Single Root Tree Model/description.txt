@@ -1,0 +1,1 @@
+A tree model that only has one leaf as a root

@@ -4,7 +4,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Tree">
     <eAnnotations source="gmf.diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//Node">
+        eType="#//Node" containment="true">
       <eAnnotations source="gmf.compartment">
         <details key="mxShape" value="swimlane"/>
         <details key="mxCollapsible" value="0"/>
@@ -14,7 +14,6 @@
         <details key="mxStrokeColor" value="none"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="1234"/>
   </eClassifiers>

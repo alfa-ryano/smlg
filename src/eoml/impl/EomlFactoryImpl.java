@@ -57,7 +57,9 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case EomlPackage.EOML: return createEOML();
+			case EomlPackage.EDGE: return createEdge();
 			case EomlPackage.TRANSITION: return createTransition();
+			case EomlPackage.LINK: return createLink();
 			case EomlPackage.ACTIVITY: return createActivity();
 			case EomlPackage.MODEL: return createModel();
 			case EomlPackage.OBJECTIVE: return createObjective();
@@ -83,9 +85,29 @@ public class EomlFactoryImpl extends EFactoryImpl implements EomlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Edge createEdge() {
+		EdgeImpl edge = new EdgeImpl();
+		return edge;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Transition createTransition() {
 		TransitionImpl transition = new TransitionImpl();
 		return transition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Link createLink() {
+		LinkImpl link = new LinkImpl();
+		return link;
 	}
 
 	/**

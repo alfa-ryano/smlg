@@ -75,40 +75,13 @@ public interface TreePackage extends EPackage {
 	int TREE__CHILDREN = 0;
 
 	/**
-	 * The feature id for the '<em><b>Parent Val Single</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TREE__PARENT_VAL_SINGLE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Parent Comparment</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TREE__PARENT_COMPARMENT = 2;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TREE__PARENT = 3;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TREE__NAME = 4;
+	int TREE__NAME = 1;
 
 	/**
 	 * The number of structural features of the '<em>Tree</em>' class.
@@ -117,7 +90,7 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TREE_FEATURE_COUNT = 5;
+	int TREE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link tree.impl.NodeImpl <em>Node</em>}' class.
@@ -137,33 +110,6 @@ public interface TreePackage extends EPackage {
 	 * @ordered
 	 */
 	int NODE__CHILDREN = TREE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent Val Single</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__PARENT_VAL_SINGLE = TREE__PARENT_VAL_SINGLE;
-
-	/**
-	 * The feature id for the '<em><b>Parent Comparment</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__PARENT_COMPARMENT = TREE__PARENT_COMPARMENT;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__PARENT = TREE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -204,39 +150,6 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTree_Children();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link tree.Tree#getParentValSingle <em>Parent Val Single</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Parent Val Single</em>'.
-	 * @see tree.Tree#getParentValSingle()
-	 * @see #getTree()
-	 * @generated
-	 */
-	EReference getTree_ParentValSingle();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link tree.Tree#getParentComparment <em>Parent Comparment</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Parent Comparment</em>'.
-	 * @see tree.Tree#getParentComparment()
-	 * @see #getTree()
-	 * @generated
-	 */
-	EReference getTree_ParentComparment();
-
-	/**
-	 * Returns the meta object for the reference '{@link tree.Tree#getParent <em>Parent</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Parent</em>'.
-	 * @see tree.Tree#getParent()
-	 * @see #getTree()
-	 * @generated
-	 */
-	EReference getTree_Parent();
 
 	/**
 	 * Returns the meta object for the attribute '{@link tree.Tree#getName <em>Name</em>}'.
@@ -298,30 +211,6 @@ public interface TreePackage extends EPackage {
 		 * @generated
 		 */
 		EReference TREE__CHILDREN = eINSTANCE.getTree_Children();
-
-		/**
-		 * The meta object literal for the '<em><b>Parent Val Single</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TREE__PARENT_VAL_SINGLE = eINSTANCE.getTree_ParentValSingle();
-
-		/**
-		 * The meta object literal for the '<em><b>Parent Comparment</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TREE__PARENT_COMPARMENT = eINSTANCE.getTree_ParentComparment();
-
-		/**
-		 * The meta object literal for the '<em><b>Parent</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TREE__PARENT = eINSTANCE.getTree_Parent();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

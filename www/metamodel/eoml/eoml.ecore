@@ -14,11 +14,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" eSuperTypes="#//Entity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
-        eType="#//Transition" eOpposite="#//Transition/source"/>
+        eType="#//Edge" eOpposite="#//Edge/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
-        eType="#//Transition" eOpposite="#//Transition/target"/>
+        eType="#//Edge" eOpposite="#//Edge/target"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Entity">
+  <eClassifiers xsi:type="ecore:EClass" name="Edge" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Node"
+        eOpposite="#//Node/outgoing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Node"
+        eOpposite="#//Node/incoming"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Edge">
     <eAnnotations source="gmf.link">
       <details key="mxLabel" value="name"/>
       <details key="source" value="source"/>
@@ -30,13 +36,24 @@
       <details key="mxWidth" value="120"/>
       <details key="mxHeight" value="120"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Node"
-        eOpposite="#//Node/outgoing"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Node"
-        eOpposite="#//Node/incoming"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//Edge">
+    <eAnnotations source="gmf.link">
+      <details key="mxLabel" value="name"/>
+      <details key="source" value="source"/>
+      <details key="target" value="target"/>
+      <details key="mxEndArrow" value="block"/>
+      <details key="mxBlockendFill" value="1"/>
+      <details key="mxEndSize" value="6"/>
+      <details key="mxHtml" value="1"/>
+      <details key="mxWidth" value="120"/>
+      <details key="mxHeight" value="120"/>
+      <details key="mxDashed" value="1"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Activity" eSuperTypes="#//Node">
     <eAnnotations source="gmf.node">
+      <details key="mxLabel" value="name"/>
       <details key="mxShape" value="swimlane"/>
       <details key="mxChildLayout" value="stackLayout"/>
       <details key="mxCollapsible" value="1"/>
@@ -54,7 +71,7 @@
       <details key="mxHeight" value="120"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
-        eType="#//Objective">
+        eType="#//Objective" containment="true">
       <eAnnotations source="gmf.compartment">
         <details key="mxShape" value="swimlane"/>
         <details key="mxCollapsible" value="0"/>
@@ -68,6 +85,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//Node">
     <eAnnotations source="gmf.node">
+      <details key="mxLabel" value="name"/>
       <details key="mxShape" value="rectangle"/>
       <details key="mxHtml" value="1"/>
       <details key="mxWhiteSpace" value="wrap"/>

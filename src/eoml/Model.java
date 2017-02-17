@@ -10,7 +10,7 @@ package eoml;
  *
  *
  * @see eoml.EomlPackage#getModel()
- * @model annotation="gmf.node mxShape='rectangle' mxHtml='1' mxWhiteSpace='wrap' mxWidth='40' mxHeight='50'"
+ * @model annotation="gmf.node mxLabel='name' mxShape='rectangle' mxHtml='1' mxWhiteSpace='wrap' mxWidth='40' mxHeight='50'"
  * @generated
  */
 public interface Model extends Node {

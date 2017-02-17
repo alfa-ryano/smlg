@@ -1,0 +1,1 @@
+A tree model that has two leaves. One of them is a root.

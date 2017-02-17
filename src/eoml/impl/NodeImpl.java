@@ -2,6 +2,7 @@
  */
 package eoml.impl;
 
+import eoml.Edge;
 import eoml.EomlPackage;
 import eoml.Node;
 import eoml.Transition;
@@ -41,7 +42,7 @@ public abstract class NodeImpl extends EntityImpl implements Node {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Transition> outgoing;
+	protected EList<Edge> outgoing;
 
 	/**
 	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
@@ -51,7 +52,7 @@ public abstract class NodeImpl extends EntityImpl implements Node {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Transition> incoming;
+	protected EList<Edge> incoming;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -77,9 +78,9 @@ public abstract class NodeImpl extends EntityImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Transition> getOutgoing() {
+	public EList<Edge> getOutgoing() {
 		if (outgoing == null) {
-			outgoing = new EObjectWithInverseResolvingEList<Transition>(Transition.class, this, EomlPackage.NODE__OUTGOING, EomlPackage.TRANSITION__SOURCE);
+			outgoing = new EObjectWithInverseResolvingEList<Edge>(Edge.class, this, EomlPackage.NODE__OUTGOING, EomlPackage.EDGE__SOURCE);
 		}
 		return outgoing;
 	}
@@ -89,9 +90,9 @@ public abstract class NodeImpl extends EntityImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Transition> getIncoming() {
+	public EList<Edge> getIncoming() {
 		if (incoming == null) {
-			incoming = new EObjectWithInverseResolvingEList<Transition>(Transition.class, this, EomlPackage.NODE__INCOMING, EomlPackage.TRANSITION__TARGET);
+			incoming = new EObjectWithInverseResolvingEList<Edge>(Edge.class, this, EomlPackage.NODE__INCOMING, EomlPackage.EDGE__TARGET);
 		}
 		return incoming;
 	}
@@ -156,11 +157,11 @@ public abstract class NodeImpl extends EntityImpl implements Node {
 		switch (featureID) {
 			case EomlPackage.NODE__OUTGOING:
 				getOutgoing().clear();
-				getOutgoing().addAll((Collection<? extends Transition>)newValue);
+				getOutgoing().addAll((Collection<? extends Edge>)newValue);
 				return;
 			case EomlPackage.NODE__INCOMING:
 				getIncoming().clear();
-				getIncoming().addAll((Collection<? extends Transition>)newValue);
+				getIncoming().addAll((Collection<? extends Edge>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

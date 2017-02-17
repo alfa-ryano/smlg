@@ -16,9 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link tree.Tree#getChildren <em>Children</em>}</li>
- *   <li>{@link tree.Tree#getParentValSingle <em>Parent Val Single</em>}</li>
- *   <li>{@link tree.Tree#getParentComparment <em>Parent Comparment</em>}</li>
- *   <li>{@link tree.Tree#getParent <em>Parent</em>}</li>
  *   <li>{@link tree.Tree#getName <em>Name</em>}</li>
  * </ul>
  *
@@ -39,87 +36,10 @@ public interface Tree extends EObject {
 	 * @return the value of the '<em>Children</em>' containment reference list.
 	 * @see tree.TreePackage#getTree_Children()
 	 * @model containment="true"
+	 *        annotation="gmf.compartment mxShape='swimlane' mxCollapsible='0' mxNoLabel='1' xEditable='0' mxFillColor='none' mxStrokeColor='none'"
 	 * @generated
 	 */
 	EList<Node> getChildren();
-
-	/**
-	 * Returns the value of the '<em><b>Parent Val Single</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parent Val Single</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent Val Single</em>' containment reference.
-	 * @see #setParentValSingle(Node)
-	 * @see tree.TreePackage#getTree_ParentValSingle()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Node getParentValSingle();
-
-	/**
-	 * Sets the value of the '{@link tree.Tree#getParentValSingle <em>Parent Val Single</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parent Val Single</em>' containment reference.
-	 * @see #getParentValSingle()
-	 * @generated
-	 */
-	void setParentValSingle(Node value);
-
-	/**
-	 * Returns the value of the '<em><b>Parent Comparment</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parent Comparment</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent Comparment</em>' containment reference.
-	 * @see #setParentComparment(Node)
-	 * @see tree.TreePackage#getTree_ParentComparment()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Node getParentComparment();
-
-	/**
-	 * Sets the value of the '{@link tree.Tree#getParentComparment <em>Parent Comparment</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parent Comparment</em>' containment reference.
-	 * @see #getParentComparment()
-	 * @generated
-	 */
-	void setParentComparment(Node value);
-
-	/**
-	 * Returns the value of the '<em><b>Parent</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parent</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent</em>' reference.
-	 * @see #setParent(Node)
-	 * @see tree.TreePackage#getTree_Parent()
-	 * @model
-	 * @generated
-	 */
-	Node getParent();
-
-	/**
-	 * Sets the value of the '{@link tree.Tree#getParent <em>Parent</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Parent</em>' reference.
-	 * @see #getParent()
-	 * @generated
-	 */
-	void setParent(Node value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

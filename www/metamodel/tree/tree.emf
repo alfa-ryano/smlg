@@ -5,8 +5,7 @@ package tree;
 class Tree {
 
   @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", mxStrokeColor="none")
-  ref Node[*]#parent children;
-  ref Node#children parent;
+  val Node[*] children;
   attr String name = "1234";
 }
 

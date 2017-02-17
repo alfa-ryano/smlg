@@ -92,8 +92,12 @@ public class EomlValidator extends EObjectValidator {
 				return validateEntity((Entity)value, diagnostics, context);
 			case EomlPackage.NODE:
 				return validateNode((Node)value, diagnostics, context);
+			case EomlPackage.EDGE:
+				return validateEdge((Edge)value, diagnostics, context);
 			case EomlPackage.TRANSITION:
 				return validateTransition((Transition)value, diagnostics, context);
+			case EomlPackage.LINK:
+				return validateLink((Link)value, diagnostics, context);
 			case EomlPackage.ACTIVITY:
 				return validateActivity((Activity)value, diagnostics, context);
 			case EomlPackage.MODEL:
@@ -141,8 +145,26 @@ public class EomlValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateEdge(Edge edge, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(edge, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateTransition(Transition transition, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(transition, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLink(Link link, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(link, diagnostics, context);
 	}
 
 	/**

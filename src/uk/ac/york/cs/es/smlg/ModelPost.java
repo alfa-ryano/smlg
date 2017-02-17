@@ -29,7 +29,7 @@ import org.eclipse.epsilon.evl.execute.UnsatisfiedConstraint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import uk.ac.york.cs.es.smlg.model.GSMResult;
+import uk.ac.york.cs.es.smlg.model.SMLGResult;
 import uk.ac.york.cs.es.smlg.util.MxGraphXMLResourceFactory;
 import uk.ac.york.cs.es.smlg.util.SMLGTransformer;
 
@@ -113,7 +113,7 @@ public class ModelPost extends HttpServlet {
 			evlModule.execute();
 
 			// do the validation
-			GSMResult gsmResult = new GSMResult();
+			SMLGResult gsmResult = new SMLGResult();
 			List<UnsatisfiedConstraint> unsatisfiedConstraints = evlModule.getContext().getUnsatisfiedConstraints();
 			if (unsatisfiedConstraints.size() > 0) {
 				for (UnsatisfiedConstraint unsatisfied : unsatisfiedConstraints) {

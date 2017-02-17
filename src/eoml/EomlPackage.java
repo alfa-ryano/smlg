@@ -176,14 +176,14 @@ public interface EomlPackage extends EPackage {
 	int NODE_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link eoml.impl.TransitionImpl <em>Transition</em>}' class.
+	 * The meta object id for the '{@link eoml.impl.EdgeImpl <em>Edge</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eoml.impl.TransitionImpl
-	 * @see eoml.impl.EomlPackageImpl#getTransition()
+	 * @see eoml.impl.EdgeImpl
+	 * @see eoml.impl.EomlPackageImpl#getEdge()
 	 * @generated
 	 */
-	int TRANSITION = 3;
+	int EDGE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -192,7 +192,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__NAME = ENTITY__NAME;
+	int EDGE__NAME = ENTITY__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -201,7 +201,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__DESCRIPTION = ENTITY__DESCRIPTION;
+	int EDGE__DESCRIPTION = ENTITY__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -210,7 +210,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__SOURCE = ENTITY_FEATURE_COUNT + 0;
+	int EDGE__SOURCE = ENTITY_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -219,7 +219,62 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION__TARGET = ENTITY_FEATURE_COUNT + 1;
+	int EDGE__TARGET = ENTITY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Edge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link eoml.impl.TransitionImpl <em>Transition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eoml.impl.TransitionImpl
+	 * @see eoml.impl.EomlPackageImpl#getTransition()
+	 * @generated
+	 */
+	int TRANSITION = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__NAME = EDGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__DESCRIPTION = EDGE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__SOURCE = EDGE__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TARGET = EDGE__TARGET;
 
 	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
@@ -228,7 +283,62 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = ENTITY_FEATURE_COUNT + 2;
+	int TRANSITION_FEATURE_COUNT = EDGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link eoml.impl.LinkImpl <em>Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see eoml.impl.LinkImpl
+	 * @see eoml.impl.EomlPackageImpl#getLink()
+	 * @generated
+	 */
+	int LINK = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__NAME = EDGE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__DESCRIPTION = EDGE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__SOURCE = EDGE__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__TARGET = EDGE__TARGET;
+
+	/**
+	 * The number of structural features of the '<em>Link</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_FEATURE_COUNT = EDGE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link eoml.impl.ActivityImpl <em>Activity</em>}' class.
@@ -238,7 +348,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getActivity()
 	 * @generated
 	 */
-	int ACTIVITY = 4;
+	int ACTIVITY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -277,7 +387,7 @@ public interface EomlPackage extends EPackage {
 	int ACTIVITY__INCOMING = NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Objectives</b></em>' reference list.
+	 * The feature id for the '<em><b>Objectives</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -302,7 +412,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getModel()
 	 * @generated
 	 */
-	int MODEL = 5;
+	int MODEL = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -357,7 +467,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getObjective()
 	 * @generated
 	 */
-	int OBJECTIVE = 6;
+	int OBJECTIVE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -394,7 +504,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getStart()
 	 * @generated
 	 */
-	int START = 7;
+	int START = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -449,7 +559,7 @@ public interface EomlPackage extends EPackage {
 	 * @see eoml.impl.EomlPackageImpl#getEnd()
 	 * @generated
 	 */
-	int END = 8;
+	int END = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -583,6 +693,38 @@ public interface EomlPackage extends EPackage {
 	EReference getNode_Incoming();
 
 	/**
+	 * Returns the meta object for class '{@link eoml.Edge <em>Edge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Edge</em>'.
+	 * @see eoml.Edge
+	 * @generated
+	 */
+	EClass getEdge();
+
+	/**
+	 * Returns the meta object for the reference '{@link eoml.Edge#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see eoml.Edge#getSource()
+	 * @see #getEdge()
+	 * @generated
+	 */
+	EReference getEdge_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link eoml.Edge#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see eoml.Edge#getTarget()
+	 * @see #getEdge()
+	 * @generated
+	 */
+	EReference getEdge_Target();
+
+	/**
 	 * Returns the meta object for class '{@link eoml.Transition <em>Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -593,26 +735,14 @@ public interface EomlPackage extends EPackage {
 	EClass getTransition();
 
 	/**
-	 * Returns the meta object for the reference '{@link eoml.Transition#getSource <em>Source</em>}'.
+	 * Returns the meta object for class '{@link eoml.Link <em>Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see eoml.Transition#getSource()
-	 * @see #getTransition()
+	 * @return the meta object for class '<em>Link</em>'.
+	 * @see eoml.Link
 	 * @generated
 	 */
-	EReference getTransition_Source();
-
-	/**
-	 * Returns the meta object for the reference '{@link eoml.Transition#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see eoml.Transition#getTarget()
-	 * @see #getTransition()
-	 * @generated
-	 */
-	EReference getTransition_Target();
+	EClass getLink();
 
 	/**
 	 * Returns the meta object for class '{@link eoml.Activity <em>Activity</em>}'.
@@ -625,10 +755,10 @@ public interface EomlPackage extends EPackage {
 	EClass getActivity();
 
 	/**
-	 * Returns the meta object for the reference list '{@link eoml.Activity#getObjectives <em>Objectives</em>}'.
+	 * Returns the meta object for the containment reference list '{@link eoml.Activity#getObjectives <em>Objectives</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Objectives</em>'.
+	 * @return the meta object for the containment reference list '<em>Objectives</em>'.
 	 * @see eoml.Activity#getObjectives()
 	 * @see #getActivity()
 	 * @generated
@@ -768,6 +898,32 @@ public interface EomlPackage extends EPackage {
 		EReference NODE__INCOMING = eINSTANCE.getNode_Incoming();
 
 		/**
+		 * The meta object literal for the '{@link eoml.impl.EdgeImpl <em>Edge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see eoml.impl.EdgeImpl
+		 * @see eoml.impl.EomlPackageImpl#getEdge()
+		 * @generated
+		 */
+		EClass EDGE = eINSTANCE.getEdge();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE__SOURCE = eINSTANCE.getEdge_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE__TARGET = eINSTANCE.getEdge_Target();
+
+		/**
 		 * The meta object literal for the '{@link eoml.impl.TransitionImpl <em>Transition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -778,20 +934,14 @@ public interface EomlPackage extends EPackage {
 		EClass TRANSITION = eINSTANCE.getTransition();
 
 		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * The meta object literal for the '{@link eoml.impl.LinkImpl <em>Link</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see eoml.impl.LinkImpl
+		 * @see eoml.impl.EomlPackageImpl#getLink()
 		 * @generated
 		 */
-		EReference TRANSITION__SOURCE = eINSTANCE.getTransition_Source();
-
-		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TRANSITION__TARGET = eINSTANCE.getTransition_Target();
+		EClass LINK = eINSTANCE.getLink();
 
 		/**
 		 * The meta object literal for the '{@link eoml.impl.ActivityImpl <em>Activity</em>}' class.
@@ -804,7 +954,7 @@ public interface EomlPackage extends EPackage {
 		EClass ACTIVITY = eINSTANCE.getActivity();
 
 		/**
-		 * The meta object literal for the '<em><b>Objectives</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Objectives</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

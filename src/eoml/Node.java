@@ -24,8 +24,8 @@ import org.eclipse.emf.common.util.EList;
 public interface Node extends Entity {
 	/**
 	 * Returns the value of the '<em><b>Outgoing</b></em>' reference list.
-	 * The list contents are of type {@link eoml.Transition}.
-	 * It is bidirectional and its opposite is '{@link eoml.Transition#getSource <em>Source</em>}'.
+	 * The list contents are of type {@link eoml.Edge}.
+	 * It is bidirectional and its opposite is '{@link eoml.Edge#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Outgoing</em>' reference list isn't clear,
@@ -34,16 +34,16 @@ public interface Node extends Entity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Outgoing</em>' reference list.
 	 * @see eoml.EomlPackage#getNode_Outgoing()
-	 * @see eoml.Transition#getSource
+	 * @see eoml.Edge#getSource
 	 * @model opposite="source"
 	 * @generated
 	 */
-	EList<Transition> getOutgoing();
+	EList<Edge> getOutgoing();
 
 	/**
 	 * Returns the value of the '<em><b>Incoming</b></em>' reference list.
-	 * The list contents are of type {@link eoml.Transition}.
-	 * It is bidirectional and its opposite is '{@link eoml.Transition#getTarget <em>Target</em>}'.
+	 * The list contents are of type {@link eoml.Edge}.
+	 * It is bidirectional and its opposite is '{@link eoml.Edge#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Incoming</em>' reference list isn't clear,
@@ -52,10 +52,10 @@ public interface Node extends Entity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Incoming</em>' reference list.
 	 * @see eoml.EomlPackage#getNode_Incoming()
-	 * @see eoml.Transition#getTarget
+	 * @see eoml.Edge#getTarget
 	 * @model opposite="target"
 	 * @generated
 	 */
-	EList<Transition> getIncoming();
+	EList<Edge> getIncoming();
 
 } // Node

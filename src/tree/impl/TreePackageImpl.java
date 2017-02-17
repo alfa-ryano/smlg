@@ -119,35 +119,8 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTree_ParentValSingle() {
-		return (EReference)treeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTree_ParentComparment() {
-		return (EReference)treeEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTree_Parent() {
-		return (EReference)treeEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getTree_Name() {
-		return (EAttribute)treeEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)treeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -189,9 +162,6 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		// Create classes and their features
 		treeEClass = createEClass(TREE);
 		createEReference(treeEClass, TREE__CHILDREN);
-		createEReference(treeEClass, TREE__PARENT_VAL_SINGLE);
-		createEReference(treeEClass, TREE__PARENT_COMPARMENT);
-		createEReference(treeEClass, TREE__PARENT);
 		createEAttribute(treeEClass, TREE__NAME);
 
 		nodeEClass = createEClass(NODE);
@@ -230,9 +200,6 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(treeEClass, Tree.class, "Tree", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTree_Children(), this.getNode(), null, "children", null, 0, -1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTree_ParentValSingle(), this.getNode(), null, "parentValSingle", null, 0, 1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTree_ParentComparment(), this.getNode(), null, "parentComparment", null, 0, 1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTree_Parent(), this.getNode(), null, "parent", null, 0, 1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTree_Name(), ecorePackage.getEString(), "name", "1234", 0, 1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -276,11 +243,12 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		  (getTree_Children(), 
 		   source, 
 		   new String[] {
-		   });	
-		addAnnotation
-		  (getTree_ParentComparment(), 
-		   source, 
-		   new String[] {
+			 "mxShape", "swimlane",
+			 "mxCollapsible", "0",
+			 "mxNoLabel", "1",
+			 "xEditable", "0",
+			 "mxFillColor", "none",
+			 "mxStrokeColor", "none"
 		   });
 	}
 
@@ -296,8 +264,24 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		  (nodeEClass, 
 		   source, 
 		   new String[] {
-			 "label", "name",
-			 "style", "swimlane;fill=1;html=1;childLayout=stackLayout;fillColor=none;horizontalStack=0;resizeParent=1;resizeLast=1;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;"
+			 "mxLabel", "name",
+			 "mxFill", "1",
+			 "mxHtml", "1",
+			 "mxFillColor", "none",
+			 "mxShape", "swimlane",
+			 "mxChildLayout", "stackLayout",
+			 "mxCollapsible", "1",
+			 "mxHorizontalStack", "0",
+			 "mxResizeParent", "0",
+			 "mxResizeLast", "1",
+			 "mxRounded", "1",
+			 "mxMarginBottom", "0",
+			 "mxMarginLeft", "0",
+			 "mxMarginRight", "0",
+			 "mxMarginTop", "0",
+			 "mxWhiteSpace", "wrap",
+			 "mxWidth", "200",
+			 "mxHeight", "120"
 		   });
 	}
 

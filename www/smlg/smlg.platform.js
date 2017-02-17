@@ -9,7 +9,6 @@ var displayAvailableModels = function(metamodel) {
 	request.send();
 
 	function handleResponse() {
-		console.log(metamodel + ": " + request.responseText);
 		var models = JSON.parse(request.responseText);
 		var ul = document.getElementById("ul-" + metamodel);
 

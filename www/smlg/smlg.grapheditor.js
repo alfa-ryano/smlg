@@ -362,8 +362,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 							.bind(
 								this,
 								function(evt) {
-									// console.log(currentLabel.prototype);
-
+									
 									if (currentLabel != elt) {
 										if (containsLabel) {
 											this.labelIndex = index;
@@ -493,7 +492,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 		request.onload = function() {
 			handleResponse();
 		};
-		console.log(params);
+	
 		request.open("POST", "/smlg/SaveFile?", true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send(params);
@@ -518,15 +517,51 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 	SMLG.LoadModel(currentMetamodel, currentMode, currentModel);
 }
 
+
+//SMLG.prototype.addMainMenu = function(menuName, subMenus){
+//	
+//}
+//SMLG.addCustomMenu = SMLG.prototype.addCustomMenu;
+
+SMLG.prototype.ValidateModel = function() {
+
+	var graph = SMLG.editorUI.editor.graph;
+	var metamodelName = SMLG.currentMetamodel;
+	var modeName = SMLG.currentMode;
+	var modelName = SMLG.currentModel;
+
+	var encoder = new mxCodec();
+	var model = graph.getModel();
+	var encodedModel = encoder.encode(model);
+	var xml = mxUtils.getPrettyXml(encodedModel);
+
+	var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&xml=" + xml;
+	var request = new XMLHttpRequest;
+	request.onload = function() {
+		handleResponse();
+	};
+	
+	request.open("POST", "/smlg/ValidateModel?", true);
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(params);
+
+	function handleResponse() {
+		var responseText = request.responseText;
+		alert(responseText);
+	}
+
+}
+SMLG.ValidateModel = SMLG.prototype.ValidateModel;
+
 SMLG.prototype.ModifyMenu = function() {
 	var editorUi = SMLG.editorUI;
 
-	editorUi.actions.put('validate', new Action("Validate ...", function() {
-		alert("A")
+	editorUi.actions.put('validate', new Action("Validate...", function() {
+		SMLG.ValidateModel();
 	}
 	));
 
-	editorUi.menus.defaultMenuItems.push("validate");
+	//editorUi.menus.defaultMenuItems.push("validate");
 	var validateMenu = editorUi.menus.put('validate', new Menu(mxUtils.bind(editorUi.menus, function(menu, parent) {
 		editorUi.menus.addMenuItems(menu, [ "validate" ]);
 	})));
@@ -715,12 +750,6 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 				var encodedModel = encoder.encode(model);
 				// var xml = mxUtils.getXml(encodedModel);
 				var xml = mxUtils.getPrettyXml(encodedModel);
-				// console.log(xml);
-				// SMLG.SMLGPostModel("POST", "../ModelPost", xml, function
-				// (response) {
-				// console.log("Response-----------------------------------------------:
-				// " + response);
-				// });
 
 				//SMLG.SMLGPostModel("POST", "../ModelPost", xml, GSMResponse);
 				break;
@@ -732,8 +761,7 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 	mxEvent.addListener(input, 'change', update);
 
 	function GSMResponse(response) {
-		// console.log("#Response-----------------------------------------------");
-		// console.log(response);
+		
 		var results = JSON.parse(response);
 		if (results.unsatisfiedConstraints.length == 0)
 			return;

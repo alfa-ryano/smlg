@@ -1,0 +1,12 @@
+context tree!Tree {
+    constraint constraint_01 {
+        check: 
+            self.validation_01()
+        message:
+            "validation_01"
+    }
+}
+
+operation Tree validation_01(): Boolean {
+    return true;
+}

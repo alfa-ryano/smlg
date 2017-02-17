@@ -2,7 +2,7 @@ package uk.ac.york.cs.es.smlg.model;
 
 import java.util.ArrayList;
 
-public class GSMResult {
+public class SMLGResult {
 
 	public ArrayList<GSMUnsatifiedConstraint> unsatisfiedConstraints = new ArrayList<>();
 	public boolean completed = true; 
