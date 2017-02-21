@@ -45,7 +45,7 @@ public class SaveFile extends HttpServlet {
 			String xmlPathString = "./" + mode +"/" + metamodel + "/" + model + "/mxgraph.xml";
 			String xmlPath = getServletContext().getRealPath((xmlPathString).replace("/", File.separator));
 			
-			boolean isSuccess =  SMLGAdapter.saveFile(xmlPath, xml);
+			boolean isSuccess =  SMLGAdapter.saveMxGraphFile(xmlPath, xml);
 			if (isSuccess){
 				response.getWriter().append("SUCCESS: Model has been saved successfully!");
 			}

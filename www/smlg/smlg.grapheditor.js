@@ -362,7 +362,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 							.bind(
 								this,
 								function(evt) {
-									
+
 									if (currentLabel != elt) {
 										if (containsLabel) {
 											this.labelIndex = index;
@@ -492,7 +492,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 		request.onload = function() {
 			handleResponse();
 		};
-	
+
 		request.open("POST", "/smlg/SaveFile?", true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		request.send(params);
@@ -511,23 +511,21 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 	SMLG.SMLGLoadJavascript(SMLG_DIAGRAM_PATH + currentMetamodel + ".js");
 
 	//Modify Menu
-	SMLG.ModifyMenu();
+	SMLG.AddValidateMenu();
+	SMLG.AddGenerateMenu();
 
 	//Load Model
 	SMLG.LoadModel(currentMetamodel, currentMode, currentModel);
 }
 
 
-//SMLG.prototype.addMainMenu = function(menuName, subMenus){
-//	
-//}
-//SMLG.addCustomMenu = SMLG.prototype.addCustomMenu;
-
-SMLG.prototype.ValidateModel = function() {
-
+/***
+ * Generate Game
+ */
+SMLG.prototype.GenerateGame = function(){
 	var graph = SMLG.editorUI.editor.graph;
 	var metamodelName = SMLG.currentMetamodel;
-	var modeName = SMLG.currentMode;
+	var modeName = "gaming";
 	var modelName = SMLG.currentModel;
 
 	var encoder = new mxCodec();
@@ -540,8 +538,8 @@ SMLG.prototype.ValidateModel = function() {
 	request.onload = function() {
 		handleResponse();
 	};
-	
-	request.open("POST", "/smlg/ValidateModel?", true);
+
+	request.open("POST", "/smlg/GenerateGame?", true);
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.send(params);
 
@@ -549,11 +547,50 @@ SMLG.prototype.ValidateModel = function() {
 		var responseText = request.responseText;
 		alert(responseText);
 	}
-
 }
-SMLG.ValidateModel = SMLG.prototype.ValidateModel;
+SMLG.GenerateGame = SMLG.prototype.GenerateGame;
 
-SMLG.prototype.ModifyMenu = function() {
+/***
+*	Add generate menu
+*/
+SMLG.prototype.AddGenerateMenu = function() {
+	var editorUi = SMLG.editorUI;
+
+	editorUi.actions.put('generate', new Action("Generate Game", function() {
+		SMLG.GenerateGame();
+	}
+	));
+
+	var validateMenu = editorUi.menus.put('generation', new Menu(mxUtils.bind(editorUi.menus, function(menu, parent) {
+		editorUi.menus.addMenuItems(menu, [ "generate" ]);
+	})));
+
+	var menu = validateMenu;
+	var elt = editorUi.menubar.addMenu("Generation", menu.funct);
+	if (elt != null) {
+		menu.addListener('stateChanged', function() {
+			elt.enabled = menu.enabled;
+			if (!menu.enabled) {
+				elt.className = 'geItem mxDisabled';
+
+				if (document.documentMode == 8) {
+					elt.style.color = '#c3c3c3';
+				}
+			} else {
+				elt.className = 'geItem';
+				if (document.documentMode == 8) {
+					elt.style.color = '';
+				}
+			}
+		});
+	}
+}
+SMLG.AddGenerateMenu = SMLG.prototype.AddGenerateMenu;
+
+/***
+*	Add validate menu
+*/
+SMLG.prototype.AddValidateMenu = function() {
 	var editorUi = SMLG.editorUI;
 
 	editorUi.actions.put('validate', new Action("Validate...", function() {
@@ -561,13 +598,11 @@ SMLG.prototype.ModifyMenu = function() {
 	}
 	));
 
-	//editorUi.menus.defaultMenuItems.push("validate");
-	var validateMenu = editorUi.menus.put('validate', new Menu(mxUtils.bind(editorUi.menus, function(menu, parent) {
+	var validateMenu = editorUi.menus.put('validation', new Menu(mxUtils.bind(editorUi.menus, function(menu, parent) {
 		editorUi.menus.addMenuItems(menu, [ "validate" ]);
 	})));
 
 	var menu = validateMenu;
-	//(function(menu) {
 	var elt = editorUi.menubar.addMenu("Validation", menu.funct);
 	if (elt != null) {
 		menu.addListener('stateChanged', function() {
@@ -586,9 +621,41 @@ SMLG.prototype.ModifyMenu = function() {
 			}
 		});
 	}
-//})(validateMenu);
 }
-SMLG.ModifyMenu = SMLG.prototype.ModifyMenu;
+SMLG.AddValidateMenu = SMLG.prototype.AddValidateMenu;
+
+/***
+ * Function to validate model
+ */
+SMLG.prototype.ValidateModel = function() {
+
+	var graph = SMLG.editorUI.editor.graph;
+	var metamodelName = SMLG.currentMetamodel;
+	var modeName = SMLG.currentMode;
+	var modelName = SMLG.currentModel;
+
+	var encoder = new mxCodec();
+	var model = graph.getModel();
+	var encodedModel = encoder.encode(model);
+	var xml = mxUtils.getPrettyXml(encodedModel);
+
+	var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&xml=" + xml;
+	var request = new XMLHttpRequest;
+	request.onload = function() {
+		handleResponse();
+	};
+
+	request.open("POST", "/smlg/ValidateModel?", true);
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(params);
+
+	function handleResponse() {
+		var responseText = request.responseText;
+		alert(responseText);
+	}
+
+}
+SMLG.ValidateModel = SMLG.prototype.ValidateModel;
 
 SMLG.prototype.LoadModel = function(metamodel, mode, model) {
 	var editorUi = SMLG.editorUI;
@@ -761,7 +828,6 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 	mxEvent.addListener(input, 'change', update);
 
 	function GSMResponse(response) {
-		
 		var results = JSON.parse(response);
 		if (results.unsatisfiedConstraints.length == 0)
 			return;

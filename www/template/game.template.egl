@@ -1,0 +1,6 @@
+[%
+  for(entity in EOML.entities){
+    entity.println(); %]
+     [%= entity.type.name + ": " + entity.name %]
+  [% }
+%]

@@ -1,11 +1,13 @@
 package uk.ac.york.cs.es.smlg.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SMLGResult {
 
 	public ArrayList<GSMUnsatifiedConstraint> unsatisfiedConstraints = new ArrayList<>();
-	public boolean completed = true; 
+	public HashMap<String, Object> data = new HashMap<>();
+	public boolean completed = false; 
 
 	public class GSMUnsatifiedConstraint {
 		public String name = null;
