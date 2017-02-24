@@ -2,6 +2,12 @@ package uk.ac.york.cs.es.smlg;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,24 +56,36 @@ public class GenerateGame extends HttpServlet {
 			if (!mode.equals("gaming"))
 				throw new Exception("ERROR: Mode is not 'gaming'");
 
-			
-			String storyPath  = (getServletContext().getRealPath(".") + "/" + mode + "/" + model).replace("/", File.separator);
-			File storyDirectory = new File(storyPath); 
+			String storyPath = (getServletContext().getRealPath(".") + "/" + mode + "/" + model).replace("/",
+					File.separator);
+			File storyDirectory = new File(storyPath);
 			if (storyDirectory.exists())
 				SMLGAdapter.deleteDir(storyDirectory);
 			boolean targetDir = storyDirectory.mkdir();
 
 			boolean isMxGraphSaved = false;
-			if (targetDir){
-			String mxGraphPath = (getServletContext().getRealPath(".") + "/" + mode + "/" + model + "/mxgraph.xml").replace("/", File.separator);	
-			isMxGraphSaved = SMLGAdapter.createMxGraphFile(mxGraphPath, xml);
+			if (targetDir) {
+				String mxGraphPath = (getServletContext().getRealPath(".") + "/" + mode + "/" + model + "/mxgraph.xml")
+						.replace("/", File.separator);
+				isMxGraphSaved = SMLGAdapter.createMxGraphFile(mxGraphPath, xml);
 			}
-			
+
+			// Copy description file from learning to gaming
+			String sourceDescriptionFilePath = (getServletContext().getRealPath(".") + "/learning/" + model
+					+ "/description.txt").replace("/", File.separator);
+			File sourceDescriptionFile = new File(sourceDescriptionFilePath);
+			String targetDescriptionFilePath = (getServletContext().getRealPath(".") + "/gaming/" + model
+					+ "/description.txt").replace("/", File.separator);
+			File targetDescriptionFile = new File(targetDescriptionFilePath);
+			Files.copy(sourceDescriptionFile.toPath(), targetDescriptionFile.toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+
+			//
 			SMLGResult smlgResult = new SMLGResult();
-			if (targetDir == true &&  isMxGraphSaved == true){
-				smlgResult = SMLGAdapter.generateGame(storyPath,  xml);
+			if (targetDir == true && isMxGraphSaved == true) {
+				smlgResult = SMLGAdapter.generateGame(storyPath, xml);
 			}
-			
+
 			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			String json = ow.writeValueAsString(smlgResult);
 			response.getWriter().append(json);

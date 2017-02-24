@@ -138,6 +138,36 @@ var setLabelMetamodel = function(value) {
 	document.getElementById("labelMetamodel").value = value;
 }
 
+
+var displayAvailableGames = function() {
+	var request = new XMLHttpRequest;
+	request.onload = function() {
+		handleResponse()
+	};
+	request.open("GET", "DisplayAvailableGames?path=./gaming/", true);
+	request.send();
+
+	function handleResponse() {
+		var gameList = JSON.parse(request.responseText);
+		var divMetamodelList = document.getElementById("divGameList");
+
+		for (var game in gameList) {
+			if (gameList.hasOwnProperty(game)) {
+				var innerHtmlString = "<h2 class='text-left'>" + capitalizeFirstLetter(game) + "</h2>" +
+					"<h5 class= 'text-left'>" + gameList[game] + "</h5>";
+
+				var button = document.createElement('button');
+				button.id = "div-" + game;
+				button.setAttribute("class", "list-group-item list-group-item-action");
+				button.innerHTML = innerHtmlString;
+				button.setAttribute("onclick", "openUrl('./gaming/" + game + "?game=" + game + "')");
+			}
+			divMetamodelList.appendChild(button);
+		}
+	}
+}
+
+
 var displayAvailableLearning = function() {
 	var request = new XMLHttpRequest;
 	request.onload = function() {

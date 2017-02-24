@@ -1,0 +1,112 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <EOML prefix="eoml" uri="eoml" package="eoml" id="1">
+      <GSMRootContainer name="entities" type="Entity"/>
+      <mxCell parent="0"/>
+    </EOML>
+    <Activity label="Single Root Tree Model" name="Single Root Tree Model" description="" gsmLabel="name" id="2">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;html=1;horizontalStack=0;marginTop=5;" vertex="1" parent="1">
+        <mxGeometry x="255" y="90" width="200" height="120" as="geometry"/>
+      </mxCell>
+    </Activity>
+    <GSMContainer name="objectives" label="objectives" id="3">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;startSize=0;" vertex="1" parent="2">
+        <mxGeometry x="5" y="45" width="190" height="70" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <Activity label="Double Root Tree Model" name="Double Root Tree Model" description="" gsmLabel="name" id="4">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;html=1;horizontalStack=0;marginTop=5;" vertex="1" parent="1">
+        <mxGeometry x="100" y="280" width="200" height="120" as="geometry"/>
+      </mxCell>
+    </Activity>
+    <GSMContainer name="objectives" label="objectives" id="5">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;startSize=0;" vertex="1" parent="4">
+        <mxGeometry x="5" y="45" width="190" height="70" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <GSMContainer name="objectives" label="objectives" id="19">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;startSize=0;" vertex="1" parent="4">
+        <mxGeometry x="5" y="115" width="190" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <Activity label="2-Level Tree Model" name="2-Level Tree Model" description="" gsmLabel="name" id="6">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;html=1;horizontalStack=0;marginTop=5;" vertex="1" parent="1">
+        <mxGeometry x="390" y="280" width="200" height="120" as="geometry"/>
+      </mxCell>
+    </Activity>
+    <GSMContainer name="objectives" label="objectives" id="7">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;startSize=0;" vertex="1" parent="6">
+        <mxGeometry x="5" y="45" width="190" height="70" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <Activity label="Multiple Root and Level Tree Model" name="Multiple Root and Level Tree Model" description="" gsmLabel="name" id="8">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;html=1;horizontalStack=0;marginTop=5;" vertex="1" parent="1">
+        <mxGeometry x="240" y="440" width="200" height="120" as="geometry"/>
+      </mxCell>
+    </Activity>
+    <GSMContainer name="objectives" label="objectives" id="9">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;startSize=0;" vertex="1" parent="8">
+        <mxGeometry x="5" y="45" width="190" height="70" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <Start label="" name="" description="" gsmLabel="name" id="10">
+      <mxCell style="fillColor=#000000;whiteSpace=wrap;shape=ellipse;html=1;" vertex="1" parent="1">
+        <mxGeometry x="340" y="20" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </Start>
+    <End label="" name="" description="" gsmLabel="name" id="11">
+      <mxCell style="fillColor=#FFFFFF;whiteSpace=wrap;shape=ellipse;html=1;" vertex="1" parent="1">
+        <mxGeometry x="325" y="600" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </End>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="13">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="2" target="4">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="130" y="10" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="14">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="2" target="6">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="130" y="10" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="15">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="10" target="2">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="130" y="10" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="16">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="4" target="8">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="130" y="10" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="17">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="6" target="8">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="130" y="10" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="" name="" description="" source="" target="" gsmLabel="name" id="18">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;" edge="1" parent="1" source="8" target="11">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="10" y="130" as="sourcePoint"/>
+          <mxPoint x="170" y="240" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+  </root>
+</mxGraphModel>

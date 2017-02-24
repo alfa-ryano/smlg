@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    document.title = getParameterByName("game");
+    var activities = new Object();
+    var transitions = new Object();
+[%
+    for(entity in eoml.entities){
+        if (entity.type.name == "Activity") {
+%]
+    activities["[%=entity.id%]"] = "[%= entity.name %]";
+[%      }  
+    }
+%]
+
+[%
+    for(entity in eoml.entities){
+        if (entity.type.name == "Transition") {
+%]
+    transitions["[%= entity.id %]"] = {"source": "[%= entity.source.id %]", "target": "[%= entity.target.id %]"}; 
+[%      }  
+    }
+%]
+    
+    drawMap(activities, transitions);
+</script>
+</html>

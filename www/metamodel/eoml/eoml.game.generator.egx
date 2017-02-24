@@ -1,6 +1,0 @@
-rule ModelToGame
-transform EOML:EOML {
-  guard : true 
-  template : "../../template/game.template.egl"
-  target : "../../../resources/generated.txt" 
-}

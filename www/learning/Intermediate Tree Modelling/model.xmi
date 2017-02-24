@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eoml="eoml">
+  <entities xsi:type="eoml:End" incoming="//@entities.6"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.7" target="//@entities.8"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.7" target="//@entities.9"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.11" target="//@entities.7"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.8" target="//@entities.10"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.9" target="//@entities.10"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.10" target="//@entities.0"/>
+  <entities xsi:type="eoml:Activity" name="Single Root Tree Model" outgoing="//@entities.1 //@entities.2" incoming="//@entities.3"/>
+  <entities xsi:type="eoml:Activity" name="Double Root Tree Model" outgoing="//@entities.4" incoming="//@entities.1"/>
+  <entities xsi:type="eoml:Activity" name="2-Level Tree Model" outgoing="//@entities.5" incoming="//@entities.2"/>
+  <entities xsi:type="eoml:Activity" name="Multiple Root and Level Tree Model" outgoing="//@entities.6" incoming="//@entities.4 //@entities.5"/>
+  <entities xsi:type="eoml:Start" outgoing="//@entities.3"/>
+</eoml:EOML>

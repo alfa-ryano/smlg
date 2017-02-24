@@ -1,5 +1,5 @@
 [%
-  for(entity in EOML.entities){
+  for(entity in eoml.entities){
     entity.println(); %]
      [%= entity.type.name + ": " + entity.name %]
   [% }

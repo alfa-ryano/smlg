@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>SMLG: Software Modelling Learning Gamification</title>
+<title>Play Game</title>
 
 <link rel="stylesheet" type="text/css"
 	href="js/bootstrap/css/bootstrap.css">
@@ -10,15 +10,21 @@
 
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="smlg/smlg.platform.js"></script>
 
 </head>
 <body>
-	<div class="jumbotron vertical-center">
-		<h1><a href="play_game.html">Play Game</a></h1>
-		<h1><a href="design_learning.html">Design Learning</a></h1>
-		<h1><a href="create_models.html">Create Models</a></h1>
-		<h1>Register Metamodels</h1>
-		<h1>Options</h1>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Play Game</h1>
+		</div>
+		<div id="divGameList" class="container list-group"></div>
 	</div>
+
+	<script type="text/javascript">
+		displayAvailableGames();
+	</script>
 </body>
 </html>

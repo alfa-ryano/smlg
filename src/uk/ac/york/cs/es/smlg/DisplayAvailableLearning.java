@@ -3,7 +3,8 @@ package uk.ac.york.cs.es.smlg;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -44,7 +45,7 @@ public class DisplayAvailableLearning extends HttpServlet {
 
 		File file = new File(path);
 
-		HashMap<String, String> fileNames = new HashMap<>();
+		Map<String, String> fileNames = new TreeMap<>();
 		if (file.exists() && file.isDirectory()) {
 
 			File[] subfiles = file.listFiles();

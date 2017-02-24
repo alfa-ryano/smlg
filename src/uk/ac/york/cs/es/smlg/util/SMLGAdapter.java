@@ -26,7 +26,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.epsilon.common.module.ModuleElement;
+import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
+import org.eclipse.epsilon.egl.EgxModule;
+import org.eclipse.epsilon.egl.dom.GenerationRule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
+import org.eclipse.epsilon.eol.dom.ExecutableBlock;
+import org.eclipse.epsilon.eol.dom.StringLiteral;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.IEvlModule;
 import org.eclipse.epsilon.evl.execute.UnsatisfiedConstraint;
@@ -239,7 +245,7 @@ public class SMLGAdapter {
 		String fullClassName = packageName + "." + packageName.substring(0, 1).toUpperCase()
 				+ packageName.substring(1, packageName.length()) + "Package";
 		ClassLoader classLoader = ModelPost.class.getClassLoader();
-		Class modellingPackage = classLoader.loadClass(fullClassName);
+		Class<?> modellingPackage = classLoader.loadClass(fullClassName);
 		Object eInstance = modellingPackage.getField("eINSTANCE").get(modellingPackage);
 		Method method = eInstance.getClass().getMethod("getNsURI", new Class[] {});
 
@@ -276,11 +282,11 @@ public class SMLGAdapter {
 		return text;
 	}
 
-	public static SMLGResult executeEVL(String metamodel, String packageName, InMemoryEmfModel inMemoryEmfModel) throws Exception {
+	public static SMLGResult executeEVL(String fileName, InMemoryEmfModel inMemoryEmfModel) throws Exception {
 		SMLGResult smlgResult = new SMLGResult();
 		// Load EVL module
 		IEvlModule evlModule = new EvlModule();
-		String source = "/metamodel/" + metamodel + "/" + packageName + ".evl";
+		String source = fileName;
 		java.net.URI binUri = SMLGUtil.getFileURI(source);
 		evlModule.parse(binUri);
 		evlModule.getContext().getModelRepository().addModel(inMemoryEmfModel);
@@ -299,9 +305,44 @@ public class SMLGAdapter {
 			smlgResult.completed = true;
 		}
 
-		// cleaning the module
-		evlModule.getContext().getModelRepository().dispose();
+//		// cleaning the module
+//		evlModule.getContext().getModelRepository().dispose();
 		return smlgResult;
+	}
+
+	public static boolean executeEGX(String fileName, String targetfile, InMemoryEmfModel inMemoryEmfModel) throws Exception {
+		boolean isSuccess = false;
+		try {
+			EgxModule egxModule = new EgxModule(new EglFileGeneratingTemplateFactory());
+			String source = fileName;
+			java.net.URI binUri = SMLGUtil.getFileURI(source);
+			egxModule.parse(binUri);
+			
+			egxModule.getContext().getModelRepository().addModel(inMemoryEmfModel);
+
+			GenerationRule gr = egxModule.getGenerationRules().get(0);
+			List<ModuleElement> list = gr.getChildren();
+			for (ModuleElement item : list) {
+				if (item instanceof ExecutableBlock) {
+					ExecutableBlock<?> eb = (ExecutableBlock<?>) item;
+					if (eb.getRole().equals("target")) {
+						for (ModuleElement element : eb.getChildren()) {
+							StringLiteral sl = (StringLiteral) element;
+							sl.setValue(targetfile);
+						}
+					}
+				}
+
+			}
+			egxModule.execute();
+			
+//			egxModule.getContext().getModelRepository().dispose();
+			isSuccess = true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			isSuccess = false;
+		}
+		return isSuccess;
 	}
 
 	public static SMLGResult validateModel(String path, String mode, String metamodel, String model, String xml) {
@@ -320,14 +361,15 @@ public class SMLGAdapter {
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
 			Resource modelResource = SMLGAdapter.createModelResource(resourceSet, xml, modelFileName + ".xml");
-			SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath,
-					modelFileName + ".xmi");
+			SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath, modelFileName + ".xmi");
 
 			// create in memory Emf Model and add the model to Validation EVL
 			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(modelResource);
 			inMemoryEmfModel.setName(packageName);
-			
-			smlgResult = executeEVL(metamodel, packageName, inMemoryEmfModel);
+
+			// execute EVL for validation
+			String fileEvl = "/metamodel/" + metamodel + "/" + packageName + ".evl";
+			smlgResult = executeEVL(fileEvl, inMemoryEmfModel);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -335,27 +377,35 @@ public class SMLGAdapter {
 		}
 		return smlgResult;
 	}
-	
+
 	public static SMLGResult generateGame(String storyPath, String xml) {
 		SMLGResult smlgResult = new SMLGResult();
 		try {
 			String modelFileName = "model";
 			String metamodel = "eoml";
-			String mode = "gaming";
 			String realFilePath = (storyPath + "/").replace("/", File.separator);
-			
+
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
-			Resource modelResource = SMLGAdapter.createModelResource(resourceSet, xml, modelFileName + ".xml");
-			String xmiText = SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath,
+			Resource resource = SMLGAdapter.createModelResource(resourceSet, xml, modelFileName + ".xml");
+			SMLGAdapter.createModelXmi(resourceSet, resource, realFilePath,
 					modelFileName + ".xmi");
 
 			// create in memory Emf Model and add the model to Validation EVL
-			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(modelResource);
+			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(resource);
 			inMemoryEmfModel.setName(packageName);
-			
-			smlgResult = executeEVL(metamodel, packageName, inMemoryEmfModel);
 
+			// execute EVL for validation
+			String fileEvl = "/metamodel/" + metamodel + "/" + packageName + ".evl";
+			smlgResult = executeEVL(fileEvl, inMemoryEmfModel);
+
+			// execute EGX for game generation
+			if (smlgResult.completed) {
+				String fileEgx = "/generator/game.generator.egx";
+				String targetFile = realFilePath + "index.html";
+				executeEGX(fileEgx, targetFile, inMemoryEmfModel);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			smlgResult.completed = false;

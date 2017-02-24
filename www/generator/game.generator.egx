@@ -1,0 +1,6 @@
+rule ModelToGame
+transform eoml:EOML {
+  guard : true 
+  template : "../template/game.index.template.html.egl"
+  target : "index.html" 
+}

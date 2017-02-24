@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript"
+	src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript">
+	// Use complete cell as highlight region
+	mxConstants.ACTIVE_REGION = 1;
+
+	// Program starts here. Creates a sample graph in the dynamically
+	// created DOM node called container which is created below.
+	function main() {
+		// Checks if browser is supported
+		if (!mxClient.isBrowserSupported()) {
+			// Displays an error message if the browser is
+			// not supported.
+			mxUtils.error('Browser is not supported!', 200, false);
+		} else {
+			var container = document.createElement('div');
+			container.style.position = 'absolute';
+			container.style.overflow = 'hidden';
+			container.style.left = '10px';
+			container.style.top = '10px';
+			container.style.right = '10px';
+			container.style.bottom = '10px';
+			container.style.background = 'url("../../images/grid.gif")';
+
+			// Workaround for Internet Explorer ignoring certain styles
+			if (mxClient.IS_QUIRKS) {
+				document.body.style.overflow = 'hidden';
+				new mxDivResizer(container);
+			}
+
+			document.body.appendChild(container);
+
+			// Creates the graph inside the given container
+			var graph = new mxGraph(container);
+			graph.setCellsMovable(false);
+			graph.setCellsSelectable(false);
+			graph.view.setTranslate(20, 20);
+
+			// Enables rubberband selection
+			new mxRubberband(graph);
+
+			// Gets the default parent for inserting new cells. This
+			// is normally the first child of the root (ie. layer 0).
+			var parent = graph.getDefaultParent();
+
+			// Adds cells to the model in a single step
+			graph.getModel().beginUpdate();
+			try {
+				var style = "fontColor=#000000;fontStyle=1;rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;";
+				var style2 = "endArrow=block;html=1;endFill=1;strokeColor=#000000;";
+				var v1 = graph.insertVertex(parent, null, '1', 120, 150, 120, 80, style);
+				var v2 = graph.insertVertex(parent, null, '2', 200, 150, 120, 80, style);
+				var v3 = graph.insertVertex(parent, null, '3', 280, 100, 120, 80, style);
+				var v4 = graph.insertVertex(parent, null, '4', 280, 200, 120, 80, style);
+				var v5 = graph.insertVertex(parent, null, '5', 360, 150, 120, 80, style);
+				var e1 = graph.insertEdge(parent, null, '', v1, v2, style2);
+				var e2 = graph.insertEdge(parent, null, '', v2, v3, style2);
+				var e3 = graph.insertEdge(parent, null, '', v2, v4, style2);
+				var e4 = graph.insertEdge(parent, null, '', v3, v5, style2);
+				var e5 = graph.insertEdge(parent, null, '', v4, v5, style2);
+				
+				var layout = null;
+				layout = new mxHierarchicalLayout(graph, mxConstants.DIRECTION_WEST);
+				//layout = new mxSwimlaneLayout(graph, mxConstants.DIRECTION_NORTH);
+				//layout = new mxCircleLayout(graph);
+				//layout = new mxCompactTreeLayout(graph, true);
+				//layout = new mxCompositeLayout(graph);
+				//layout = new mxEdgeLabelLayout(graph);
+				//layout = new mxFastOrganicLayout(graph);
+				//layout = new mxGraphLayout(graph);
+				//layout = new mxParallelEdgeLayout(graph);
+				//layout = new mxPartitionLayout(graph);
+				//layout = new mxRadialTreeLayout(graph);
+				//layout = new mxStackLayout(graph);
+				
+				layout.maintainParentLocation = true;
+				layout.parentBorder = 100;
+				layout.intraCellSpacing = 100;
+				layout.execute(parent);
+				
+			} finally {
+				// Updates the display
+				graph.getModel().endUpdate();
+			}
+		}
+	}
+	;
+</script>
+</head>
+<body onload="main();">
+</body>
+</html>
