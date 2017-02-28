@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eoml="eoml">
+<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eoml="eoml" xsi:schemaLocation="eoml ../../metamodel/eoml/eoml.ecore">
   <entities xsi:type="eoml:Transition" source="//@entities.9" target="//@entities.12"/>
   <entities xsi:type="eoml:Model" outgoing="//@entities.5"/>
   <entities xsi:type="eoml:Link" source="//@entities.7" target="//@entities.8"/>

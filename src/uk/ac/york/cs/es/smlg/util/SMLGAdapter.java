@@ -32,6 +32,9 @@ import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.dom.GenerationRule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.dom.ExecutableBlock;
+import org.eclipse.epsilon.eol.dom.OperationCallExpression;
+import org.eclipse.epsilon.eol.dom.Statement;
+import org.eclipse.epsilon.eol.dom.StatementBlock;
 import org.eclipse.epsilon.eol.dom.StringLiteral;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.IEvlModule;
@@ -310,29 +313,41 @@ public class SMLGAdapter {
 		return smlgResult;
 	}
 
-	public static boolean executeEGX(String fileName, String targetfile, InMemoryEmfModel inMemoryEmfModel) throws Exception {
+	public static boolean executeEGX(String egxFileName, String realFilePath, String targetFileName, InMemoryEmfModel inMemoryEmfModel) throws Exception {
 		boolean isSuccess = false;
 		try {
 			EgxModule egxModule = new EgxModule(new EglFileGeneratingTemplateFactory());
-			String source = fileName;
+			String source = egxFileName;
 			java.net.URI binUri = SMLGUtil.getFileURI(source);
 			egxModule.parse(binUri);
+			String fullPathFileName = realFilePath + targetFileName;
 			
 			egxModule.getContext().getModelRepository().addModel(inMemoryEmfModel);
 
-			GenerationRule gr = egxModule.getGenerationRules().get(0);
+			GenerationRule gr = egxModule.getGenerationRules().get(0); // get the first rule
 			List<ModuleElement> list = gr.getChildren();
 			for (ModuleElement item : list) {
 				if (item instanceof ExecutableBlock) {
 					ExecutableBlock<?> eb = (ExecutableBlock<?>) item;
+					if (eb.getRole().equals("parameters")) {
+						for (ModuleElement element : eb.getChildren()) {
+							StatementBlock sb = (StatementBlock) element;
+							Statement es = sb.getStatements().get(1); //line two or the 'params.put("path", "../../trash/dummy");'
+							for (ModuleElement me: es.getChildren()) {
+								OperationCallExpression oce = (OperationCallExpression) me;
+								StringLiteral sl = (StringLiteral) oce.getChildren().get(3); //fourth expression or the '"../../trash/dummy"'
+								sl.setValue(realFilePath); //replace the existing path with a new one
+							}
+						}
+					}
 					if (eb.getRole().equals("target")) {
 						for (ModuleElement element : eb.getChildren()) {
 							StringLiteral sl = (StringLiteral) element;
-							sl.setValue(targetfile);
+							sl.setValue(fullPathFileName);
+							System.out.println(sl.getValue());
 						}
 					}
 				}
-
 			}
 			egxModule.execute();
 			
@@ -402,8 +417,8 @@ public class SMLGAdapter {
 			// execute EGX for game generation
 			if (smlgResult.completed) {
 				String fileEgx = "/generator/game.generator.egx";
-				String targetFile = realFilePath + "index.html";
-				executeEGX(fileEgx, targetFile, inMemoryEmfModel);
+				String targetFileName = "index.html";
+				executeEGX(fileEgx, realFilePath, targetFileName, inMemoryEmfModel);
 			}
 			
 		} catch (Exception e) {

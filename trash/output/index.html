@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    document.title = getParameterByName("game");
+    var activities = new Object();
+    var transitions = new Object();
+    activities["//@entities.7"] = "Create A Root";
+    activities["//@entities.9"] = "Create A Root and A Leaf";
+    activities["//@entities.12"] = "Create A Tree with Two Leaves";
+
+    transitions["//@entities.0"] = {"source": "//@entities.9", "target": "//@entities.12"}; 
+    transitions["//@entities.11"] = {"source": "//@entities.15", "target": "//@entities.7"}; 
+    transitions["//@entities.13"] = {"source": "//@entities.12", "target": "//@entities.6"}; 
+    transitions["//@entities.14"] = {"source": "//@entities.7", "target": "//@entities.9"}; 
+    
+    drawMap(activities, transitions);
+</script>
+</html>

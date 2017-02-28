@@ -30,6 +30,11 @@ import org.eclipse.epsilon.egl.internal.EglModule;
 import org.eclipse.epsilon.egl.internal.IEglModule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.dom.ExecutableBlock;
+import org.eclipse.epsilon.eol.dom.ExpressionStatement;
+import org.eclipse.epsilon.eol.dom.NameExpression;
+import org.eclipse.epsilon.eol.dom.OperationCallExpression;
+import org.eclipse.epsilon.eol.dom.Statement;
+import org.eclipse.epsilon.eol.dom.StatementBlock;
 import org.eclipse.epsilon.eol.dom.StringLiteral;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.IEvlModule;
@@ -83,7 +88,7 @@ public class UtilTest {
 	@Test
 	public void testMxGraphXMLtoXMI() throws Exception {
 
-		String path = System.getProperty("user.dir") + "\\resources\\modelFromMx.xml";
+		String path = System.getProperty("user.dir") + "\\trash\\modelFromMx.xml";
 		System.out.println(path);
 
 		File file = new File(path);
@@ -104,8 +109,6 @@ public class UtilTest {
 
 	}
 
-	
-	
 	@Test
 	public void testMxGraphXMLtoEMF() throws Exception {
 
@@ -118,7 +121,7 @@ public class UtilTest {
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml",
 					new MxGraphXMLResourceFactory());
 			Resource resource3 = resourceSet
-					.createResource(URI.createFileURI("D:/A-DATA/GoogleDriveYork/git/smlg/resources/modelFromMx.xml"));
+					.createResource(URI.createFileURI("D:/A-DATA/GoogleDriveYork/git/smlg/trash/modelFromMx.xml"));
 			resource3.load(null);
 
 			Map<String, String> options = new HashMap<>();
@@ -138,89 +141,107 @@ public class UtilTest {
 		Assert.assertEquals(true, isTrue);
 
 	}
-	
+
 	@Test
 	public void createLearningDesign() {
 		boolean isTrue = false;
-		
-		File file = new File("D:/A-DATA/GoogleDriveYork/git/smlg/resources/My Title");
+
+		File file = new File("D:/A-DATA/GoogleDriveYork/git/smlg/www/temp/My Title");
 		SMLGAdapter.deleteDir(file);
-		String path = ("D:/A-DATA/GoogleDriveYork/git/smlg/resources").replace("/", File.separator);
+		String path = ("D:/A-DATA/GoogleDriveYork/git/smlg/www/temp/").replace("/", File.separator);
 		isTrue = SMLGAdapter.createLearningDesign(path, "My Title", "My Description");
 		Assert.assertEquals(true, isTrue);
+		// Assert.assertEquals(true, true);
 	}
-	
+
 	@Test
 	public void testGenerateGame() throws Exception {
 		boolean isTrue = false;
+		String path = "../../trash/output/";
+		String targetFileName = path + "index.html";
 		try {
-			File file = new File("D:/A-DATA/GoogleDriveYork/git/smlg/www/gaming/Introduction to Tree Model/mxgraph.xml");
+			File file = new File(
+					"D:/A-DATA/GoogleDriveYork/git/smlg/www/gaming/Introduction to Tree Model/mxgraph.xml");
 			String xml = new String(Files.readAllBytes(file.toPath()));
-			
+
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
 			Resource resource = SMLGAdapter.createModelResource(resourceSet, xml, "model.xml");
-			
+
 			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(resource);
 			inMemoryEmfModel.setName(packageName);
-			
-			EgxModule egxModule = new EgxModule(new EglFileGeneratingTemplateFactory());	
+
+			EgxModule egxModule = new EgxModule(new EglFileGeneratingTemplateFactory());
 			java.net.URL url = new URL("file:/D:/A-DATA/GoogleDriveYork/git/smlg/www/generator/game.generator.egx");
 			java.net.URI binUri = url.toURI();
 			egxModule.parse(binUri);
 			egxModule.getContext().getModelRepository().addModel(inMemoryEmfModel);
-			
-			GenerationRule gr = egxModule.getGenerationRules().get(0);
+
+			//modify the generation rule of game.generator.egx file
+			GenerationRule gr = egxModule.getGenerationRules().get(0); // get the first rule
 			List<ModuleElement> list = gr.getChildren();
-			for(ModuleElement item : list){
-				if (item instanceof ExecutableBlock){
+			for (ModuleElement item : list) {
+				if (item instanceof ExecutableBlock) {
 					ExecutableBlock<?> eb = (ExecutableBlock<?>) item;
-					if (eb.getRole().equals("target")){
-						for (ModuleElement element : eb.getChildren()){
+					if (eb.getRole().equals("parameters")) {
+						for (ModuleElement element : eb.getChildren()) {
+							StatementBlock sb = (StatementBlock) element;
+							Statement es = sb.getStatements().get(1); //line two or the 'params.put("path", "../../trash/dummy");'
+							for (ModuleElement me: es.getChildren()) {
+								OperationCallExpression oce = (OperationCallExpression) me;
+								StringLiteral sl = (StringLiteral) oce.getChildren().get(3); //fourth expression or the '"../../trash/dummy"'
+								sl.setValue(path); //replace the existing path with a new one
+							}
+						}
+					}
+					if (eb.getRole().equals("target")) {
+						for (ModuleElement element : eb.getChildren()) {
 							StringLiteral sl = (StringLiteral) element;
-							sl.setValue("generated2.txt");
+							sl.setValue(targetFileName);
 							System.out.println(sl.getValue());
 						}
 					}
 				}
-				
 			}
-			
+
 			egxModule.execute();
 			isTrue = true;
-		}catch (Exception exe) {
+		} catch (Exception exe) {
 			exe.printStackTrace();
 		}
 		Assert.assertEquals(true, isTrue);
 	}
-	
+
 	@Test
-	public void testTemplateFactory(){
+	public void testTemplateFactory() {
 		boolean isTrue = false;
-		try{
-			File file = new File("D:/A-DATA/GoogleDriveYork/git/smlg/www/gaming/Introduction to Tree Model/mxgraph.xml");
+		try {
+			File file = new File(
+					"D:/A-DATA/GoogleDriveYork/git/smlg/www/gaming/Introduction to Tree Model/mxgraph.xml");
 			String xml = new String(Files.readAllBytes(file.toPath()));
-			
+
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
 			Resource resource = SMLGAdapter.createModelResource(resourceSet, xml, "model.xml");
-			
+
 			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(resource);
 			inMemoryEmfModel.setName(packageName);
-			
+
 			EglFileGeneratingTemplateFactory factory = new EglFileGeneratingTemplateFactory();
 			factory.getContext().getModelRepository().addModel(inMemoryEmfModel);
-			factory.setOutputRoot("D:/A-DATA/GoogleDriveYork/git/smlg/resources/output");
-			
+			factory.setOutputRoot("D:/A-DATA/GoogleDriveYork/git/smlg/trash/output");
+
+			File templateFile = new File("D:/A-DATA/GoogleDriveYork/git/smlg/www/template/description.template.txt");
+
 			EglFileGeneratingTemplate template = null;
-			template = (EglFileGeneratingTemplate) factory.load("D:/A-DATA/GoogleDriveYork/git/smlg/resources/templates");
+			System.out.println(templateFile.toURI().toString());
+			EglTemplate temp = factory.load(templateFile.toURI());
+			template = (EglFileGeneratingTemplate) temp;
 			template.populate("name", "value");
 			template.generate("a/b.txt");
-			
-			
-			
+
 			isTrue = true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			isTrue = false;
 		}

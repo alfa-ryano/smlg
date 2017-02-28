@@ -1,6 +1,11 @@
-rule ModelToGame
+rule ModelToGameMap
 transform eoml:EOML {
   guard : true 
-  template : "../template/game.index.template.html.egl"
-  target : "index.html" 
+  parameters {
+    var params : new Map;                       //this parameter block is not allowed to be changed
+    params.put("path", "../../trash/dummy");    //this parameter block is not allowed to be changed
+    return params;                              //this parameter block is not allowed to be changed
+  }
+  template : "../template/game.template.egl"
+  target : "../../trash/index.html" 
 }
