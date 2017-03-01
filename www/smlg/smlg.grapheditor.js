@@ -14,11 +14,12 @@ var SMLG_DIAGRAM_TYPES = [ {
 	enabled : false
 } ];
 
-var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
+var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, currentGame) {
 
 	SMLG.currentMetamodel = currentMetamodel;
 	SMLG.currentMode = currentMode;
 	SMLG.currentModel = currentModel;
+	SMLG.currentGame = currentGame;
 	SMLG.prefix = null;
 	SMLG.uri = null;
 	SMLG.uri = null;
@@ -481,13 +482,14 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 		var metamodelName = SMLG.currentMetamodel;
 		var modeName = SMLG.currentMode;
 		var modelName = SMLG.currentModel;
+		var gameName = SMLG.currentGame;
 
 		var encoder = new mxCodec();
 		var model = graph.getModel();
 		var encodedModel = encoder.encode(model);
 		var xml = mxUtils.getPrettyXml(encodedModel);
 
-		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&xml=" + xml;
+		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&game=" + gameName + "&xml=" + xml;
 		var request = new XMLHttpRequest;
 		request.onload = function() {
 			handleResponse();
@@ -515,7 +517,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel) {
 	SMLG.AddGenerateMenu();
 
 	//Load Model
-	SMLG.LoadModel(currentMetamodel, currentMode, currentModel);
+	SMLG.LoadModel(currentMetamodel, currentMode, currentModel, currentGame);
 }
 
 
@@ -657,13 +659,13 @@ SMLG.prototype.ValidateModel = function() {
 }
 SMLG.ValidateModel = SMLG.prototype.ValidateModel;
 
-SMLG.prototype.LoadModel = function(metamodel, mode, model) {
+SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 	var editorUi = SMLG.editorUI;
 	var editor = editorUi.editor;
 
 	if (metamodel != null && mode != null && model != null) {
 
-		var params = "metamodel=" + metamodel + "&mode=" + mode + "&model=" + model;
+		var params = "metamodel=" + metamodel + "&mode=" + mode + "&model=" + model + "&game=" + game;
 		var request = new XMLHttpRequest;
 		request.onload = function() {
 			handleResponse();

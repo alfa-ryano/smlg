@@ -13,6 +13,8 @@
 <body>
 </body>
 <script type="text/javascript">
+    var gameName = getParameterByName("game");
+    document.title = gameName;
     var activities = new Object();
     var transitions = new Object();
     activities["//@entities.7"] = "Single Root Tree Model";
@@ -26,7 +28,7 @@
     transitions["//@entities.4"] = {"source": "//@entities.8", "target": "//@entities.10"}; 
     transitions["//@entities.5"] = {"source": "//@entities.9", "target": "//@entities.10"}; 
     transitions["//@entities.6"] = {"source": "//@entities.10", "target": "//@entities.0"}; 
-
+    
     drawMap(activities, transitions);
 </script>
 </html>

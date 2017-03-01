@@ -1,4 +1,6 @@
-
+var playActivity = function(game, metamodel, model){
+	openUrl("../../grapheditor?mode=gaming&game=" + game + "&metamodel=" + metamodel + "&model=" + model);
+}
 
 var displayAvailableModels = function(metamodel) {
 	var request = new XMLHttpRequest;

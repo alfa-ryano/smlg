@@ -113,15 +113,39 @@ function drawMap(activities, transitions) {
 
 		// Adds cells to the model in a single step
 		graph.getModel().beginUpdate();
+
 		try {
 			var activityStyle = "fontSize=14;arcSize=10;rounded=1;fontColor=#000000;fontStyle=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;";
 			var transitionStyle = "endArrow=block;html=1;endFill=1;strokeColor=#000000;";
 			var vertices = new Object();
 
+			graph.getCursorForCell = function(cell) {
+				if (cell != null &&
+					cell.value != null &&
+					typeof (cell.value.create) == 'function') {
+					return 'pointer';
+				}
+			};
+
+			graph.addListener(mxEvent.CLICK, function(source, evt) {
+				var cell = evt.getProperty('cell');
+
+				if (cell != null && cell.value != null && typeof (cell.value.create) == 'function') {
+					cell.value.create(gameName, "tree", cell.value.model);
+				}
+			});
+
 			for (var entityId in activities) {
 				if (activities.hasOwnProperty(entityId)) {
 					var label = activities[entityId];
-					var vertex = graph.insertVertex(parent, null, label, 0, 0, 120, 80, activityStyle);
+					var value = {
+						toString : function() {	
+							return this.model;
+						},
+						create : playActivity,
+						model : label
+					};
+					var vertex = graph.insertVertex(parent, null, value, 0, 0, 120, 80, activityStyle);
 					vertices[entityId] = vertex;
 				}
 			}

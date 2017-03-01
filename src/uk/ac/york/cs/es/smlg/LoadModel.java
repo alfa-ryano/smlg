@@ -36,11 +36,21 @@ public class LoadModel extends HttpServlet {
 			String metamodel = request.getParameter("metamodel");
 			String mode = request.getParameter("mode");
 			String model = request.getParameter("model");
+			String game = request.getParameter("game");
 			
-			if (mode.equals("learning")) metamodel = "";
+			String directoryPathParam = "";
+			
+			if (mode.equals("learning")) {
+				directoryPathParam = "./" + mode + "/" + model;
+			}
+			else if(mode.equals("modelling")) {
+				directoryPathParam = "./" + mode + "/" + metamodel + "/" + model;
+			}
+			else if(mode.equals("gaming")) {
+				directoryPathParam = "./" + mode + "/" + game + "/" + model;
+			}
 
-			String directoryPathParam = "./" + mode + "/" + metamodel + "/" + model;
-			String xmlPathParam = "./" + mode + "/" + metamodel + "/" + model + "/mxgraph.xml";
+			String xmlPathParam = directoryPathParam + "/mxgraph.xml";
 			String path = getServletContext().getRealPath((directoryPathParam).replace("/", File.separator));
 			String xmlStringPath = getServletContext().getRealPath((xmlPathParam).replace("/", File.separator));
 

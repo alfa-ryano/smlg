@@ -38,11 +38,22 @@ public class SaveFile extends HttpServlet {
 			String metamodel = request.getParameter("metamodel");
 			String mode = request.getParameter("mode");
 			String model = request.getParameter("model");
+			String game = request.getParameter("game");
 			String xml = request.getParameter("xml");
 			
-			if (mode.equals("learning")) metamodel = "";
+			String directoryPathParam = "";
+			
+			if (mode.equals("learning")) {
+				directoryPathParam = "./" + mode + "/" + model;
+			}
+			else if(mode.equals("modelling")) {
+				directoryPathParam = "./" + mode + "/" + metamodel + "/" + model;
+			}
+			else if(mode.equals("gaming")) {
+				directoryPathParam = "./" + mode + "/" + game + "/" + model;
+			}
 
-			String xmlPathString = "./" + mode +"/" + metamodel + "/" + model + "/mxgraph.xml";
+			String xmlPathString = directoryPathParam + "/mxgraph.xml";
 			String xmlPath = getServletContext().getRealPath((xmlPathString).replace("/", File.separator));
 			
 			boolean isSuccess =  SMLGAdapter.saveMxGraphFile(xmlPath, xml);

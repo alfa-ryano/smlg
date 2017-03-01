@@ -13,7 +13,8 @@
 <body>
 </body>
 <script type="text/javascript">
-    document.title = getParameterByName("game");
+    var gameName = getParameterByName("game");
+    document.title = gameName;
     var activities = new Object();
     var transitions = new Object();
 [%
