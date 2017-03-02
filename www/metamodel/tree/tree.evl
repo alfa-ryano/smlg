@@ -1,12 +1,20 @@
-context tree!Tree {
+context Node {
     constraint constraint_01 {
         check: 
             self.validation_01()
         message:
-            "validation_01"
+            "Every element must have a name"
     }
 }
 
-operation Tree validation_01(): Boolean {
+operation Node validation_01(): Boolean {
+    var i := 0;
+    Node.allInstances().size().println();
+    for (node in Node.allInstances()){
+        node.id.println(); 
+        if (node.name.trim() == ""){
+            return false;
+        }
+    }
     return true;
 }

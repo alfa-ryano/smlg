@@ -662,7 +662,30 @@ SMLG.prototype.ValidateModel = function() {
 
 	function handleResponse() {
 		var responseText = request.responseText;
-		alert(responseText);
+		var results = JSON.parse(responseText);
+		
+		var messageList = document.getElementById("messageList");
+		messageList.style.color = "rgb(112, 112, 112)";
+		while (messageList.firstChild) {
+			messageList.removeChild(messageList.firstChild);
+		}
+		
+		if (results.unsatisfiedConstraints.length == 0) {	
+			var entry = document.createElement('li');
+			entry.innerHTML = "Everything is OK!";
+			messageList.appendChild(entry);
+
+			return;
+		}
+
+		messageList.style.color = "red";		
+		for (var i = 0; i < results.unsatisfiedConstraints.length; i++) {
+			var item = results.unsatisfiedConstraints[i];
+			var stringOutput = item.message;
+			var entry = document.createElement('li');
+			entry.innerHTML = stringOutput;
+			messageList.appendChild(entry);
+		}
 	}
 
 }
@@ -723,12 +746,12 @@ SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 				}
 			});
 
-//		//for out models
-//		var outgoingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.out.js";
-//		$.getScript(outgoingModelPath,
-//			function(data, textStatus, jqxhr) {
-//				SMLG.outModels = outModels;
-//			});
+	//		//for out models
+	//		var outgoingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.out.js";
+	//		$.getScript(outgoingModelPath,
+	//			function(data, textStatus, jqxhr) {
+	//				SMLG.outModels = outModels;
+	//			});
 	}
 
 }
@@ -784,6 +807,9 @@ SMLG.SMLGLoadJavascript = function(filename) {
 	document.body.appendChild(scriptElement);
 	scriptElement.onload = function() {
 		console.log(filename);
+
+		// Add Message Panel after loading all model elements on the left panel
+		SMLG.SMLGAddMessagePanel();
 	}
 };
 SMLG.prototype.SMLGLoadJavascript = SMLG.SMLGLoadJavascript;
@@ -825,6 +851,34 @@ SMLG.SMLGPostModel = function(method, address, data, responseFunction) {
 	}
 };
 SMLG.prototype.SMLGPostModel = SMLG.PostModel;
+
+
+SMLG.SMLGAddMessagePanel = function() {
+	var editorUi = SMLG.editorUI;
+	var sidebarContainer = editorUi.sidebarContainer;
+
+	var headerDiv = document.createElement('div');
+
+	var div = document.createElement('div');
+	var panelDiv = document.createElement('div');
+	var headerDiv = document.createElement('div');
+	var bodyDiv = document.createElement('div');
+	var ul = document.createElement('ul');
+
+	panelDiv.className = "geSidebar message-panel";
+	headerDiv.className = "message-panel-header";
+	headerDiv.innerHTML = "Messages";
+	bodyDiv.className = "message-panel-body"
+
+	ul.id = "messageList";
+
+	bodyDiv.appendChild(ul);
+	panelDiv.appendChild(headerDiv);
+	panelDiv.appendChild(bodyDiv);
+	div.appendChild(panelDiv);
+	sidebarContainer.appendChild(div);
+}
+SMLG.prototype.SMLGAddMessagePanel = SMLG.SMLGAddMessagePanel;
 
 // SMLG
 /**
@@ -882,7 +936,7 @@ SMLGPropertiesPanel.prototype.UpdatePropertyHandler = function(input) {
 	;
 	mxEvent.addListener(input, 'change', update);
 
-	function GSMResponse(response) {
+	function SMLGResponse(response) {
 		var results = JSON.parse(response);
 		if (results.unsatisfiedConstraints.length == 0)
 			return;

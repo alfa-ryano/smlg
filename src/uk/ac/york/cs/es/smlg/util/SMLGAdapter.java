@@ -376,7 +376,7 @@ public class SMLGAdapter {
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
 			Resource modelResource = SMLGAdapter.createModelResource(resourceSet, xml, modelFileName + ".xml");
-			SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath, modelFileName + ".xmi");
+			//SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath, modelFileName + ".xmi");
 
 			// create in memory Emf Model and add the model to Validation EVL
 			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(modelResource);

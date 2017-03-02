@@ -382,6 +382,8 @@ Format.prototype.refresh = function()
 		{
 			var clickHandler = mxUtils.bind(this, function(evt)
 			{
+				//console.log(currentLabel.prototype);
+				
 				if (currentLabel != elt)
 				{
 					if (containsLabel)
@@ -430,10 +432,9 @@ Format.prototype.refresh = function()
 		label.style.backgroundColor = '#d7d7d7';
 		label.style.borderLeftWidth = '1px';
 		label.style.width = (containsLabel) ? '50%' : '33.3%';
-		label.style.width = (containsLabel) ? '50%' : '33.3%';
 		var label2 = label.cloneNode(false);
 		var label3 = label2.cloneNode(false);
-
+		
 		// Workaround for ignored background in IE
 		label2.style.backgroundColor = '#d7d7d7';
 		label3.style.backgroundColor = '#d7d7d7';
@@ -477,6 +478,27 @@ Format.prototype.refresh = function()
 		
 		addClickHandler(label2, textPanel, idx++);
 		addClickHandler(label3, arrangePanel, idx++);
+		
+//		// Properties
+//		// SMLGlabel
+//		var SMLGlabel = label3.cloneNode(false);
+//		SMLGlabel.style.backgroundColor = '#d7d7d7';
+//		
+//		label.style.width = '20.5%';
+//		label2.style.width = '20.5%';
+//		label3.style.width = '26%';
+//		SMLGlabel.style.width = '33%';
+//		
+//		mxUtils.write(SMLGlabel, "Properties");
+//		div.appendChild(SMLGlabel);
+//		
+//		var propertiesPanel = div.cloneNode(false);
+//		propertiesPanel.style.display = 'none';
+//		this.panels.push(new PropertiesPanel(this, ui, propertiesPanel));
+//		this.container.appendChild(propertiesPanel);
+//		addClickHandler(SMLGlabel, propertiesPanel, idx++);
+//		
+//		//End SMLG
 	}
 };
 
@@ -3285,6 +3307,26 @@ StyleFormatPanel.prototype.init = function()
 	}
 	
 	this.container.appendChild(this.addStyleOps(opsPanel));
+	
+//	//SMLG
+//	this.container.appendChild(this.addLayerOps(this.createPanel()));
+//	// Special case that adds two panels
+//	this.addGeometry(this.container);
+//	this.addEdgeGeometry(this.container);
+//	this.container.appendChild(this.addAngle(this.createPanel()));
+//
+//	if (!ss.containsLabel)
+//	{
+//		this.container.appendChild(this.addFlip(this.createPanel()));
+//	}
+//
+//	if (ss.vertices.length > 1)
+//	{
+//		this.container.appendChild(this.addAlign(this.createPanel()));
+//		this.container.appendChild(this.addDistribute(this.createPanel()));
+//	}
+//	
+//	this.container.appendChild(this.addGroupOps(this.createPanel()));
 };
 
 /**

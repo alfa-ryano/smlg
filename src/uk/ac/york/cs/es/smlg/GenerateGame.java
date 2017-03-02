@@ -2,11 +2,8 @@ package uk.ac.york.cs.es.smlg;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +41,6 @@ public class GenerateGame extends HttpServlet {
 		try {
 			response.setContentType("application/text");
 
-			String metamodel = request.getParameter("metamodel").trim();
 			String mode = request.getParameter("mode").trim();
 			String model = request.getParameter("model").trim();
 			String xml = request.getParameter("xml").trim();

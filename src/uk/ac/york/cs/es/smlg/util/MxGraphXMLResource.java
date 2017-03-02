@@ -224,8 +224,6 @@ public class MxGraphXMLResource extends ResourceImpl {
 
 			// bind current object to its parent object
 			EClass tempEClass = eCurrentObject.eClass();
-			if (id.equals("7"))
-				System.out.println();
 			recursivelyFindTypeToBindToParent(tempEClass, sfName, eCurrentObject, eParentObject);
 		}
 	}

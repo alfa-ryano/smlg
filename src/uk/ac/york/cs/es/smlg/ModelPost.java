@@ -31,7 +31,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 import uk.ac.york.cs.es.smlg.model.SMLGResult;
 import uk.ac.york.cs.es.smlg.util.MxGraphXMLResourceFactory;
-import uk.ac.york.cs.es.smlg.util.SMLGTransformer;
 
 /**
  * Servlet implementation class ModelPost
@@ -67,14 +66,12 @@ public class ModelPost extends HttpServlet {
 		String xml = stringBuilder.toString();
 
 		try {
-			String xmi = SMLGTransformer.transformMxXMLtoXMI(xml);
-			
 			String packageName = "myPackage";
 			String fullClassName = packageName + "." + packageName.substring(0, 1).toUpperCase()
 					+ packageName.substring(1, packageName.length()) + "Package";
 
 			ClassLoader classLoader = ModelPost.class.getClassLoader();
-			Class modellingPackage = classLoader.loadClass(fullClassName);
+			Class<?> modellingPackage = classLoader.loadClass(fullClassName);
 			Object eInstance = modellingPackage.getField("eINSTANCE").get(modellingPackage);
 			Method method = eInstance.getClass().getMethod("getNsURI", new Class[] {});
 
@@ -140,7 +137,6 @@ public class ModelPost extends HttpServlet {
 
 	protected java.net.URI getFileURI(String fileName) throws URISyntaxException {
 		String path = "";
-		String temp = ModelPost.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		for (int i = 0; i <= ModelPost.class.getName().split("\\.").length; i++) {
 			path = path + "../";
 		}
