@@ -1,0 +1,12 @@
+var outModels = [[%
+for(edge in activity.outgoing){
+    if (edge.type.name == "Link"){
+        var link = edge;
+        //source model
+        if (link.target <> null and link.target.type.name == "Model"){
+            var myModel = link.target;
+            %]'[%=myModel.name%]',[%
+        }
+    }
+}
+%]]

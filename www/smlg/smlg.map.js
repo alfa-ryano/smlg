@@ -131,19 +131,21 @@ function drawMap(activities, transitions) {
 				var cell = evt.getProperty('cell');
 
 				if (cell != null && cell.value != null && typeof (cell.value.create) == 'function') {
-					cell.value.create(gameName, "tree", cell.value.model);
+					cell.value.create(gameName, cell.value.metamodel, cell.value.model);
 				}
 			});
 
 			for (var entityId in activities) {
 				if (activities.hasOwnProperty(entityId)) {
-					var label = activities[entityId];
+					var label = activities[entityId].name;
+					var metamodel = activities[entityId].metamodel;
 					var value = {
 						toString : function() {	
 							return this.model;
 						},
 						create : playActivity,
-						model : label
+						model : label,
+						metamodel: metamodel
 					};
 					var vertex = graph.insertVertex(parent, null, value, 0, 0, 120, 80, activityStyle);
 					vertices[entityId] = vertex;

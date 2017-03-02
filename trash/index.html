@@ -13,12 +13,29 @@
 <body>
 </body>
 <script type="text/javascript">
-    document.title = getParameterByName("game");
+    var gameName = getParameterByName("game");
+    document.title = gameName;
     var activities = new Object();
     var transitions = new Object();
-    activities["//@entities.7"] = "Create A Root";
-    activities["//@entities.9"] = "Create A Root and A Leaf";
-    activities["//@entities.12"] = "Create A Tree with Two Leaves";
+    var inputModels = null;
+    var outputModels = null;
+    inputModels = [];
+    outputModels = [];
+ 
+    activities["//@entities.7"] = {'name': 'Create A Root', 'metamodel': '', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+    inputModels = [];
+    inputModels.push(Model A); 
+    outputModels = [];
+ 
+    activities["//@entities.9"] = {'name': 'Create A Root and A Leaf', 'metamodel': '', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+    inputModels = [];
+    inputModels.push(); 
+    outputModels = [];
+ 
+    activities["//@entities.12"] = {'name': 'Create A Tree with Two Leaves', 'metamodel': '', 
+        'inputModels': inputModels, 'outputModels': outputModels };
 
     transitions["//@entities.0"] = {"source": "//@entities.9", "target": "//@entities.12"}; 
     transitions["//@entities.11"] = {"source": "//@entities.15", "target": "//@entities.7"}; 

@@ -1,0 +1,12 @@
+var inModels = [[%
+for(edge in activity.incoming){
+    if (edge.type.name == "Link"){
+        var link = edge;
+        //source model
+        if (link.source <> null and link.source.type.name == "Model"){
+            var myModel = link.source;
+            %]'[%=myModel.name%]',[%
+        }
+    }
+}
+%]]

@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:eoml="eoml"/>
+<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eoml="eoml">
+  <entities xsi:type="eoml:Transition" source="//@entities.9" target="//@entities.12"/>
+  <entities xsi:type="eoml:Model" name="Model C" outgoing="//@entities.5" metamodel="tree" sourceModel="One Root One Leaf Tree Model"/>
+  <entities xsi:type="eoml:Link" source="//@entities.7" target="//@entities.8"/>
+  <entities xsi:type="eoml:Link" source="//@entities.8" target="//@entities.9"/>
+  <entities xsi:type="eoml:Link" source="//@entities.9" target="//@entities.10"/>
+  <entities xsi:type="eoml:Link" source="//@entities.1" target="//@entities.12"/>
+  <entities xsi:type="eoml:End" name="End" incoming="//@entities.13"/>
+  <entities xsi:type="eoml:Activity" name="Create A Root" outgoing="//@entities.14 //@entities.2" incoming="//@entities.11" metamodel="tree">
+    <objectives name="Obj 1"/>
+  </entities>
+  <entities xsi:type="eoml:Model" name="Model A" outgoing="//@entities.3" incoming="//@entities.2" metamodel="tree" sourceModel="Single Root Tree Model"/>
+  <entities xsi:type="eoml:Activity" name="Create A Root and A Leaf" outgoing="//@entities.0 //@entities.4" incoming="//@entities.14 //@entities.3" metamodel="tree">
+    <objectives name="Obj 1"/>
+    <objectives name="Obj 2"/>
+  </entities>
+  <entities xsi:type="eoml:Model" name="Model B" incoming="//@entities.4" metamodel="tree"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.15" target="//@entities.7"/>
+  <entities xsi:type="eoml:Activity" name="Create A Tree with Two Leaves" outgoing="//@entities.13" incoming="//@entities.0 //@entities.5" metamodel="tree">
+    <objectives name="Obj 1"/>
+    <objectives name="Obj 2"/>
+    <objectives name="Obj 3"/>
+  </entities>
+  <entities xsi:type="eoml:Transition" source="//@entities.12" target="//@entities.6"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.7" target="//@entities.9"/>
+  <entities xsi:type="eoml:Start" name="Start" outgoing="//@entities.11"/>
+</eoml:EOML>

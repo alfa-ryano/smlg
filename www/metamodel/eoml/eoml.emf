@@ -38,6 +38,7 @@ class Link extends Edge {
             mxResizeLast="1", mxRounded="1", mxMarginBottom="5", mxMarginLeft="5", mxMarginRight="5", mxMarginTop="5",
             mxHtml="1", mxWhiteSpace="wrap", mxWidth="200", mxHeight="120")
 class Activity extends Node {
+   attr String metamodel = "";
 
   @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", 
             mxStrokeColor="none", mxStartSize="0")
@@ -46,7 +47,8 @@ class Activity extends Node {
 
 @gmf.node(mxLabel="name", mxShape="rectangle", mxHtml="1", mxWhiteSpace="wrap", mxWidth="40", mxHeight="50")
 class Model extends Node {
-
+  attr String metamodel = "";
+  attr String sourceModel = "";
 }
 
 @gmf.node(mxLabel="name", mxHtml="1", mxShape="plus", mxWidth="30", mxHeight="30")

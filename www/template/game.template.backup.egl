@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    var gameName = getParameterByName("game");
+    document.title = gameName;
+    var activities = new Object();
+    var transitions = new Object();
+[%
+    for(entity in eoml.entities){
+        if (entity.type.name == "Activity") {
+%]
+    activities["[%=entity.id%]"] = {'name': '[%= entity.name %]', 'metamodel': '[%= entity.metamodel %]'};
+[%      }  
+    }
+%]
+
+[%
+    for(entity in eoml.entities){
+        if (entity.type.name == "Transition") {
+%]
+    transitions["[%= entity.id %]"] = {"source": "[%= entity.source.id %]", "target": "[%= entity.target.id %]"}; 
+[%      }  
+    }
+%]
+    
+    drawMap(activities, transitions);
+</script>
+</html>
+[%
+    TemplateFactory.setOutputRoot(path);
+    
+    for(entity in eoml.entities){
+        if (entity.type.name == "Model"){
+            
+        }
+        
+        if (entity.type.name == "Activity") {
+            var t: Template;
+            t = TemplateFactory.load("../template/description.template.txt");
+            t.populate("activity", entity);
+            t.generate(entity.name + "/description.txt");
+            
+            t = TemplateFactory.load("../template/mxgraph.template.xml");
+            t.populate("activity", entity);
+            t.generate(entity.name + "/mxgraph.xml");
+            
+            //incoming edges
+            for(edge in entity.incoming){
+                if (edge.type.name == "Link"){
+                    var link = edge;
+                    //source model
+                    if (link.source <> null and link.source.type.name == "Model"){
+                        var myModel = link.source;
+			            var t: Template;
+			            
+			            if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+			                t = TemplateFactory.load("../template/model.template.xmi");
+			            } else {
+			                t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/model.xmi");
+			            }
+			            t.generate(entity.name + "/in." + myModel.name + ".xmi");
+			            
+			            if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+			                t = TemplateFactory.load("../template/mxgraph.template.xml");
+			            } else {
+			                t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/mxgraph.xml");    
+			            }
+			            t.generate(entity.name + "/in." + myModel.name + ".xml");
+                    }
+                }
+            }
+            //outgoing edges
+            for(edge in entity.outgoing){
+                if (edge.type.name == "Link"){
+                    var link = edge;
+                    //target model
+                    if (link.target <> null and link.target.type.name == "Model"){
+                        var myModel = link.target;
+                        var t: Template;
+                        
+                        if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+                            t = TemplateFactory.load("../template/model.template.xmi");
+                        } else {
+                            t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/model.xmi");
+                        }
+                        t.generate(entity.name + "/out." + myModel.name + ".xmi");
+                        
+                        if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+                            t = TemplateFactory.load("../template/mxgraph.template.xml");
+                        } else {
+                            t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/mxgraph.xml");    
+                        }
+                        t.generate(entity.name + "/out." + myModel.name + ".xml");
+                    }
+                 }   
+            }
+        }  
+    }
+%]

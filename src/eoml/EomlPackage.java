@@ -387,13 +387,22 @@ public interface EomlPackage extends EPackage {
 	int ACTIVITY__INCOMING = NODE__INCOMING;
 
 	/**
+	 * The feature id for the '<em><b>Metamodel</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVITY__METAMODEL = NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Objectives</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__OBJECTIVES = NODE_FEATURE_COUNT + 0;
+	int ACTIVITY__OBJECTIVES = NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Activity</em>' class.
@@ -402,7 +411,7 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
+	int ACTIVITY_FEATURE_COUNT = NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link eoml.impl.ModelImpl <em>Model</em>}' class.
@@ -451,13 +460,31 @@ public interface EomlPackage extends EPackage {
 	int MODEL__INCOMING = NODE__INCOMING;
 
 	/**
+	 * The feature id for the '<em><b>Metamodel</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__METAMODEL = NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__SOURCE_MODEL = NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+	int MODEL_FEATURE_COUNT = NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.
@@ -755,6 +782,17 @@ public interface EomlPackage extends EPackage {
 	EClass getActivity();
 
 	/**
+	 * Returns the meta object for the attribute '{@link eoml.Activity#getMetamodel <em>Metamodel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Metamodel</em>'.
+	 * @see eoml.Activity#getMetamodel()
+	 * @see #getActivity()
+	 * @generated
+	 */
+	EAttribute getActivity_Metamodel();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link eoml.Activity#getObjectives <em>Objectives</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -774,6 +812,28 @@ public interface EomlPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getModel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link eoml.Model#getMetamodel <em>Metamodel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Metamodel</em>'.
+	 * @see eoml.Model#getMetamodel()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_Metamodel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link eoml.Model#getSourceModel <em>Source Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source Model</em>'.
+	 * @see eoml.Model#getSourceModel()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_SourceModel();
 
 	/**
 	 * Returns the meta object for class '{@link eoml.Objective <em>Objective</em>}'.
@@ -954,6 +1014,14 @@ public interface EomlPackage extends EPackage {
 		EClass ACTIVITY = eINSTANCE.getActivity();
 
 		/**
+		 * The meta object literal for the '<em><b>Metamodel</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVITY__METAMODEL = eINSTANCE.getActivity_Metamodel();
+
+		/**
 		 * The meta object literal for the '<em><b>Objectives</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -970,6 +1038,22 @@ public interface EomlPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MODEL = eINSTANCE.getModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Metamodel</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__METAMODEL = eINSTANCE.getModel_Metamodel();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Model</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__SOURCE_MODEL = eINSTANCE.getModel_SourceModel();
 
 		/**
 		 * The meta object literal for the '{@link eoml.impl.ObjectiveImpl <em>Objective</em>}' class.

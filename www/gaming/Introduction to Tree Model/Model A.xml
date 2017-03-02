@@ -1,0 +1,19 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <Tree prefix="tree" uri="tree" package="tree" parent="" name="1234" id="1">
+      <GSMRootContainer name="children" type="Node"/>
+      <mxCell parent="0"/>
+    </Tree>
+    <Node label="Root" parent="" name="Root" gsmLabel="name" id="2">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=0;fillColor=none;marginRight=0;rounded=1;html=1;marginBottom=0;horizontalStack=0;marginTop=0;" vertex="1" parent="1">
+        <mxGeometry x="250" y="160" width="200" height="120" as="geometry"/>
+      </mxCell>
+    </Node>
+    <GSMContainer name="children" label="children" id="3">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;fillColor=none;strokeColor=none;" vertex="1" parent="2">
+        <mxGeometry y="40" width="200" height="80" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+  </root>
+</mxGraphModel>

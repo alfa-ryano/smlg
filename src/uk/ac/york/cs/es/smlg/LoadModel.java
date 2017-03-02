@@ -37,6 +37,8 @@ public class LoadModel extends HttpServlet {
 			String mode = request.getParameter("mode");
 			String model = request.getParameter("model");
 			String game = request.getParameter("game");
+			String inModel = request.getParameter("inModel");
+			String filename = "mxgraph.xml";
 			
 			String directoryPathParam = "";
 			
@@ -48,9 +50,12 @@ public class LoadModel extends HttpServlet {
 			}
 			else if(mode.equals("gaming")) {
 				directoryPathParam = "./" + mode + "/" + game + "/" + model;
+				if (inModel != null && inModel.length() > 0){
+					filename = inModel;
+				}
 			}
 
-			String xmlPathParam = directoryPathParam + "/mxgraph.xml";
+			String xmlPathParam = directoryPathParam + "/" + filename;
 			String path = getServletContext().getRealPath((directoryPathParam).replace("/", File.separator));
 			String xmlStringPath = getServletContext().getRealPath((xmlPathParam).replace("/", File.separator));
 

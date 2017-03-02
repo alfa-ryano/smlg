@@ -17,15 +17,59 @@
     document.title = gameName;
     var activities = new Object();
     var transitions = new Object();
+    var inputModels = null;
+    var outputModels = null;
+    
+    //ACTIVITIES
 [%
     for(entity in eoml.entities){
         if (entity.type.name == "Activity") {
 %]
-    activities["[%=entity.id%]"] = "[%= entity.name %]";
+    //--Activity [%=entity.name%]
+    //----input models
+    inputModels = [];
+[%
+            //Handle incoming edges
+            for(edge in entity.incoming){
+                if (edge.type.name == "Link"){
+                    var link = edge;
+                    //source model
+                    if (link.source <> null and link.source.type.name == "Model"){
+                        var myModel = link.source;
+%]
+    inputModels.push("[%= myModel.name %]"); 
+[%                        
+                    }
+                }
+            }
+%]
+    
+    //----output models
+    outputModels = [];
+[%
+            //Handle outgoing edges
+            for(edge in entity.outgoing){
+                if (edge.type.name == "Link"){
+                    var link = edge;
+                    //source model
+                    if (link.target <> null and link.target.type.name == "Model"){
+                        var myModel = link.target;
+%]
+    outputModels.push("[%= myModel.name %]"); 
+[%                        
+                    }
+                }
+            }
+%] 
+    //----activity
+    activities["[%=entity.id%]"] = {'name': '[%= entity.name %]', 'metamodel': '[%= entity.metamodel %]', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
 [%      }  
     }
 %]
 
+    //TRANSITIONS
 [%
     for(entity in eoml.entities){
         if (entity.type.name == "Transition") {
@@ -39,12 +83,29 @@
 </script>
 </html>
 [%
+    TemplateFactory.setOutputRoot(path);
+    var t: Template;
+    
     for(entity in eoml.entities){
-        path.println();
-        if (entity.type.name == "Activity") {
-            TemplateFactory.setOutputRoot(path);
+        //Handle Model
+        if (entity.type.name == "Model"){
+            var myModel = entity;
+            if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+                t = TemplateFactory.load("../template/model.template.xmi");
+            } else {
+                t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/model.xmi");
+            }
+            t.generate(myModel.name + ".xmi");
             
-            var t: Template;
+            if(myModel.sourceModel == null or myModel.sourceModel.trim() == ""){
+                t = TemplateFactory.load("../template/mxgraph.template.xml");
+            } else {
+                t = TemplateFactory.load("../modelling/" + myModel.metamodel + "/" + myModel.sourceModel + "/mxgraph.xml");    
+            }
+            t.generate(myModel.name + ".xml");
+        }
+        //Handle Activity
+        if (entity.type.name == "Activity") {
             t = TemplateFactory.load("../template/description.template.txt");
             t.populate("activity", entity);
             t.generate(entity.name + "/description.txt");
@@ -52,6 +113,16 @@
             t = TemplateFactory.load("../template/mxgraph.template.xml");
             t.populate("activity", entity);
             t.generate(entity.name + "/mxgraph.xml");
+            
+            //Generate input models
+            t = TemplateFactory.load("../template/models.in.template.egl");
+            t.populate("activity", entity);
+            t.generate(entity.name + "/models.in.js");
+            
+            //Generate input models
+            t = TemplateFactory.load("../template/models.out.template.egl");
+            t.populate("activity", entity);
+            t.generate(entity.name + "/models.out.js");
         }  
     }
 %]

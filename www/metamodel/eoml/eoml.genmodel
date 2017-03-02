@@ -23,9 +23,13 @@
     <genClasses ecoreClass="eoml.ecore#//Transition"/>
     <genClasses ecoreClass="eoml.ecore#//Link"/>
     <genClasses ecoreClass="eoml.ecore#//Activity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eoml.ecore#//Activity/metamodel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eoml.ecore#//Activity/objectives"/>
     </genClasses>
-    <genClasses ecoreClass="eoml.ecore#//Model"/>
+    <genClasses ecoreClass="eoml.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eoml.ecore#//Model/metamodel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eoml.ecore#//Model/sourceModel"/>
+    </genClasses>
     <genClasses ecoreClass="eoml.ecore#//Objective"/>
     <genClasses ecoreClass="eoml.ecore#//Start"/>
     <genClasses ecoreClass="eoml.ecore#//End"/>

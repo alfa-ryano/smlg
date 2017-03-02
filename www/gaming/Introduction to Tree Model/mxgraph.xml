@@ -15,12 +15,12 @@
         <mxGeometry x="680" y="405" width="30" height="30" as="geometry"/>
       </mxCell>
     </End>
-    <Model label="Model A" name="Model A" description="" id="11">
+    <Model metamodel="tree" sourceModel="Single Root Tree Model" label="Model A" name="Model A" description="" id="11">
       <mxCell style="whiteSpace=wrap;shape=rectangle;html=1;" parent="1" vertex="1">
         <mxGeometry x="320" y="80" width="40" height="50" as="geometry"/>
       </mxCell>
     </Model>
-    <Model label="Model B" name="" description="" id="13">
+    <Model metamodel="tree" sourceModel="" label="Model B" name="Model B" description="" id="13">
       <mxCell style="whiteSpace=wrap;shape=rectangle;html=1;" parent="1" vertex="1">
         <mxGeometry x="530" y="80" width="40" height="50" as="geometry"/>
       </mxCell>
@@ -57,7 +57,7 @@
         </mxGeometry>
       </mxCell>
     </Transition>
-    <Model label="Model C" name="" description="" id="26">
+    <Model metamodel="tree" sourceModel="One Root One Leaf Tree Model" label="Model C" name="Model C" description="" id="26">
       <mxCell style="whiteSpace=wrap;shape=rectangle;html=1;" parent="1" vertex="1">
         <mxGeometry x="285" y="395" width="40" height="50" as="geometry"/>
       </mxCell>
@@ -100,7 +100,7 @@
         </mxGeometry>
       </mxCell>
     </Link>
-    <Activity label="Create A Root" name="Create A Root" description="" gsmLabel="name" id="32">
+    <Activity metamodel="tree" label="Create A Root" name="Create A Root" description="" gsmLabel="name" id="32">
       <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;horizontalStack=0;marginTop=5;" parent="1" vertex="1">
         <mxGeometry x="110" y="200" width="200" height="120" as="geometry"/>
       </mxCell>
@@ -115,7 +115,7 @@
         <mxGeometry x="80" y="20" width="30" height="30" as="geometry"/>
       </mxCell>
     </Objective>
-    <Activity label="Create A Root and A Leaf" name="Create A Root and A Leaf" description="" gsmLabel="name" id="34">
+    <Activity metamodel="tree" label="Create A Root and A Leaf" name="Create A Root and A Leaf" description="" gsmLabel="name" id="34">
       <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;horizontalStack=0;marginTop=5;" parent="1" vertex="1">
         <mxGeometry x="400" y="200" width="200" height="120" as="geometry"/>
       </mxCell>
@@ -135,7 +135,7 @@
         <mxGeometry x="115" y="15" width="30" height="30" as="geometry"/>
       </mxCell>
     </Objective>
-    <Activity label="Create A Tree with Two Leaves" name="Create A Tree with Two Leaves" description="" gsmLabel="name" id="36">
+    <Activity metamodel="tree" label="Create A Tree with Two Leaves" name="Create A Tree with Two Leaves" description="" gsmLabel="name" id="36">
       <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=5;marginRight=5;rounded=1;marginBottom=5;horizontalStack=0;marginTop=5;" parent="1" vertex="1">
         <mxGeometry x="400" y="360" width="200" height="120" as="geometry"/>
       </mxCell>

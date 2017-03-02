@@ -70,6 +70,8 @@
       <details key="mxWidth" value="200"/>
       <details key="mxHeight" value="120"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="objectives" upperBound="-1"
         eType="#//Objective" containment="true">
       <eAnnotations source="gmf.compartment">
@@ -92,6 +94,10 @@
       <details key="mxWidth" value="40"/>
       <details key="mxHeight" value="50"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Objective" eSuperTypes="#//Entity">
     <eAnnotations source="gmf.node">

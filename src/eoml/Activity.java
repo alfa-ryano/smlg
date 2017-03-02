@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link eoml.Activity#getMetamodel <em>Metamodel</em>}</li>
  *   <li>{@link eoml.Activity#getObjectives <em>Objectives</em>}</li>
  * </ul>
  *
@@ -21,6 +22,33 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Activity extends Node {
+	/**
+	 * Returns the value of the '<em><b>Metamodel</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metamodel</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metamodel</em>' attribute.
+	 * @see #setMetamodel(String)
+	 * @see eoml.EomlPackage#getActivity_Metamodel()
+	 * @model default=""
+	 * @generated
+	 */
+	String getMetamodel();
+
+	/**
+	 * Sets the value of the '{@link eoml.Activity#getMetamodel <em>Metamodel</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metamodel</em>' attribute.
+	 * @see #getMetamodel()
+	 * @generated
+	 */
+	void setMetamodel(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Objectives</b></em>' containment reference list.
 	 * The list contents are of type {@link eoml.Objective}.

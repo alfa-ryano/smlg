@@ -310,8 +310,17 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getActivity_Metamodel() {
+		return (EAttribute)activityEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getActivity_Objectives() {
-		return (EReference)activityEClass.getEStructuralFeatures().get(0);
+		return (EReference)activityEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -321,6 +330,24 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 	 */
 	public EClass getModel() {
 		return modelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModel_Metamodel() {
+		return (EAttribute)modelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModel_SourceModel() {
+		return (EAttribute)modelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -398,9 +425,12 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		linkEClass = createEClass(LINK);
 
 		activityEClass = createEClass(ACTIVITY);
+		createEAttribute(activityEClass, ACTIVITY__METAMODEL);
 		createEReference(activityEClass, ACTIVITY__OBJECTIVES);
 
 		modelEClass = createEClass(MODEL);
+		createEAttribute(modelEClass, MODEL__METAMODEL);
+		createEAttribute(modelEClass, MODEL__SOURCE_MODEL);
 
 		objectiveEClass = createEClass(OBJECTIVE);
 
@@ -468,9 +498,12 @@ public class EomlPackageImpl extends EPackageImpl implements EomlPackage {
 		initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getActivity_Metamodel(), ecorePackage.getEString(), "metamodel", "", 0, 1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivity_Objectives(), this.getObjective(), null, "objectives", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getModel_Metamodel(), ecorePackage.getEString(), "metamodel", "", 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModel_SourceModel(), ecorePackage.getEString(), "sourceModel", "", 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectiveEClass, Objective.class, "Objective", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

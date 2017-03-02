@@ -7,5 +7,5 @@ transform eoml:EOML {
     return params;                              //this parameter block is not allowed to be changed
   }
   template : "../template/game.template.egl"
-  target : "../../trash/index.html" 
+  target : "../../trash/dummy/index.html" 
 }

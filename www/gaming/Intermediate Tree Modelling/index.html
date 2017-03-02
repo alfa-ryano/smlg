@@ -17,11 +17,56 @@
     document.title = gameName;
     var activities = new Object();
     var transitions = new Object();
-    activities["//@entities.7"] = "Single Root Tree Model";
-    activities["//@entities.8"] = "Double Root Tree Model";
-    activities["//@entities.9"] = "2-Level Tree Model";
-    activities["//@entities.10"] = "Multiple Root and Level Tree Model";
+    var inputModels = null;
+    var outputModels = null;
+    
+    //ACTIVITIES
+    //--Activity Single Root Tree Model
+    //----input models
+    inputModels = [];
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.7"] = {'name': 'Single Root Tree Model', 'metamodel': 'tree', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+    //--Activity Double Root Tree Model
+    //----input models
+    inputModels = [];
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.8"] = {'name': 'Double Root Tree Model', 'metamodel': 'tree', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+    //--Activity 2-Level Tree Model
+    //----input models
+    inputModels = [];
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.9"] = {'name': '2-Level Tree Model', 'metamodel': 'tree', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+    //--Activity Multiple Root and Level Tree Model
+    //----input models
+    inputModels = [];
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.10"] = {'name': 'Multiple Root and Level Tree Model', 'metamodel': 'tree', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
 
+    //TRANSITIONS
     transitions["//@entities.1"] = {"source": "//@entities.7", "target": "//@entities.8"}; 
     transitions["//@entities.2"] = {"source": "//@entities.7", "target": "//@entities.9"}; 
     transitions["//@entities.3"] = {"source": "//@entities.11", "target": "//@entities.7"}; 

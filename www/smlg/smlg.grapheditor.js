@@ -20,6 +20,8 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 	SMLG.currentMode = currentMode;
 	SMLG.currentModel = currentModel;
 	SMLG.currentGame = currentGame;
+	SMLG.inModels = null;
+	SMLG.outModels = null;
 	SMLG.prefix = null;
 	SMLG.uri = null;
 	SMLG.uri = null;
@@ -476,8 +478,13 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 
 
 
-
+	/***
+	 * Override grapheditor saveFile function
+	 */
 	editorUI.saveFile = function(forceDialog) {
+		if (SMLG.currentMode == "gaming") {
+			return;
+		}
 
 		var metamodelName = SMLG.currentMetamodel;
 		var modeName = SMLG.currentMode;
@@ -514,7 +521,9 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 
 	//Modify Menu
 	SMLG.AddValidateMenu();
-	SMLG.AddGenerateMenu();
+	if (SMLG.currentMode == "learning") {
+		SMLG.AddGenerateMenu();
+	}
 
 	//Load Model
 	SMLG.LoadModel(currentMetamodel, currentMode, currentModel, currentGame);
@@ -524,7 +533,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 /***
  * Generate Game
  */
-SMLG.prototype.GenerateGame = function(){
+SMLG.prototype.GenerateGame = function() {
 	var graph = SMLG.editorUI.editor.graph;
 	var metamodelName = SMLG.currentMetamodel;
 	var modeName = "gaming";
@@ -678,6 +687,50 @@ SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 			editor.setGraphXml(mxUtils.parseXml(responseText).documentElement);
 		}
 	}
+
+	if (SMLG.currentMode == "gaming") {
+		//for in models
+		var incomingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.in.js";
+		$.getScript(incomingModelPath,
+			function(data, textStatus, jqxhr) {
+				SMLG.inModels = inModels;
+
+				for (var i = 0; i < SMLG.inModels.length; i++) {
+					var inModel = "../" + SMLG.inModels[i] + ".xml";
+					var params = "metamodel=" + metamodel + "&mode=" + mode + "&model=" + model
+						+ "&game=" + game + "&inModel=" + inModel;
+
+					var incomingModelRequest = new XMLHttpRequest;
+					incomingModelRequest.onload = function() {
+						incomingModelandleResponse();
+					};
+					incomingModelRequest.open("GET", "/smlg/LoadModel?" + params, true);
+					incomingModelRequest.send();
+
+					function incomingModelandleResponse() {
+						var responseText = incomingModelRequest.responseText;
+
+						var doc = mxUtils.parseXml(responseText);
+						var model = new mxGraphModel();
+						var codec = new mxCodec(doc);
+						codec.decode(doc.documentElement, model);
+
+						var children = model.getChildren(model.getChildAt(model.getRoot(), 0));
+						var importedCells = editor.graph.importCells(children);
+						editor.graph.moveCells(importedCells, 0, 0);
+						editor.graph.setSelectionCells(importedCells);
+					}
+				}
+			});
+
+//		//for out models
+//		var outgoingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.out.js";
+//		$.getScript(outgoingModelPath,
+//			function(data, textStatus, jqxhr) {
+//				SMLG.outModels = outModels;
+//			});
+	}
+
 }
 SMLG.LoadModel = SMLG.prototype.LoadModel;
 
