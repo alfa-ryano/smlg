@@ -3,10 +3,7 @@ package tree;
 
 @gmf.diagram
 class Tree {
-
-  @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", mxStrokeColor="none")
   val Node[*] children;
-  attr String name = "1234";
 }
 
 @gmf.node(mxLabel="name", mxFill="1", mxHtml="1", mxFillColor="none", 
@@ -23,6 +20,9 @@ class Tree {
             mxMarginBottom="0", mxMarginLeft="0", mxMarginRight="0", mxMarginTop="0",
             mxHtml="1", mxWhiteSpace="wrap", 
             mxWidth="200", mxHeight="120")
-class Node extends Tree {
+class Node {
+    @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0", mxFillColor="none", mxStrokeColor="none")
+    val Node[*] children;
+    attr String name = "Node";
 }
 

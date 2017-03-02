@@ -40,10 +40,11 @@ public class ValidateModel extends HttpServlet {
 		String mode = request.getParameter("mode");
 		String model = request.getParameter("model");
 		String xml = request.getParameter("xml");
+		String game = request.getParameter("game");
 
 		try {
 			String path = getServletContext().getRealPath(".");
-			SMLGResult smlgResult = SMLGAdapter.validateModel(path, mode, metamodel, model, xml);
+			SMLGResult smlgResult = SMLGAdapter.validateModel(path, mode, metamodel, model, game, xml);
 			
 			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			String json = ow.writeValueAsString(smlgResult);

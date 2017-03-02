@@ -1,0 +1,12 @@
+context Tree {
+    constraint obj_1 {
+        check: 
+            self.obj_1()
+        message:
+            "FAILED: Obj 1"
+    }    
+}
+
+operation Tree obj_1(): Boolean {
+    return true;
+}

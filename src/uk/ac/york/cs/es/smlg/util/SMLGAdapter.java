@@ -360,7 +360,7 @@ public class SMLGAdapter {
 		return isSuccess;
 	}
 
-	public static SMLGResult validateModel(String path, String mode, String metamodel, String model, String xml) {
+	public static SMLGResult validateModel(String path, String mode, String metamodel, String model, String game, String xml) {
 		SMLGResult smlgResult = new SMLGResult();
 		try {
 			String modelFileName = "model";
@@ -370,7 +370,7 @@ public class SMLGAdapter {
 			} else if (mode.equals("learning")) {
 				realFilePath = (path + "/" + mode + "/" + model + "/").replace("/", File.separator);
 			} else if (mode.equals("gaming")) {
-				realFilePath = (path + "/" + mode + "/" + model + "/").replace("/", File.separator);
+				realFilePath = (path + "/" + mode + "/" + game + "/"+ model + "/").replace("/", File.separator);
 			}
 
 			String packageName = SMLGAdapter.getPackageName(xml);

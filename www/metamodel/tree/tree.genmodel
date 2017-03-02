@@ -7,8 +7,10 @@
   <genPackages prefix="Tree" disposableProviderFactory="true" ecorePackage="tree.ecore#/">
     <genClasses ecoreClass="tree.ecore#//Tree">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tree.ecore#//Tree/children"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tree.ecore#//Tree/name"/>
     </genClasses>
-    <genClasses ecoreClass="tree.ecore#//Node"/>
+    <genClasses ecoreClass="tree.ecore#//Node">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tree.ecore#//Node/children"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tree.ecore#//Node/name"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

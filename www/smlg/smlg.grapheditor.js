@@ -556,7 +556,30 @@ SMLG.prototype.GenerateGame = function() {
 
 	function handleResponse() {
 		var responseText = request.responseText;
-		alert(responseText);
+		var results = JSON.parse(responseText);
+		
+		var messageList = document.getElementById("messageList");
+		messageList.style.color = "rgb(112, 112, 112)";
+		while (messageList.firstChild) {
+			messageList.removeChild(messageList.firstChild);
+		}
+		
+		if (results.unsatisfiedConstraints.length == 0) {	
+			var entry = document.createElement('li');
+			entry.innerHTML = "Game has been generated successfully!";
+			messageList.appendChild(entry);
+
+			return;
+		}
+
+		messageList.style.color = "red";		
+		for (var i = 0; i < results.unsatisfiedConstraints.length; i++) {
+			var item = results.unsatisfiedConstraints[i];
+			var stringOutput = item.message;
+			var entry = document.createElement('li');
+			entry.innerHTML = stringOutput;
+			messageList.appendChild(entry);
+		}
 	}
 }
 SMLG.GenerateGame = SMLG.prototype.GenerateGame;
@@ -644,13 +667,15 @@ SMLG.prototype.ValidateModel = function() {
 	var metamodelName = SMLG.currentMetamodel;
 	var modeName = SMLG.currentMode;
 	var modelName = SMLG.currentModel;
+	var gameName = SMLG.currentGame;
 
 	var encoder = new mxCodec();
 	var model = graph.getModel();
 	var encodedModel = encoder.encode(model);
 	var xml = mxUtils.getPrettyXml(encodedModel);
 
-	var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&xml=" + xml;
+	var params = "metamodel=" + gameName + "&metamodel=" + metamodelName + "&mode=" + modeName + 
+		"&model=" + modelName + "&game=" + gameName + "&xml=" + xml;
 	var request = new XMLHttpRequest;
 	request.onload = function() {
 		handleResponse();

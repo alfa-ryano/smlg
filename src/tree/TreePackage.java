@@ -75,22 +75,13 @@ public interface TreePackage extends EPackage {
 	int TREE__CHILDREN = 0;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TREE__NAME = 1;
-
-	/**
 	 * The number of structural features of the '<em>Tree</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TREE_FEATURE_COUNT = 2;
+	int TREE_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link tree.impl.NodeImpl <em>Node</em>}' class.
@@ -109,7 +100,7 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE__CHILDREN = TREE__CHILDREN;
+	int NODE__CHILDREN = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -118,7 +109,7 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE__NAME = TREE__NAME;
+	int NODE__NAME = 1;
 
 	/**
 	 * The number of structural features of the '<em>Node</em>' class.
@@ -127,7 +118,7 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_FEATURE_COUNT = TREE_FEATURE_COUNT + 0;
+	int NODE_FEATURE_COUNT = 2;
 
 
 	/**
@@ -152,17 +143,6 @@ public interface TreePackage extends EPackage {
 	EReference getTree_Children();
 
 	/**
-	 * Returns the meta object for the attribute '{@link tree.Tree#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see tree.Tree#getName()
-	 * @see #getTree()
-	 * @generated
-	 */
-	EAttribute getTree_Name();
-
-	/**
 	 * Returns the meta object for class '{@link tree.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -171,6 +151,28 @@ public interface TreePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getNode();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link tree.Node#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Children</em>'.
+	 * @see tree.Node#getChildren()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EReference getNode_Children();
+
+	/**
+	 * Returns the meta object for the attribute '{@link tree.Node#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see tree.Node#getName()
+	 * @see #getNode()
+	 * @generated
+	 */
+	EAttribute getNode_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -213,14 +215,6 @@ public interface TreePackage extends EPackage {
 		EReference TREE__CHILDREN = eINSTANCE.getTree_Children();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TREE__NAME = eINSTANCE.getTree_Name();
-
-		/**
 		 * The meta object literal for the '{@link tree.impl.NodeImpl <em>Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -229,6 +223,22 @@ public interface TreePackage extends EPackage {
 		 * @generated
 		 */
 		EClass NODE = eINSTANCE.getNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Children</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE__CHILDREN = eINSTANCE.getNode_Children();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NODE__NAME = eINSTANCE.getNode_Name();
 
 	}
 

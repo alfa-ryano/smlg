@@ -1,0 +1,24 @@
+context [%= activity.metamodel.firstToUpperCase() %] {
+[%
+for(objective in activity.objectives){
+%]
+    constraint [%= objective.name.replace(" ", "_").toLowerCase() %] {
+        check: 
+            self.[%= objective.name.replace(" ", "_").toLowerCase() %]()
+        message:
+            "FAILED: [%= objective.name %]"
+    }    
+[%
+}
+%]
+}
+
+[%
+for(objective in activity.objectives){
+%]
+operation [%= activity.metamodel.firstToUpperCase() %] [%= objective.name.replace(" ", "_").toLowerCase() %](): Boolean {
+    return true;
+}
+[%
+}
+%]

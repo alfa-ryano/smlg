@@ -75,7 +75,6 @@ public class TreeSwitch<T> extends Switch<T> {
 			case TreePackage.NODE: {
 				Node node = (Node)theEObject;
 				T result = caseNode(node);
-				if (result == null) result = caseTree(node);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

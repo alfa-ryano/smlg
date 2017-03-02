@@ -123,6 +123,11 @@
             t = TemplateFactory.load("../template/models.out.template.egl");
             t.populate("activity", entity);
             t.generate(entity.name + "/models.out.js");
+            
+            //Generate EVL objectives
+            t = TemplateFactory.load("../template/objectives.template.egl");
+            t.populate("activity", entity);
+            t.generate(entity.name + "/objectives.evl");
         }  
     }
 %]

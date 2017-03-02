@@ -1,4 +1,4 @@
-context Node {
+context Tree {
     constraint constraint_01 {
         check: 
             self.validation_01()
@@ -7,7 +7,7 @@ context Node {
     }
 }
 
-operation Node validation_01(): Boolean {
+operation Tree validation_01(): Boolean {
     var i := 0;
     Node.allInstances().size().println();
     for (node in Node.allInstances()){

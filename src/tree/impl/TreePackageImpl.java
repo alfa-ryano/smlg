@@ -119,8 +119,8 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTree_Name() {
-		return (EAttribute)treeEClass.getEStructuralFeatures().get(1);
+	public EClass getNode() {
+		return nodeEClass;
 	}
 
 	/**
@@ -128,8 +128,17 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNode() {
-		return nodeEClass;
+	public EReference getNode_Children() {
+		return (EReference)nodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNode_Name() {
+		return (EAttribute)nodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -162,9 +171,10 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		// Create classes and their features
 		treeEClass = createEClass(TREE);
 		createEReference(treeEClass, TREE__CHILDREN);
-		createEAttribute(treeEClass, TREE__NAME);
 
 		nodeEClass = createEClass(NODE);
+		createEReference(nodeEClass, NODE__CHILDREN);
+		createEAttribute(nodeEClass, NODE__NAME);
 	}
 
 	/**
@@ -195,14 +205,14 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		nodeEClass.getESuperTypes().add(this.getTree());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(treeEClass, Tree.class, "Tree", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTree_Children(), this.getNode(), null, "children", null, 0, -1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTree_Name(), ecorePackage.getEString(), "name", "1234", 0, 1, Tree.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNode_Children(), this.getNode(), null, "children", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNode_Name(), ecorePackage.getEString(), "name", "Node", 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -210,9 +220,9 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 		// Create annotations
 		// gmf.diagram
 		createGmfAnnotations();
-		// gmf.compartment
-		createGmf_1Annotations();
 		// gmf.node
+		createGmf_1Annotations();
+		// gmf.compartment
 		createGmf_2Annotations();
 	}
 
@@ -232,33 +242,12 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 	}
 
 	/**
-	 * Initializes the annotations for <b>gmf.compartment</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createGmf_1Annotations() {
-		String source = "gmf.compartment";	
-		addAnnotation
-		  (getTree_Children(), 
-		   source, 
-		   new String[] {
-			 "mxShape", "swimlane",
-			 "mxCollapsible", "0",
-			 "mxNoLabel", "1",
-			 "xEditable", "0",
-			 "mxFillColor", "none",
-			 "mxStrokeColor", "none"
-		   });
-	}
-
-	/**
 	 * Initializes the annotations for <b>gmf.node</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createGmf_2Annotations() {
+	protected void createGmf_1Annotations() {
 		String source = "gmf.node";	
 		addAnnotation
 		  (nodeEClass, 
@@ -282,6 +271,27 @@ public class TreePackageImpl extends EPackageImpl implements TreePackage {
 			 "mxWhiteSpace", "wrap",
 			 "mxWidth", "200",
 			 "mxHeight", "120"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>gmf.compartment</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createGmf_2Annotations() {
+		String source = "gmf.compartment";	
+		addAnnotation
+		  (getNode_Children(), 
+		   source, 
+		   new String[] {
+			 "mxShape", "swimlane",
+			 "mxCollapsible", "0",
+			 "mxNoLabel", "1",
+			 "xEditable", "0",
+			 "mxFillColor", "none",
+			 "mxStrokeColor", "none"
 		   });
 	}
 
