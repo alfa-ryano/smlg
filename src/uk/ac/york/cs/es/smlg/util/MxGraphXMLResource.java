@@ -151,7 +151,7 @@ public class MxGraphXMLResource extends ResourceImpl {
 
 		fillObjectList(sourceItemNodes);
 
-		System.out.println("-------------------------");
+		//System.out.println("-------------------------");
 		RemoveGSMContainerObjectAndRelinkItsChildrenToItsParent();
 		constructModel();
 		connectEdges();
@@ -210,7 +210,7 @@ public class MxGraphXMLResource extends ResourceImpl {
 		Iterator it = objectList.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
+			//System.out.println(pair.getKey() + " = " + pair.getValue());
 
 			String id = (String) pair.getKey();
 			EObjectAdapter eObjectAdapter = (EObjectAdapter) pair.getValue();
@@ -291,7 +291,7 @@ public class MxGraphXMLResource extends ResourceImpl {
 			for (int n = 0; n < tempEClass.getEStructuralFeatures().size(); n++) {
 				EStructuralFeature sf = tempEClass.getEStructuralFeatures().get(n);
 				if (sf instanceof EAttributeImpl && sf.getName().equals(name)) {
-					System.out.println(eCurrentObject.eClass().getName() + ": " + sf.getName() + ": " + value);
+					//System.out.println(eCurrentObject.eClass().getName() + ": " + sf.getName() + ": " + value);
 					eCurrentObject.eSet(sf, value);
 					continue;
 				}
@@ -313,7 +313,7 @@ public class MxGraphXMLResource extends ResourceImpl {
 		Iterator it = edgeNodes.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
+			//System.out.println(pair.getKey() + " = " + pair.getValue());
 			String id = (String) pair.getKey();
 			Node node = (Node) pair.getValue();
 			String sourceId = null;

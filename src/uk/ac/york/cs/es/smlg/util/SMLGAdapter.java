@@ -360,11 +360,12 @@ public class SMLGAdapter {
 		return isSuccess;
 	}
 
-	public static SMLGResult validateModel(String path, String mode, String metamodel, String model, String game, String xml) {
+	public static SMLGResult validateModel(String path, String mode, String metamodel, String model, String game, String outputModel, String xml) {
 		SMLGResult smlgResult = new SMLGResult();
 		try {
 			String modelFileName = "model";
 			String realFilePath = null;
+			
 			if (mode.equals("modelling")) {
 				realFilePath = (path + "/" + mode + "/" + metamodel + "/" + model + "/").replace("/", File.separator);
 			} else if (mode.equals("learning")) {
@@ -376,16 +377,25 @@ public class SMLGAdapter {
 			String packageName = SMLGAdapter.getPackageName(xml);
 			ResourceSet resourceSet = SMLGAdapter.createModelResourceSet(packageName);
 			Resource modelResource = SMLGAdapter.createModelResource(resourceSet, xml, modelFileName + ".xml");
-			//SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath, modelFileName + ".xmi");
+			SMLGAdapter.createModelXmi(resourceSet, modelResource, realFilePath, modelFileName + ".xmi");
 
 			// create in memory Emf Model and add the model to Validation EVL
 			InMemoryEmfModel inMemoryEmfModel = new InMemoryEmfModel(modelResource);
 			inMemoryEmfModel.setName(packageName);
 
 			// execute EVL for validation
-			String fileEvl = "/metamodel/" + metamodel + "/" + packageName + ".evl";
+			String fileEvl = "/metamodel/" + metamodel + "/" + packageName + ".evl";;
+			if (mode.equals("gaming")){
+				fileEvl = "/" + mode + "/" + game + "/"+ model + "/objectives.evl";
+			}
+			
 			smlgResult = executeEVL(fileEvl, inMemoryEmfModel);
-
+			
+			//save output model
+			if (smlgResult.getUnsatisfiedConstraints().size() == 0 && mode.equals("gaming") && outputModel != null && outputModel.length()>0){
+				String outputModelPath = realFilePath + "../" + outputModel + ".xml";
+				SMLGAdapter.saveMxGraphFile(outputModelPath, xml);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			smlgResult.completed = false;

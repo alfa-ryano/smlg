@@ -482,10 +482,9 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 	 * Override grapheditor saveFile function
 	 */
 	editorUI.saveFile = function(forceDialog) {
-		if (SMLG.currentMode == "gaming") {
+		if (SMLG.currentMode == "gaming"){
 			return;
 		}
-
 		var metamodelName = SMLG.currentMetamodel;
 		var modeName = SMLG.currentMode;
 		var modelName = SMLG.currentModel;
@@ -529,6 +528,32 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 	SMLG.LoadModel(currentMetamodel, currentMode, currentModel, currentGame);
 }
 
+SMLG.SaveOutputModel = function() {
+	var metamodelName = SMLG.currentMetamodel;
+	var modeName = SMLG.currentMode;
+	var modelName = SMLG.currentModel;
+	var gameName = SMLG.currentGame;
+
+	var encoder = new mxCodec();
+	var model = graph.getModel();
+	var encodedModel = encoder.encode(model);
+	var xml = mxUtils.getPrettyXml(encodedModel);
+
+	var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&game=" + gameName + "&xml=" + xml;
+	var request = new XMLHttpRequest;
+	request.onload = function() {
+		handleResponse();
+	};
+
+	request.open("POST", "/smlg/SaveFile?", true);
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(params);
+
+	function handleResponse() {
+	}
+}
+SMLG.prototype.SaveOutputModel = SMLG.SaveOutputModel;
+
 
 /***
  * Generate Game
@@ -557,14 +582,14 @@ SMLG.prototype.GenerateGame = function() {
 	function handleResponse() {
 		var responseText = request.responseText;
 		var results = JSON.parse(responseText);
-		
+
 		var messageList = document.getElementById("messageList");
 		messageList.style.color = "rgb(112, 112, 112)";
 		while (messageList.firstChild) {
 			messageList.removeChild(messageList.firstChild);
 		}
-		
-		if (results.unsatisfiedConstraints.length == 0) {	
+
+		if (results.unsatisfiedConstraints.length == 0) {
 			var entry = document.createElement('li');
 			entry.innerHTML = "Game has been generated successfully!";
 			messageList.appendChild(entry);
@@ -572,7 +597,7 @@ SMLG.prototype.GenerateGame = function() {
 			return;
 		}
 
-		messageList.style.color = "red";		
+		messageList.style.color = "red";
 		for (var i = 0; i < results.unsatisfiedConstraints.length; i++) {
 			var item = results.unsatisfiedConstraints[i];
 			var stringOutput = item.message;
@@ -661,21 +686,27 @@ SMLG.AddValidateMenu = SMLG.prototype.AddValidateMenu;
 /***
  * Function to validate model
  */
-SMLG.prototype.ValidateModel = function() {
+SMLG.ValidateModel = function() {
 
+	var editorUi = SMLG.editorUI;
 	var graph = SMLG.editorUI.editor.graph;
 	var metamodelName = SMLG.currentMetamodel;
 	var modeName = SMLG.currentMode;
 	var modelName = SMLG.currentModel;
 	var gameName = SMLG.currentGame;
+	var outputModel = null;
 
 	var encoder = new mxCodec();
 	var model = graph.getModel();
 	var encodedModel = encoder.encode(model);
 	var xml = mxUtils.getPrettyXml(encodedModel);
+	
+	if (modeName == "gaming" && SMLG.outModels.length > 0){
+		outputModel = SMLG.outModels[0].trim();
+	}
 
-	var params = "metamodel=" + gameName + "&metamodel=" + metamodelName + "&mode=" + modeName + 
-		"&model=" + modelName + "&game=" + gameName + "&xml=" + xml;
+	var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName +
+		"&game=" + gameName + "&outputModel=" + outputModel + "&xml=" + xml;
 	var request = new XMLHttpRequest;
 	request.onload = function() {
 		handleResponse();
@@ -688,33 +719,37 @@ SMLG.prototype.ValidateModel = function() {
 	function handleResponse() {
 		var responseText = request.responseText;
 		var results = JSON.parse(responseText);
-		
+
 		var messageList = document.getElementById("messageList");
 		messageList.style.color = "rgb(112, 112, 112)";
 		while (messageList.firstChild) {
 			messageList.removeChild(messageList.firstChild);
 		}
-		
-		if (results.unsatisfiedConstraints.length == 0) {	
+
+		if (results.unsatisfiedConstraints.length == 0) {
 			var entry = document.createElement('li');
 			entry.innerHTML = "Everything is OK!";
 			messageList.appendChild(entry);
 
-			return;
-		}
-
-		messageList.style.color = "red";		
-		for (var i = 0; i < results.unsatisfiedConstraints.length; i++) {
-			var item = results.unsatisfiedConstraints[i];
-			var stringOutput = item.message;
-			var entry = document.createElement('li');
-			entry.innerHTML = stringOutput;
-			messageList.appendChild(entry);
+			if (SMLG.currentMode == "gaming") {
+				var dlg = new LevelCompletedDialog(editorUi);
+				editorUi.showDialog(dlg.container, 320, 80, true, true);
+				dlg.init();
+			}
+		} else {
+			messageList.style.color = "red";
+			for (var i = 0; i < results.unsatisfiedConstraints.length; i++) {
+				var item = results.unsatisfiedConstraints[i];
+				var stringOutput = item.message;
+				var entry = document.createElement('li');
+				entry.innerHTML = stringOutput;
+				messageList.appendChild(entry);
+			}
 		}
 	}
 
 }
-SMLG.ValidateModel = SMLG.prototype.ValidateModel;
+SMLG.prototype.ValidateModel = SMLG.ValidateModel;
 
 SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 	var editorUi = SMLG.editorUI;
@@ -771,12 +806,12 @@ SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 				}
 			});
 
-	//		//for out models
-	//		var outgoingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.out.js";
-	//		$.getScript(outgoingModelPath,
-	//			function(data, textStatus, jqxhr) {
-	//				SMLG.outModels = outModels;
-	//			});
+		//for out models
+		var outgoingModelPath = "../" + SMLG.currentMode + "/" + SMLG.currentGame + "/" + SMLG.currentModel + "/models.out.js";
+		$.getScript(outgoingModelPath,
+			function(data, textStatus, jqxhr) {
+				SMLG.outModels = outModels;
+			});
 	}
 
 }
@@ -1126,6 +1161,36 @@ SMLGPropertiesPanel.prototype.addProperties = function(container) {
 
 	return container;
 };
+
+var LevelCompletedDialog = function(editorUi) {
+	var div = document.createElement('div');
+	div.style.textAlign = 'right';
+
+	var messagePanel = document.createElement('div');
+	messagePanel.style.marginBottom = "16px";
+	messagePanel.style.textAlign = "center";
+	messagePanel.style.color = "rgb(112, 112, 112)";
+	messagePanel.innerHTML = "Level Completed.<br/><br/>Press 'OK' button to go to previous menu."
+	div.appendChild(messagePanel);
+
+	var okBtn = mxUtils.button(mxResources.get('ok'), function() {
+		editorUi.hideDialog();
+		openUrl("../gaming/" + SMLG.currentGame + "?game=" + SMLG.currentGame);
+
+	});
+	okBtn.className = 'geBtn';
+
+	this.init = function() {
+		okBtn.focus();
+	};
+
+	if (editorUi.editor.cancelFirst) {
+		div.appendChild(okBtn);
+	}
+
+	this.container = div;
+}
+
 
 var UnsatisfiedConstraintDialog = function(editorUi, response) {
 

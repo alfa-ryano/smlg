@@ -7,9 +7,17 @@
   <entities xsi:type="eoml:Transition" source="//@entities.8" target="//@entities.10"/>
   <entities xsi:type="eoml:Transition" source="//@entities.9" target="//@entities.10"/>
   <entities xsi:type="eoml:Transition" source="//@entities.10" target="//@entities.0"/>
-  <entities xsi:type="eoml:Activity" name="Single Root Tree Model" outgoing="//@entities.1 //@entities.2" incoming="//@entities.3" metamodel="tree"/>
-  <entities xsi:type="eoml:Activity" name="Double Root Tree Model" outgoing="//@entities.4" incoming="//@entities.1" metamodel="tree"/>
-  <entities xsi:type="eoml:Activity" name="2-Level Tree Model" outgoing="//@entities.5" incoming="//@entities.2" metamodel="tree"/>
-  <entities xsi:type="eoml:Activity" name="Multiple Root and Level Tree Model" outgoing="//@entities.6" incoming="//@entities.4 //@entities.5" metamodel="tree"/>
+  <entities xsi:type="eoml:Activity" name="Single Root Tree Model" outgoing="//@entities.1 //@entities.2" incoming="//@entities.3" metamodel="tree">
+    <objectives/>
+  </entities>
+  <entities xsi:type="eoml:Activity" name="Double Root Tree Model" outgoing="//@entities.4" incoming="//@entities.1" metamodel="tree">
+    <objectives/>
+  </entities>
+  <entities xsi:type="eoml:Activity" name="2-Level Tree Model" outgoing="//@entities.5" incoming="//@entities.2" metamodel="tree">
+    <objectives/>
+  </entities>
+  <entities xsi:type="eoml:Activity" name="Multiple Root and Level Tree Model" outgoing="//@entities.6" incoming="//@entities.4 //@entities.5" metamodel="tree">
+    <objectives/>
+  </entities>
   <entities xsi:type="eoml:Start" outgoing="//@entities.3"/>
 </eoml:EOML>

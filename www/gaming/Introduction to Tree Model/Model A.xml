@@ -1,13 +1,13 @@
 <mxGraphModel>
   <root>
     <mxCell id="0"/>
-    <Tree prefix="tree" uri="tree" package="tree" parent="" name="1234" id="1">
+    <Tree prefix="tree" uri="tree" package="tree" id="1">
       <GSMRootContainer name="children" type="Node"/>
       <mxCell parent="0"/>
     </Tree>
-    <Node label="Root" parent="" name="Root" gsmLabel="name" id="2">
+    <Node label="ROOT" name="ROOT" gsmLabel="name" id="2">
       <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;marginLeft=0;fillColor=none;marginRight=0;rounded=1;html=1;marginBottom=0;horizontalStack=0;marginTop=0;" vertex="1" parent="1">
-        <mxGeometry x="250" y="160" width="200" height="120" as="geometry"/>
+        <mxGeometry x="10" y="10" width="200" height="120" as="geometry"/>
       </mxCell>
     </Node>
     <GSMContainer name="children" label="children" id="3">

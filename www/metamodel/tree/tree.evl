@@ -8,10 +8,7 @@ context Tree {
 }
 
 operation Tree validation_01(): Boolean {
-    var i := 0;
-    Node.allInstances().size().println();
     for (node in Node.allInstances()){
-        node.id.println(); 
         if (node.name.trim() == ""){
             return false;
         }

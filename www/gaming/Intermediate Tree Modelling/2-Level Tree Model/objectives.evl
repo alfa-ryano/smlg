@@ -1,0 +1,12 @@
+context Tree {
+    constraint  {
+        check: 
+            self.()
+        message:
+            "FAILED: "
+    }    
+}
+
+operation Tree (): Boolean {
+    return true;
+}

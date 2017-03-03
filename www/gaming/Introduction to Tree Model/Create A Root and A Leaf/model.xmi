@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tree:Tree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:tree="tree">
+  <children name="ROOT">
+    <children name="Leaf"/>
+  </children>
+</tree:Tree>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tree:Tree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:tree="tree">
+<tree:Tree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tree="tree" xsi:schemaLocation="tree ../../../metamodel/tree/tree.ecore">
   <children name="Root"/>
 </tree:Tree>
