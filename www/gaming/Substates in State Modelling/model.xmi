@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eoml:EOML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eoml="eoml">
+  <entities xsi:type="eoml:Transition" source="//@entities.10" target="//@entities.11"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.11" target="//@entities.12"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.13" target="//@entities.10"/>
+  <entities xsi:type="eoml:Transition" source="//@entities.12" target="//@entities.14"/>
+  <entities xsi:type="eoml:Model" name="Model A" outgoing="//@entities.7" metamodel="statechart" sourceModel="Fan"/>
+  <entities xsi:type="eoml:Model" name="Model C" outgoing="//@entities.15" metamodel="statechart" sourceModel="3-Speed Fan"/>
+  <entities xsi:type="eoml:Model" name="Model B" outgoing="//@entities.8" incoming="//@entities.9" metamodel="statechart" sourceModel="2-Speed Fan"/>
+  <entities xsi:type="eoml:Link" source="//@entities.4" target="//@entities.10"/>
+  <entities xsi:type="eoml:Link" source="//@entities.6" target="//@entities.11"/>
+  <entities xsi:type="eoml:Link" source="//@entities.10" target="//@entities.6"/>
+  <entities xsi:type="eoml:Activity" name="One-Speed Fan" outgoing="//@entities.9 //@entities.0" incoming="//@entities.2 //@entities.7" metamodel="statechart">
+    <objectives name="Obj 2"/>
+    <objectives name="Obj 1"/>
+  </entities>
+  <entities xsi:type="eoml:Activity" name="Two-Speed Fan" outgoing="//@entities.1" incoming="//@entities.8 //@entities.0" metamodel="statechart">
+    <objectives name="Obj 1"/>
+    <objectives name="Obj 2"/>
+    <objectives name="Obj 3"/>
+  </entities>
+  <entities xsi:type="eoml:Activity" name="Tree-Speed Fan" outgoing="//@entities.3" incoming="//@entities.1 //@entities.15" metamodel="statechart">
+    <objectives name="Obj 1"/>
+    <objectives name="Obj 2"/>
+    <objectives name="Obj 3"/>
+  </entities>
+  <entities xsi:type="eoml:Start" outgoing="//@entities.2"/>
+  <entities xsi:type="eoml:End" incoming="//@entities.3"/>
+  <entities xsi:type="eoml:Link" source="//@entities.5" target="//@entities.12"/>
+</eoml:EOML>

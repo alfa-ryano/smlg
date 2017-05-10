@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    var gameName = getParameterByName("game");
+    document.title = gameName;
+    var activities = new Object();
+    var transitions = new Object();
+    var inputModels = null;
+    var outputModels = null;
+    
+    //ACTIVITIES
+    //--Activity One-Speed Fan
+    //----input models
+    inputModels = [];
+    inputModels.push("Model A"); 
+    
+    //----output models
+    outputModels = [];
+    outputModels.push("Model B"); 
+ 
+    //----activity
+    activities["//@entities.10"] = {'name': 'One-Speed Fan', 'metamodel': 'statechart', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+    //--Activity Two-Speed Fan
+    //----input models
+    inputModels = [];
+    inputModels.push("Model B"); 
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.11"] = {'name': 'Two-Speed Fan', 'metamodel': 'statechart', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+    //--Activity Tree-Speed Fan
+    //----input models
+    inputModels = [];
+    inputModels.push("Model C"); 
+    
+    //----output models
+    outputModels = [];
+ 
+    //----activity
+    activities["//@entities.12"] = {'name': 'Tree-Speed Fan', 'metamodel': 'statechart', 
+        'inputModels': inputModels, 'outputModels': outputModels };
+        
+
+    //TRANSITIONS
+    transitions["//@entities.0"] = {"source": "//@entities.10", "target": "//@entities.11"}; 
+    transitions["//@entities.1"] = {"source": "//@entities.11", "target": "//@entities.12"}; 
+    transitions["//@entities.2"] = {"source": "//@entities.13", "target": "//@entities.10"}; 
+    transitions["//@entities.3"] = {"source": "//@entities.12", "target": "//@entities.14"}; 
+    
+    drawMap(activities, transitions);
+</script>
+</html>

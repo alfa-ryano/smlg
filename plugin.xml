@@ -37,4 +37,12 @@
             genModel="www/metamodel/filesystem/filesystem.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated statechart -->
+      <package
+            uri="statechart"
+            class="statechart.StatechartPackage"
+            genModel="www/metamodel/statechart/statechart.genmodel"/>
+   </extension>
+
 </plugin>

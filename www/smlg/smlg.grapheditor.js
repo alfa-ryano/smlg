@@ -494,6 +494,7 @@ var SMLG = function(editorUI, currentMetamodel, currentMode, currentModel, curre
 		var model = graph.getModel();
 		var encodedModel = encoder.encode(model);
 		var xml = mxUtils.getPrettyXml(encodedModel);
+		xml = encodeURIComponent(xml);
 
 		var params = "metamodel=" + metamodelName + "&mode=" + modeName + "&model=" + modelName + "&game=" + gameName + "&xml=" + xml;
 		var request = new XMLHttpRequest;
@@ -700,6 +701,7 @@ SMLG.ValidateModel = function() {
 	var model = graph.getModel();
 	var encodedModel = encoder.encode(model);
 	var xml = mxUtils.getPrettyXml(encodedModel);
+	xml = encodeURIComponent(xml);
 	
 	if (modeName == "gaming" && SMLG.outModels.length > 0){
 		outputModel = SMLG.outModels[0].trim();
@@ -801,7 +803,7 @@ SMLG.prototype.LoadModel = function(metamodel, mode, model, game) {
 						var children = model.getChildren(model.getChildAt(model.getRoot(), 0));
 						var importedCells = editor.graph.importCells(children);
 						editor.graph.moveCells(importedCells, 0, 0);
-						editor.graph.setSelectionCells(importedCells);
+						//editor.graph.setSelectionCells(importedCells);
 					}
 				}
 			});

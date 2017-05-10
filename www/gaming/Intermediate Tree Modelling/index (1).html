@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Map</title>
+<script type="text/javascript">
+	mxBasePath = '../../grapheditor/mxlib';
+</script>
+<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    var gameName = getParameterByName("game");
+    document.title = gameName;
+    var activities = new Object();
+    var transitions = new Object();
+    activities["//@entities.7"] = "Single Root Tree Model";
+    activities["//@entities.8"] = "Double Root Tree Model";
+    activities["//@entities.9"] = "2-Level Tree Model";
+    activities["//@entities.10"] = "Multiple Root and Level Tree Model";
+
+    transitions["//@entities.1"] = {"source": "//@entities.7", "target": "//@entities.8"}; 
+    transitions["//@entities.2"] = {"source": "//@entities.7", "target": "//@entities.9"}; 
+    transitions["//@entities.3"] = {"source": "//@entities.11", "target": "//@entities.7"}; 
+    transitions["//@entities.4"] = {"source": "//@entities.8", "target": "//@entities.10"}; 
+    transitions["//@entities.5"] = {"source": "//@entities.9", "target": "//@entities.10"}; 
+    transitions["//@entities.6"] = {"source": "//@entities.10", "target": "//@entities.0"}; 
+    
+    drawMap(activities, transitions);
+</script>
+</html>

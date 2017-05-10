@@ -17,7 +17,10 @@ Export-Package: eoml,
  tree.util,
  filesystem,
  filesystem.impl,
- filesystem.util
+ filesystem.util,
+ statechart,
+ statechart.impl,
+ statechart.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.junit

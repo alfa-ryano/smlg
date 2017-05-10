@@ -1,0 +1,66 @@
+@namespace(uri="laml", prefix="laml")
+package laml;
+
+@diagram
+class Laml {
+  val Entity[*] entities;
+}
+
+abstract class Entity {
+  attr String name = "";
+  attr String description = "";
+}
+
+
+abstract class Node extends Entity {
+  ref Edge[*]#source outgoing;
+  ref Edge[*]#target incoming;
+}
+
+class Edge extends Entity {
+  ref Node#outgoing source;
+  ref Node#incoming target;
+}
+
+@link(Label="name", source="source", target="target", Label="name", EndArrow="block", BlockendFill="1", 
+           EndSize="6", Html="1", Width="120", Height="120")
+class Transition extends Edge {
+
+}
+
+@link(Label="name", source="source", target="target", Label="name", EndArrow="block", BlockendFill="1", 
+           EndSize="6", Html="1", Width="120", Height="120", Dashed="1")
+class Link extends Edge {
+
+}
+
+@node(Label="name", Shape="swimlane", ChildLayout = "stackLayout", Collapsible = "1", HorizontalStack="0", ResizeParent="0", 
+            ResizeLast="1", Rounded="1", MarginBottom="5", MarginLeft="5", MarginRight="5", MarginTop="5",
+            Html="1", WhiteSpace="wrap", Width="200", Height="120")
+class Activity extends Node {
+   attr String metamodel = "";
+
+  @compartment(Shape="swimlane", Collapsible = "0", NoLabel="1", xEditable="0", FillColor="none", 
+            StrokeColor="none", StartSize="0")
+  val Objective[*] objectives;
+}
+
+@node(Label="name", Shape="rectangle", Html="1", WhiteSpace="wrap", Width="40", Height="50")
+class Model extends Node {
+  attr String metamodel = "";
+  attr String sourceModel = "";
+}
+
+@node(Label="name", Html="1", Shape="plus", Width="30", Height="30")
+class Objective extends Entity {
+
+}
+
+
+@node(Label="name", Shape="ellipse", WhiteSpace="wrap", Html="1", FillColor="#000000", Width="30", Height="30")
+class Start extends Node {
+}
+
+@node(Label="name", Shape="ellipse", WhiteSpace="wrap", Html="1", FillColor="#FFFFFF", Width="30", Height="30")
+class End extends Node {
+}

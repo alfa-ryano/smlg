@@ -1,0 +1,12 @@
+context statechart!Statechart {
+    constraint constraint_01 {
+        check: 
+            self.validation_01()
+        message:
+            "validation_01"
+    }
+}
+
+operation Statechart validation_01(): Boolean {
+    return true;
+}

@@ -1,0 +1,99 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <Statechart prefix="statechart" uri="statechart" package="statechart" id="1">
+      <GSMRootContainer name="entities" type="Entity"/>
+      <mxCell parent="0"/>
+    </Statechart>
+    <State label="Idle" name="Idle" description="" gsmLabel="name" id="2">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="1">
+        <mxGeometry x="175" y="363" width="100" height="60" as="geometry"/>
+      </mxCell>
+    </State>
+    <GSMContainer name="substates" label="substates" id="3">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="2">
+        <mxGeometry x="7" y="47" width="86" height="6" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <State label="Blowing" name="Blowing" description="" gsmLabel="name" id="4">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="1">
+        <mxGeometry x="315" y="300" width="210" height="200" as="geometry"/>
+      </mxCell>
+    </State>
+    <GSMContainer name="substates" label="substates" id="5">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="4">
+        <mxGeometry x="7" y="47" width="196" height="146" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <State label="Speed 1" name="Speed 1" description="" gsmLabel="name" id="6">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="1">
+        <mxGeometry x="595" y="340" width="100" height="60" as="geometry"/>
+      </mxCell>
+    </State>
+    <GSMContainer name="substates" label="substates" id="7">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="6">
+        <mxGeometry x="7" y="47" width="86" height="6" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
+    <Transition label="Button 1 Pressed" name="Button 1 Pressed" description="" source="" target="" gsmLabel="name" id="8">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" edge="1" parent="1">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="595" y="420" as="sourcePoint"/>
+          <mxPoint x="695" y="420" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="Button 0 Pressed" name="Button 0 Pressed" description="" source="" target="" gsmLabel="name" id="9">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;exitX=0;exitY=0.75;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" edge="1" source="4" target="2" parent="1">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="-35" y="150" as="sourcePoint"/>
+          <mxPoint x="85" y="30" as="targetPoint"/>
+          <Array as="points">
+            <mxPoint x="225" y="450"/>
+          </Array>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Start label="Start" name="Start" description="" gsmLabel="name" id="10">
+      <mxCell style="fillColor=#000000;whiteSpace=wrap;shape=startState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+        <mxGeometry x="210" y="300" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </Start>
+    <End label="End" name="End" description="" gsmLabel="name" id="11">
+      <mxCell style="fillColor=#FFFFFF;whiteSpace=wrap;shape=endState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+        <mxGeometry x="90" y="378" width="30" height="30" as="geometry"/>
+      </mxCell>
+    </End>
+    <Transition label="Turn On" name="Turn On" description="" source="" target="" gsmLabel="name" id="12">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=left;verticalLabelPosition=top;align=right;verticalAlign=bottom;" edge="1" source="10" target="2" parent="1">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="145" y="320" as="sourcePoint"/>
+          <mxPoint x="265" y="200" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Transition label="Turn Off" name="Turn Off" description="" source="" target="" gsmLabel="name" id="13">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" edge="1" source="2" target="11" parent="1">
+        <mxGeometry width="120" height="120" relative="1" as="geometry">
+          <mxPoint x="205" y="310" as="sourcePoint"/>
+          <mxPoint x="115" y="430" as="targetPoint"/>
+        </mxGeometry>
+      </mxCell>
+    </Transition>
+    <Note label="&lt;div&gt;&lt;b&gt;Lesson:&lt;/b&gt;&lt;/div&gt;&lt;div&gt;A &lt;b&gt;composite state&lt;/b&gt; is a state that has substates. A substate is a state that belongs to a superstate which is a composite state. A &lt;b&gt;substate&lt;/b&gt; represent a possible condition while its superstate is in active.&lt;/div&gt;" name="" description="&lt;div&gt;&lt;b&gt;Lesson:&lt;/b&gt;&lt;/div&gt;&lt;div&gt;A &lt;b&gt;composite state&lt;/b&gt; is a state that has substates. A substate is a state that belongs to a superstate which is a composite state. A &lt;b&gt;substate&lt;/b&gt; represent a possible condition while its superstate is in active.&lt;/div&gt;" gsmLabel="description" id="14">
+      <mxCell style="whiteSpace=wrap;shape=note;html=1;verticalAlign=top;align=left;fontSize=14;spacing=10;fillColor=#FFEBEF;" vertex="1" parent="1">
+        <mxGeometry x="90" y="40" width="190" height="200" as="geometry"/>
+      </mxCell>
+    </Note>
+    <Note label="&lt;div&gt;&lt;span&gt;&lt;b&gt;Description:&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;The diagram below is a statechart of a fan. The fan has three buttons, a Power Button to turn on/off, a Button 1 to start blowing, and a Button 0 to stop blowing. So far it has only one speed, Speed 1, but is planned to have more than one speed.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" name="" description="&lt;div&gt;&lt;span&gt;&lt;b&gt;Description:&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;The diagram below is a statechart of a fan. The fan has three buttons, a Power Button to turn on/off, a Button 1 to start blowing, and a Button 0 to stop blowing. So far it has only one speed, Speed 1, but is planned to have more than one speed.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" gsmLabel="description" id="15">
+      <mxCell style="whiteSpace=wrap;shape=note;html=1;verticalAlign=top;align=left;fontSize=14;spacing=10;fillColor=#FEFFE3;" vertex="1" parent="1">
+        <mxGeometry x="300" y="40" width="190" height="200" as="geometry"/>
+      </mxCell>
+    </Note>
+    <Note label="&lt;div&gt;&lt;span&gt;&lt;b&gt;Instruction:&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;You are asked to modify the Blowing state into a composite state so it has a Speed 1 state as its substate. Drag and drop Speed 1 state into Blowing state compartment and the connect Button 1 Pressed transition from Idle state to Speed 1 state!&lt;/span&gt;&lt;/div&gt;" name="" description="&lt;div&gt;&lt;span&gt;&lt;b&gt;Instruction:&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;You are asked to modify the Blowing state into a composite state so it has a Speed 1 state as its substate. Drag and drop Speed 1 state into Blowing state compartment and the connect Button 1 Pressed transition from Idle state to Speed 1 state!&lt;/span&gt;&lt;/div&gt;" gsmLabel="description" id="16">
+      <mxCell style="whiteSpace=wrap;shape=note;html=1;verticalAlign=top;align=left;fontSize=14;spacing=10;fillColor=#DBFFE5;" vertex="1" parent="1">
+        <mxGeometry x="510" y="40" width="210" height="200" as="geometry"/>
+      </mxCell>
+    </Note>
+  </root>
+</mxGraphModel>

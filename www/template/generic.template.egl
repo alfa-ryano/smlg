@@ -227,7 +227,8 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
                 or detail.key = "mxStrokeWidth" or detail.key = "mxChildLayout" or detail.key = "mxHorizontalStack" 
                 or detail.key = "mxSwimlaneFillColor" or detail.key = "mxMarginBottom" or detail.key = "mxShape"
                 or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" or detail.key = "mxStrokeColor"
-                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel") {  
+                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel"
+                or detail.key = "mxSwimlaneFillColor") {  
 	                
 	                style := style + detail.key.substring(2,detail.key.length()).firstToLowerCase() + "="; 
 	                style := style + detail.value + ";";
@@ -262,7 +263,8 @@ operation EPackage getAttributes(metamodel: EPackage, eClassifier: EClass, attri
                 or detail.key = "mxStrokeWidth" or detail.key = "mxChildLayout" or detail.key = "mxHorizontalStack" 
                 or detail.key = "mxSwimlaneFillColor" or detail.key = "mxMarginBottom" or detail.key = "mxShape"
                 or detail.key = "mxMarginLeft" or detail.key = "mxMarginRight" or detail.key = "mxStrokeColor"
-                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel") { 
+                or detail.key = "mxMarginTop" or detail.key = "mxStartSize" or detail.key = "mxNoLabel"
+                or detail.key = "mxSwimlaneFillColor") { 
                 styles.put(detail.key.substring(2,detail.key.length()).firstToLowerCase(), detail.value);
             }
 			

@@ -1,4 +1,4 @@
-var playActivity = function(game, metamodel, model){
+var playActivity = function(game, metamodel, model) {
 	openUrl("../../grapheditor?mode=gaming&game=" + game + "&metamodel=" + metamodel + "&model=" + model);
 }
 
@@ -7,7 +7,7 @@ var displayAvailableModels = function(metamodel) {
 	request.onload = function() {
 		handleResponse()
 	};
-	request.open("GET", "DisplayAvailableModels?path=./modelling/" + metamodel + "/", true);
+	request.open("GET", "DisplayAvailableModels?path=/modelling/" + metamodel + "/", true);
 	request.send();
 
 	function handleResponse() {
@@ -46,7 +46,7 @@ var displayAvailableMetamodels = function() {
 	request.onload = function() {
 		listFiles()
 	};
-	request.open("GET", "ListFiles?path=./metamodel/", true);
+	request.open("GET", "ListFiles?path=/metamodel/", true);
 	request.send();
 
 	function listFiles() {
@@ -146,7 +146,7 @@ var displayAvailableGames = function() {
 	request.onload = function() {
 		handleResponse()
 	};
-	request.open("GET", "DisplayAvailableGames?path=./gaming/", true);
+	request.open("GET", "DisplayAvailableGames?path=/gaming/", true);
 	request.send();
 
 	function handleResponse() {
@@ -175,7 +175,7 @@ var displayAvailableLearning = function() {
 	request.onload = function() {
 		listFiles()
 	};
-	request.open("GET", "DisplayAvailableLearning?path=./learning/", true);
+	request.open("GET", "DisplayAvailableLearning?path=/learning/", true);
 	request.send();
 
 	function listFiles() {
@@ -313,5 +313,75 @@ var createNewLearningDesign = function() {
 		document.getElementById("textareaDescription").value = "";
 
 
+	}
+}
+
+var validateNewUser = function() {
+	var email = document.getElementById("email").value.trim();
+	var username = document.getElementById("username").value.trim();
+	var password = document.getElementById("password").value.trim();
+	var confirmPassword = document.getElementById("confirm_password").value.trim();
+
+	var alertEmail = document.getElementById("alert-email");
+	alertEmail.className = "alert alert-danger";
+	var alertUsername = document.getElementById("alert-username");
+	alertUsername.className = "alert alert-danger";
+	var alertPassword = document.getElementById("alert-password");
+	alertPassword.className = "alert alert-danger";
+	var alertConfirmPassword = document.getElementById("alert-confirm-password");
+	alertConfirmPassword.className = "alert alert-danger";
+
+	var emailCorrect = validateEmail(email);
+	var usernameAlphanumeric = validateAlphanumeric(username);
+	var passwordAlphanumeric = validateAlphanumeric(password);
+	var confirmPasswordCorrect = (password == confirmPassword);
+
+
+	//validate email
+	if (!emailCorrect) {
+		alertEmail.innerHTML = "Your email format is incorrect!";
+		$('#alert-email').show();
+	} else if (email.length < 5) {
+		alertEmail.innerHTML = "Email should be more than 4 characters!";
+		$('#alert-email').show();
+	} else {
+		$('#alert-email').hide();
+	}
+
+	//validate username
+	if (!usernameAlphanumeric) {
+		alertUsername.innerHTML = "Your username has to be alphanumeric!";
+		$('#alert-username').show();
+	} else if (username.length < 2) {
+		alertUsername.innerHTML = "Username should be more than 1 character!";
+		$('#alert-username').show();
+	} else {
+		$('#alert-username').hide();
+	}
+
+	//validate password
+	if (!passwordAlphanumeric) {
+		alertPassword.innerHTML = "Your password has to be alphanumeric!";
+		$('#alert-password').show();
+	} else if (password.length < 2) {
+		alertPassword.innerHTML = "Password should be more than 1 character!";
+		$('#alert-password').show();
+	} else {
+		$('#alert-password').hide();
+	}
+
+	//validate confirm password
+	if (!confirmPasswordCorrect) {
+		alertConfirmPassword.innerHTML = "Your confirm password has to be equal to your password!";
+		$('#alert-confirm-password').show();
+	} else {
+		$('#alert-confirm-password').hide();
+	}
+
+	//if everything is okay
+	if (emailCorrect && usernameAlphanumeric && passwordAlphanumeric && confirmPasswordCorrect) {
+		return true;
+	} else {
+		return false;
 	}
 }

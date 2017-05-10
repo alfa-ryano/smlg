@@ -1,0 +1,1 @@
+A statechart model of an electrical fan with 2-speed blower.

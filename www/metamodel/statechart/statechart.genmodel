@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/smlg/src" modelPluginID="smlg"
+    modelName="Statechart" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>statechart.ecore</foreignModel>
+  <genPackages prefix="Statechart" disposableProviderFactory="true" ecorePackage="statechart.ecore#/">
+    <genClasses ecoreClass="statechart.ecore#//Statechart">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference statechart.ecore#//Statechart/entities"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="statechart.ecore#//Entity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute statechart.ecore#//Entity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute statechart.ecore#//Entity/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="statechart.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference statechart.ecore#//Node/outgoing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference statechart.ecore#//Node/incoming"/>
+    </genClasses>
+    <genClasses ecoreClass="statechart.ecore#//Edge">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference statechart.ecore#//Edge/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference statechart.ecore#//Edge/target"/>
+    </genClasses>
+    <genClasses ecoreClass="statechart.ecore#//Transition"/>
+    <genClasses ecoreClass="statechart.ecore#//Link"/>
+    <genClasses ecoreClass="statechart.ecore#//State">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference statechart.ecore#//State/substates"/>
+    </genClasses>
+    <genClasses ecoreClass="statechart.ecore#//Note"/>
+    <genClasses ecoreClass="statechart.ecore#//Start"/>
+    <genClasses ecoreClass="statechart.ecore#//End"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -20,3 +20,7 @@
 	list-style-position: outside;
 	margin-left: -25px;
 }
+
+#alert-email, #alert-username, #alert-password, #alert-confirm-password"{
+    display: none;
+}

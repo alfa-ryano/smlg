@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1046" dy="641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="826" pageHeight="1169" background="#ffffff">
+  <root>
+    <mxCell id="0"/>
+    <EOML prefix="eoml" uri="eoml" package="eoml" id="1">
+      <GSMRootContainer name="entities" type="Entity"/>
+      <mxCell parent="0"/>
+    </EOML>
+  </root>
+</mxGraphModel>

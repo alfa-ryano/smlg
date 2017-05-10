@@ -1,0 +1,30 @@
+context Statechart {
+    constraint obj_1 {
+        check: 
+            self.obj_1()
+        message:
+            "FAILED: Obj 1"
+    }    
+    constraint obj_2 {
+        check: 
+            self.obj_2()
+        message:
+            "FAILED: Obj 2"
+    }    
+    constraint obj_3 {
+        check: 
+            self.obj_3()
+        message:
+            "FAILED: Obj 3"
+    }    
+}
+
+operation Statechart obj_1(): Boolean {
+    return true;
+}
+operation Statechart obj_2(): Boolean {
+    return true;
+}
+operation Statechart obj_3(): Boolean {
+    return true;
+}

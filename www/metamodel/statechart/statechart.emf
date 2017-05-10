@@ -1,0 +1,58 @@
+@namespace(uri="statechart", prefix="statechart")
+package statechart;
+
+@gmf.diagram
+class Statechart {
+  val Entity[*] entities;
+}
+
+abstract class Entity {
+  attr String name = "";
+  attr String description = "";
+}
+
+
+abstract class Node extends Entity {
+  ref Edge[*]#source outgoing;
+  ref Edge[*]#target incoming;
+}
+
+abstract class Edge extends Entity {
+  ref Node#outgoing source;
+  ref Node#incoming target;
+}
+
+@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="block", mxBlockendFill="1", 
+           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120")
+class Transition extends Edge {
+
+}
+
+@gmf.link(mxLabel="name", source="source", target="target", mxLabel="name", mxEndArrow="none", mxBlockendFill="1", 
+           mxEndSize="6", mxHtml="1", mxWidth="120", mxHeight="120", mxDashed="1")
+class Link extends Edge {
+
+}
+
+@gmf.node(mxLabel="name", mxShape="swimlane", mxChildLayout = "stackLayout", mxCollapsible = "1", mxHorizontalStack="0", mxResizeParent="0", 
+            mxResizeLast="1", mxRounded="1", mxMarginBottom="7", mxMarginLeft="7", mxMarginRight="7", mxMarginTop="7",
+            mxHtml="1", mxWhiteSpace="wrap", mxWidth="200", mxHeight="120", mxSwimlaneFillColor="#FFFFFF")
+class State extends Node {
+
+  @gmf.compartment(mxShape="swimlane", mxCollapsible = "0", mxNoLabel="1", xEditable="0",  
+            mxStrokeColor="none", mxStartSize="0")
+  val State[*] substates;
+}
+
+@gmf.node(mxLabel="description", mxShape="note", mxHtml="1", mxWhiteSpace="wrap", mxWidth="200", mxHeight="120")
+class Note extends Node {
+ 
+}
+
+@gmf.node(mxLabel="name", mxShape="startState", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#000000", mxWidth="30", mxHeight="30")
+class Start extends Node {
+}
+
+@gmf.node(mxLabel="name", mxShape="endState", mxWhiteSpace="wrap", mxHtml="1", mxFillColor="#FFFFFF", mxWidth="30", mxHeight="30")
+class End extends Node {
+}

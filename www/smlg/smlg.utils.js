@@ -17,3 +17,15 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+function validateEmail(email){
+	var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var valid = format.test(email);
+	return valid; 
+}
+
+function validateAlphanumeric(text) {
+    var format = /^[a-z0-9]+$/i;
+    var valid = format.test(text);
+    return valid;
+}

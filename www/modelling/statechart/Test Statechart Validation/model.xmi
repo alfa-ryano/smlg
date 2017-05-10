@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statechart:Statechart xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:statechart="statechart" xsi:schemaLocation="statechart ../../../metamodel/statechart/statechart.ecore">
+  <entities xsi:type="statechart:State" name="Speed 1"/>
+  <entities xsi:type="statechart:Transition" name="Button 1 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 0 Pressed" source="//@entities.8" target="//@entities.6"/>
+  <entities xsi:type="statechart:Start" name="Start" outgoing="//@entities.5"/>
+  <entities xsi:type="statechart:End" name="End" incoming="//@entities.7"/>
+  <entities xsi:type="statechart:Transition" name="Turn On" source="//@entities.3" target="//@entities.6"/>
+  <entities xsi:type="statechart:State" name="Idle" outgoing="//@entities.7" incoming="//@entities.2 //@entities.5"/>
+  <entities xsi:type="statechart:Transition" name="Turn Off" source="//@entities.6" target="//@entities.4"/>
+  <entities xsi:type="statechart:State" name="Blowing" outgoing="//@entities.2"/>
+</statechart:Statechart>

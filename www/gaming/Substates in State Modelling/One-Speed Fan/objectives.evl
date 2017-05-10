@@ -1,0 +1,33 @@
+context Statechart {
+    constraint obj_1 {
+        check: 
+            self.obj_1()
+        message:
+            "FAIL: Blowing state contains Speed 1 substate"
+    }
+    constraint obj_2 {
+        check: 
+            self.obj_2()
+        message:
+            "FAIL: Button 1 Pressed transition connects Idle state to Speed 1 substate"
+    }        
+}
+
+operation Statechart obj_1(): Boolean {
+    for (state in State.allInstances.select(state | state.name == "Blowing")) {
+        if (state.substates.notEmpty() and state.substates.select(substate | substate.name == "Speed 1").notEmpty()){
+            return true;
+        }        
+    }
+    return false;
+}
+
+operation Statechart obj_2(): Boolean {
+    for (transition in Transition.allInstances.select( transition | transition.name == "Button 1 Pressed")) {
+        if (transition.source.isDefined() and transition.target.isDefined() and 
+                transition.source.name == "Idle" and transition.target.name == "Speed 1"){
+            return true;
+        }
+    }
+    return false;
+}
