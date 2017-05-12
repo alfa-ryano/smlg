@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Main
+ * Servlet implementation class ShowMap
  */
-@WebServlet("/Main")
-public class Main extends SMLGHttpServlet {
+@WebServlet("/ShowMap")
+public class ShowMap extends SMLGHttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Main() {
+    public ShowMap() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +28,12 @@ public class Main extends SMLGHttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		RequestDispatcher rd = request.getRequestDispatcher("/view/index.jsp");
-		rd.forward(request, response);
+		String game = request.getParameter("game").trim();
 		
+		String path = "/gaming/" + game + "/index.jsp?game=" + game;
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

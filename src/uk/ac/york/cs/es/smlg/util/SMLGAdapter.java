@@ -426,7 +426,7 @@ public class SMLGAdapter {
 			// execute EGX for game generation
 			if (smlgResult.completed) {
 				String fileEgx = "/generator/game.generator.egx";
-				String targetFileName = "index.html";
+				String targetFileName = "index.jsp";
 				executeEGX(fileEgx, realFilePath, targetFileName, inMemoryEmfModel);
 			}
 			

@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Main
+ * Servlet implementation class GraphEditor
  */
-@WebServlet("/Main")
-public class Main extends SMLGHttpServlet {
+@WebServlet("/GraphEditor")
+public class GraphEditor extends SMLGHttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Main() {
+    public GraphEditor() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +28,14 @@ public class Main extends SMLGHttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		RequestDispatcher rd = request.getRequestDispatcher("/view/index.jsp");
-		rd.forward(request, response);
+		String mode = request.getParameter("mode").trim();
+		String game = request.getParameter("game").trim();
+		String metamodel = request.getParameter("metamodel").trim();
+		String model = request.getParameter("model").trim();
 		
+		String path = "grapheditor?mode=" + mode + "&game=" + game + "&metamodel=" + metamodel + "&model=" + model;
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
 	}
 
 	/**

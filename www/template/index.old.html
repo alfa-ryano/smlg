@@ -65,7 +65,7 @@
 				var e3 = graph.insertEdge(parent, null, '', v2, v4, style2);
 				var e4 = graph.insertEdge(parent, null, '', v3, v5, style2);
 				var e5 = graph.insertEdge(parent, null, '', v4, v5, style2);
-				
+
 				var layout = null;
 				layout = new mxHierarchicalLayout(graph, mxConstants.DIRECTION_WEST);
 				//layout = new mxSwimlaneLayout(graph, mxConstants.DIRECTION_NORTH);
@@ -79,12 +79,12 @@
 				//layout = new mxPartitionLayout(graph);
 				//layout = new mxRadialTreeLayout(graph);
 				//layout = new mxStackLayout(graph);
-				
+
 				layout.maintainParentLocation = true;
 				layout.parentBorder = 100;
 				layout.intraCellSpacing = 100;
 				layout.execute(parent);
-				
+
 			} finally {
 				// Updates the display
 				graph.getModel().endUpdate();

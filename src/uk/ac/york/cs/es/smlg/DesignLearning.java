@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class DesignLearning
  */
 @WebServlet("/DesignLearning")
-public class DesignLearning extends HttpServlet {
+public class DesignLearning extends SMLGHttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -28,7 +28,7 @@ public class DesignLearning extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/view/design_learning.html");
+		RequestDispatcher rd = request.getRequestDispatcher("/view/design_learning.jsp");
 		rd.forward(request, response);
 	}
 

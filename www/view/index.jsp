@@ -13,35 +13,7 @@
 
 </head>
 <body>
-
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href=".">SMLG</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="Main">Main Menu</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Register</a></li>
-					<li><a href="LoggingOut"><span class="glyphicon glyphicon-log-out"></span>
-							Logout: 
-							<span id="label-username">
-							<%=request.getAttribute("username").toString() %>
-							</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-
+	<%@include file='template/header.jsp'%>
 	<div class="jumbotron">
 		<div id="divMetamodelList" class="container list-group text-center">
 			<a href="PlayGame" class="list-group-item list-group-item-action">

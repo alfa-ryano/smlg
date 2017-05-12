@@ -3,53 +3,28 @@ context Tree {
         check: 
             self.obj_1()
         message:
-            "The tree diagram must have a root named 'ROOT'"
+            "FAILED: Obj 1"
     }    
     constraint obj_2 {
         check: 
             self.obj_2()
         message:
-            "The 'ROOT' must have a leaf named 'Leaf 1'"
-    }
+            "FAILED: Obj 2"
+    }    
     constraint obj_3 {
         check: 
             self.obj_3()
         message:
-            "The 'ROOT' must have a leaf named 'Leaf 2'"
-    } 
-        
+            "FAILED: Obj 3"
+    }    
 }
 
 operation Tree obj_1(): Boolean {
-    //check the size if there is a node
-    if (Node.allInstances().size() = 0) {
-        return false;
-    }
-    //check wether there is node with name 'root'
-    for (node in Node.allInstances()){
-        if (node.name.trim().toLowerCase() == "root"){
-            return true;
-        }
-    }
-    return false;
+    return true;
 }
 operation Tree obj_2(): Boolean {
-    for (node in Node.allInstances().select(node | node.name.trim().toLowerCase() == "root")){
-        for (child in node.children){
-            if (child.name.trim().toLowerCase() == "leaf 1"){
-                return true;
-            }
-        }
-    }
-    return false;
+    return true;
 }
 operation Tree obj_3(): Boolean {
-    for (node in Node.allInstances().select(node | node.name.trim().toLowerCase() == "root")){
-        for (child in node.children){
-            if (child.name.trim().toLowerCase() == "leaf 2"){
-                return true;
-            }
-        }
-    }
-    return false;
+    return true;
 }

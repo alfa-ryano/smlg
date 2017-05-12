@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class CreateModels
  */
 @WebServlet("/CreateModels")
-public class CreateModels extends HttpServlet {
+public class CreateModels extends SMLGHttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -28,7 +28,7 @@ public class CreateModels extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/view/create_models.html");
+		RequestDispatcher rd = request.getRequestDispatcher("/view/create_models.jsp");
 		rd.forward(request, response);
 	}
 

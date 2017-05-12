@@ -36,12 +36,12 @@
                             <% } %>
 							<div class="form-group">
 								<label for="username">Username:</label> <input type="text"
-									class="form-control" id="username" name="username">
+									class="form-control" id="username" name="username" value="alfa">
 							</div>
 							<div id="alert-username"></div>
 							<div class="form-group">
 								<label for="password">Password:</label> <input type="password"
-									class="form-control" id="password" name="password">
+									class="form-control" id="password" name="password" value="alfa">
 							</div>
 							<div id="alert-password"></div>
 							<button type="submit" class="btn btn-default">Submit</button>

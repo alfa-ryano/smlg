@@ -24,7 +24,7 @@
     <objectives name="Obj 2"/>
     <objectives name="Obj 3"/>
   </entities>
-  <entities xsi:type="eoml:Start" name="Start" outgoing="//@entities.2"/>
-  <entities xsi:type="eoml:End" name="End" incoming="//@entities.3"/>
+  <entities xsi:type="eoml:Start" outgoing="//@entities.2"/>
+  <entities xsi:type="eoml:End" incoming="//@entities.3"/>
   <entities xsi:type="eoml:Link" source="//@entities.5" target="//@entities.12"/>
 </eoml:EOML>

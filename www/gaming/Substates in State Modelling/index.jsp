@@ -2,19 +2,35 @@
 <html>
 <head>
 <title>Map</title>
+
+<link rel="stylesheet" type="text/css"
+    href="js/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/smlg.css">
+
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
-	mxBasePath = '../../grapheditor/mxlib';
+	mxBasePath = 'grapheditor/mxlib';
 </script>
-<script type="text/javascript" src="../../grapheditor/mxlib/js/mxClient.js"></script>
-<script type="text/javascript" src="../../smlg/smlg.utils.js"></script>
-<script type="text/javascript" src="../../smlg/smlg.platform.js"></script>
-<script type="text/javascript" src="../../smlg/smlg.map.js"></script>
+<script type="text/javascript" src="grapheditor/mxlib/js/mxClient.js"></script>
+<script type="text/javascript" src="smlg/smlg.utils.js"></script>
+<script type="text/javascript" src="smlg/smlg.platform.js"></script>
+<script type="text/javascript" src="smlg/smlg.map.js"></script>
 </head>
 <body>
+    <%@include file='../../view/template/header.jsp'%>
+    <div class="jumbotron">
+        <div class="container">
+            <h2 id="title"></h2>
+        </div>
+        <div id="map"></div>
+    </div>
 </body>
+
 <script type="text/javascript">
     var gameName = getParameterByName("game");
     document.title = gameName;
+    document.getElementById("title").innerHTML = gameName;
     var activities = new Object();
     var transitions = new Object();
     var inputModels = null;

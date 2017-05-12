@@ -3,20 +3,10 @@ context Tree {
         check: 
             self.obj_1()
         message:
-            "The tree diagram must have a root named 'ROOT'"
-    }
+            "FAILED: Obj 1"
+    }    
 }
 
 operation Tree obj_1(): Boolean {
-	//check the size if there is a node
-	if (Node.allInstances().size() = 0) {
-		return false;
-	}
-	//check wether there is node with name 'root'
-	for (node in Node.allInstances()){
-        if (node.name.trim().toLowerCase() == "root"){
-            return true;
-        }
-    }
-    return false;
+    return true;
 }

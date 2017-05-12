@@ -15,9 +15,10 @@
 
 </head>
 <body>
+    <%@include file='template/header.jsp'%>
     <div class="jumbotron">
         <div class="container">
-            <h1>Create Models</h1>
+            <h2>Create Models</h2>
         </div>
         <div id="divMetamodelList" class="container"></div>
     </div>

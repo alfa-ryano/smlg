@@ -58,8 +58,9 @@ public class LoggingIn extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("username", username);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Main");
-			rd.forward(request, response);
+//			RequestDispatcher rd = request.getRequestDispatcher("Main");
+//			rd.forward(request, response);
+			response.sendRedirect("Main");
 			return;
 		} else {
 			request.setAttribute("Message", "User doesn't exist! Try another username!");

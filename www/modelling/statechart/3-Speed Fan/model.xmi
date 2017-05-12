@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statechart:Statechart xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:statechart="statechart">
+  <entities xsi:type="statechart:Transition" name="Button 2 Pressed"/>
+  <entities xsi:type="statechart:State" name="Speed 3"/>
+  <entities xsi:type="statechart:Transition" name="Button 3 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 3 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 1 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 0 Pressed" source="//@entities.15" target="//@entities.14"/>
+  <entities xsi:type="statechart:Start" name="Start" outgoing="//@entities.8"/>
+  <entities xsi:type="statechart:End" name="End" incoming="//@entities.9"/>
+  <entities xsi:type="statechart:Transition" name="Turn On" source="//@entities.6" target="//@entities.14"/>
+  <entities xsi:type="statechart:Transition" name="Turn Off" source="//@entities.14" target="//@entities.7"/>
+  <entities xsi:type="statechart:Note" description="&lt;div>&lt;b>Lesson:&lt;/b>&lt;/div>&lt;div>A &lt;b>composite state&lt;/b> is a state that has substates. A substate is a state that belongs to a superstate which is a composite state. A &lt;b>substate&lt;/b> represent a possible condition while its superstate is in active.&lt;/div>"/>
+  <entities xsi:type="statechart:Note" description="&lt;div>&lt;span>&lt;b>Description:&lt;/b>&lt;/span>&lt;/div>&lt;div>The fan now supports 3 speeds of blowing, but has been modified so it cannot go directly to Speed 2 and Speed 3 without firstly go state with lower speed. In other words, transition from Idle can only go to Speed 1 for the fan to start blowing.&lt;/div>"/>
+  <entities xsi:type="statechart:Note" description="&lt;div>&lt;span>&lt;b>Instruction:&lt;/b>&lt;/span>&lt;/div>&lt;div>&lt;span>Modify the Blowing state into a composite state so it has 3 speeds of blowing and only allow transition from Idle to Speed 1 start blowing!&lt;/span>&lt;/div>"/>
+  <entities xsi:type="statechart:State" name="Speed 1"/>
+  <entities xsi:type="statechart:State" name="Idle" outgoing="//@entities.9" incoming="//@entities.8 //@entities.5"/>
+  <entities xsi:type="statechart:State" name="Blowing" outgoing="//@entities.5"/>
+  <entities xsi:type="statechart:State" name="Speed 2"/>
+  <entities xsi:type="statechart:Transition" name="Button 1 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 2 Pressed"/>
+  <entities xsi:type="statechart:Transition" name="Button 1 Pressed"/>
+</statechart:Statechart>

@@ -6,45 +6,35 @@
       <mxCell parent="0"/>
     </Statechart>
     <State label="Idle" name="Idle" description="" gsmLabel="name" id="29">
-      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="1">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" parent="1" vertex="1">
         <mxGeometry x="205" y="103" width="100" height="60" as="geometry"/>
       </mxCell>
     </State>
     <GSMContainer name="substates" label="substates" id="30">
-      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="29">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" parent="29" vertex="1">
         <mxGeometry x="7" y="47" width="86" height="6" as="geometry"/>
       </mxCell>
     </GSMContainer>
     <State label="Blowing" name="Blowing" description="" gsmLabel="name" id="31">
-      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="1">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" parent="1" vertex="1">
         <mxGeometry x="345" y="40" width="210" height="200" as="geometry"/>
       </mxCell>
     </State>
     <GSMContainer name="substates" label="substates" id="32">
-      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="31">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" parent="31" vertex="1">
         <mxGeometry x="7" y="47" width="196" height="146" as="geometry"/>
       </mxCell>
     </GSMContainer>
-    <State label="Speed 1" name="Speed 1" description="" gsmLabel="name" id="33">
-      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" vertex="1" parent="32">
-        <mxGeometry x="51" y="16" width="100" height="60" as="geometry"/>
-      </mxCell>
-    </State>
-    <GSMContainer name="substates" label="substates" id="34">
-      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" vertex="1" parent="33">
-        <mxGeometry x="7" y="47" width="86" height="6" as="geometry"/>
-      </mxCell>
-    </GSMContainer>
     <Transition label="Button 1 Pressed" name="Button 1 Pressed" description="" source="" target="" gsmLabel="name" id="35">
-      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" edge="1" source="29" target="33" parent="1">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" edge="1">
         <mxGeometry width="120" height="120" relative="1" as="geometry">
-          <mxPoint x="625" y="160" as="sourcePoint"/>
-          <mxPoint x="725" y="160" as="targetPoint"/>
+          <mxPoint x="590" y="137" as="sourcePoint"/>
+          <mxPoint x="670" y="170" as="targetPoint"/>
         </mxGeometry>
       </mxCell>
     </Transition>
     <Transition label="Button 0 Pressed" name="Button 0 Pressed" description="" source="" target="" gsmLabel="name" id="36">
-      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;exitX=0;exitY=0.75;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" edge="1" source="31" target="29" parent="1">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;exitX=0;exitY=0.75;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;align=center;" parent="1" source="31" target="29" edge="1">
         <mxGeometry width="120" height="120" relative="1" as="geometry">
           <mxPoint x="-5" y="-110" as="sourcePoint"/>
           <mxPoint x="115" y="-230" as="targetPoint"/>
@@ -55,17 +45,17 @@
       </mxCell>
     </Transition>
     <Start label="Start" name="Start" description="" gsmLabel="name" id="37">
-      <mxCell style="fillColor=#000000;whiteSpace=wrap;shape=startState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+      <mxCell style="fillColor=#000000;whiteSpace=wrap;shape=startState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" vertex="1">
         <mxGeometry x="240" y="40" width="30" height="30" as="geometry"/>
       </mxCell>
     </Start>
     <End label="End" name="End" description="" gsmLabel="name" id="38">
-      <mxCell style="fillColor=#FFFFFF;whiteSpace=wrap;shape=endState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+      <mxCell style="fillColor=#FFFFFF;whiteSpace=wrap;shape=endState;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" vertex="1">
         <mxGeometry x="120" y="118" width="30" height="30" as="geometry"/>
       </mxCell>
     </End>
     <Transition label="Turn On" name="Turn On" description="" source="" target="" gsmLabel="name" id="39">
-      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=left;verticalLabelPosition=top;align=right;verticalAlign=bottom;" edge="1" source="37" target="29" parent="1">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=left;verticalLabelPosition=top;align=right;verticalAlign=bottom;" parent="1" source="37" target="29" edge="1">
         <mxGeometry width="120" height="120" relative="1" as="geometry">
           <mxPoint x="175" y="60" as="sourcePoint"/>
           <mxPoint x="295" y="-60" as="targetPoint"/>
@@ -73,12 +63,22 @@
       </mxCell>
     </Transition>
     <Transition label="Turn Off" name="Turn Off" description="" source="" target="" gsmLabel="name" id="40">
-      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" edge="1" source="29" target="38" parent="1">
+      <mxCell style="blockendFill=1;html=1;endArrow=block;endSize=6;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="29" target="38" edge="1">
         <mxGeometry width="120" height="120" relative="1" as="geometry">
           <mxPoint x="235" y="50" as="sourcePoint"/>
           <mxPoint x="145" y="170" as="targetPoint"/>
         </mxGeometry>
       </mxCell>
     </Transition>
+    <State label="Speed 1" name="Speed 1" description="" gsmLabel="name" id="33">
+      <mxCell style="childLayout=stackLayout;whiteSpace=wrap;shape=swimlane;resizeParent=0;resizeLast=1;collapsible=1;swimlaneFillColor=#FFFFFF;marginLeft=7;marginRight=7;rounded=1;marginBottom=7;html=1;horizontalStack=0;marginTop=7;" parent="1" vertex="1">
+        <mxGeometry x="610" y="55" width="100" height="60" as="geometry"/>
+      </mxCell>
+    </State>
+    <GSMContainer name="substates" label="substates" id="34">
+      <mxCell style="shape=swimlane;collapsible=0;noLabel=1;strokeColor=none;startSize=0;" parent="33" vertex="1">
+        <mxGeometry x="7" y="47" width="86" height="6" as="geometry"/>
+      </mxCell>
+    </GSMContainer>
   </root>
 </mxGraphModel>

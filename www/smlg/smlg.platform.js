@@ -1,7 +1,3 @@
-var playActivity = function(game, metamodel, model) {
-	openUrl("../../grapheditor?mode=gaming&game=" + game + "&metamodel=" + metamodel + "&model=" + model);
-}
-
 var displayAvailableModels = function(metamodel) {
 	var request = new XMLHttpRequest;
 	request.onload = function() {
@@ -162,7 +158,8 @@ var displayAvailableGames = function() {
 				button.id = "div-" + game;
 				button.setAttribute("class", "list-group-item list-group-item-action");
 				button.innerHTML = innerHtmlString;
-				button.setAttribute("onclick", "openUrl('./gaming/" + game + "?game=" + game + "')");
+				//button.setAttribute("onclick", "openUrl('./gaming/" + game + "?game=" + game + "')");
+				button.setAttribute("onclick", "openUrl('ShowMap?game=" + game + "')");
 			}
 			divMetamodelList.appendChild(button);
 		}

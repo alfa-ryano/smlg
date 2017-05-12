@@ -15,10 +15,12 @@
 
 </head>
 <body>
-
+    
+    <%@include file='template/header.jsp'%>
+    
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Play Game</h1>
+			<h2>Play Game</h2>
 		</div>
 		<div id="divGameList" class="container list-group"></div>
 	</div>

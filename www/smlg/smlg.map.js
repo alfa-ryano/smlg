@@ -1,3 +1,7 @@
+var playActivity = function(game, metamodel, model) {
+	openUrl("GraphEditor?mode=gaming&game=" + game + "&metamodel=" + metamodel + "&model=" + model);
+}
+
 function drawMap(activities, transitions) {
 	mxConstants.ACTIVE_REGION = 1;
 
@@ -8,13 +12,13 @@ function drawMap(activities, transitions) {
 		mxUtils.error('Browser is not supported!', 200, false);
 	} else {
 		var container = document.createElement('div');
-		container.style.position = 'absolute';
-		container.style.overflow = 'hidden';
+//		container.style.position = 'absolute';
+//		container.style.overflow = 'hidden';
 		container.style.left = '10px';
 		container.style.top = '10px';
 		container.style.right = '10px';
 		container.style.bottom = '10px';
-		container.style.background = 'url("../../images/grid.gif")';
+//		container.style.background = 'url("images/grid.gif")';
 
 		// Workaround for Internet Explorer ignoring certain styles
 		if (mxClient.IS_QUIRKS) {
@@ -22,7 +26,8 @@ function drawMap(activities, transitions) {
 			new mxDivResizer(container);
 		}
 
-		document.body.appendChild(container);
+		//document.body.appendChild(container);
+		document.getElementById("map").appendChild(container);
 
 		// Creates the graph inside the given container
 		var graph = new mxGraph(container);

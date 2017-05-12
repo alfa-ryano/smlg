@@ -15,10 +15,10 @@
 
 </head>
 <body>
-
+     <%@include file='template/header.jsp'%>
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Design Learning</h1>
+			<h2>Design Learning</h2>
 			<button type="button" class="btn btn-default btn-md"
 				data-toggle="modal" data-target="#create-learning">New ...</button>
 		</div>
