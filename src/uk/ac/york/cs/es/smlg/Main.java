@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Main
@@ -29,7 +30,17 @@ public class Main extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		RequestDispatcher rd = request.getRequestDispatcher("/view/index.html");
+		HttpSession session = request.getSession(false);
+	
+		if (session == null || session.getAttribute("username") == null){
+			response.sendRedirect("Login");
+			return;
+		}
+		String username = session.getAttribute("username").toString();
+		
+		
+		request.setAttribute("username", username);
+		RequestDispatcher rd = request.getRequestDispatcher("/view/index.jsp");
 		rd.forward(request, response);
 		
 	}

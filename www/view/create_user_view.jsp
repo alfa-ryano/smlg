@@ -28,7 +28,10 @@
 							onsubmit="return validateNewUser();">
 							<% Object message = request.getAttribute("Message"); %>
 							<% if (message != null) { %>
-                            <div class="alert alert-danger"><%=message.toString() %></div>
+                            <div class="alert alert-danger alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <%=message.toString() %>
+                            </div>
                             <% } %>
 							<div class="form-group">
 								<label for="email">Email Address:</label> <input type="email"

@@ -316,6 +316,48 @@ var createNewLearningDesign = function() {
 	}
 }
 
+var validateLogin = function() {
+	var username = document.getElementById("username").value.trim();
+	var password = document.getElementById("password").value.trim();
+
+	var alertUsername = document.getElementById("alert-username");
+	alertUsername.className = "alert alert-danger";
+	var alertPassword = document.getElementById("alert-password");
+	alertPassword.className = "alert alert-danger";
+
+	var usernameAlphanumeric = validateAlphanumeric(username);
+	var passwordAlphanumeric = validateAlphanumeric(password);
+
+	//validate username
+	if (!usernameAlphanumeric) {
+		alertUsername.innerHTML = "Your username has to be alphanumeric!";
+		$('#alert-username').show();
+	} else if (username.length < 2) {
+		alertUsername.innerHTML = "Username should be more than 1 character!";
+		$('#alert-username').show();
+	} else {
+		$('#alert-username').hide();
+	}
+
+	//validate password
+	if (!passwordAlphanumeric) {
+		alertPassword.innerHTML = "Your password has to be alphanumeric!";
+		$('#alert-password').show();
+	} else if (password.length < 2) {
+		alertPassword.innerHTML = "Password should be more than 1 character!";
+		$('#alert-password').show();
+	} else {
+		$('#alert-password').hide();
+	}
+
+	//if everything is okay
+	if (usernameAlphanumeric && passwordAlphanumeric) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 var validateNewUser = function() {
 	var email = document.getElementById("email").value.trim();
 	var username = document.getElementById("username").value.trim();

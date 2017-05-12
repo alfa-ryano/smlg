@@ -1,6 +1,5 @@
 package uk.ac.york.cs.es.smlg;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -31,10 +30,10 @@ public class CreateUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
+		String email = request.getParameter("email").trim();
+		String username = request.getParameter("username").trim();
+		String password = request.getParameter("password").trim();
+		String confirmPassword = request.getParameter("confirmPassword").trim();
 		
 		String path = getServletContext().getRealPath(".");
 		
