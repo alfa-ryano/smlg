@@ -1,7 +1,6 @@
 package uk.ac.york.cs.es.smlg;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

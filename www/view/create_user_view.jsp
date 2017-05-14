@@ -51,7 +51,7 @@
 							<div class="form-group">
 								<label for="confirm_password">Confirm Password:</label> <input
 									type="password" class="form-control" id="confirm_password"
-									name="confirm_password">
+									name="confirmPassword">
 							</div>
 							<div id="alert-confirm-password"></div>
 							<button type="submit" class="btn btn-default">Submit</button>

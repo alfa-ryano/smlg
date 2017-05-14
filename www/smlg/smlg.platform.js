@@ -325,6 +325,8 @@ var validateLogin = function() {
 	var usernameAlphanumeric = validateAlphanumeric(username);
 	var passwordAlphanumeric = validateAlphanumeric(password);
 
+	logActivity("Attempt login. Username: " + username + ", password: " + password);
+
 	//validate username
 	if (!usernameAlphanumeric) {
 		alertUsername.innerHTML = "Your username has to be alphanumeric!";
@@ -374,7 +376,6 @@ var validateNewUser = function() {
 	var usernameAlphanumeric = validateAlphanumeric(username);
 	var passwordAlphanumeric = validateAlphanumeric(password);
 	var confirmPasswordCorrect = (password == confirmPassword);
-
 
 	//validate email
 	if (!emailCorrect) {
